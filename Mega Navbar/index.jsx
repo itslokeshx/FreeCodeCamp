@@ -10,7 +10,11 @@ export const Navbar = () => {
         </li>
         <li className="nav-item">
           <button aria-expanded="false">Apps</button>
-        <ul aria-label ="Apps" className="sub-menu"></ul>  
+          <ul className="sub-menu" aria-label="Apps">
+            <li><a href="#">Calendar</a></li>
+            <li><a href="#">Chat</a></li>
+            <li><a href="#">Email</a></li>
+          </ul>
         </li>
       </ul>
     </nav>

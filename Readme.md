@@ -1,1 +1,1 @@
-This is my FreeCodeCamp projects
+This repo contains my FreeCodeCamp projects
