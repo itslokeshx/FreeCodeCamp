@@ -39,3 +39,6 @@ ul {
 .bottomList li {
   margin: 0px 2% 0px 2%;
 }
+a {
+  text-decoration: none;
+}
