@@ -3,28 +3,48 @@ export const Footer = () => {
     <footer>
       <div className="unlist">
         <ul>
-          <li>hii</li>
-          <li>hiii</li>
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+          <li>
+            <a href="#">Services</a>
+          </li>
         </ul>
 
         <ul>
-          <li>hii</li>
-          <li>hiii</li>
+          <li>
+            <a href="#">Videos</a>
+          </li>
+          <li>
+            <a href="#">Discord</a>
+          </li>
         </ul>
 
         <ul>
-          <li>hii</li>
-          <li>hiii</li>
+          <li>
+            <a href="#">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="#">Terms & Conditions</a>
+          </li>
         </ul>
       </div>
 
-      <p> 2024 Fitness Dashboard. All Rights Reserved.</p>
+      <p> &copy; 2024 Fitness Dashboard. All Rights Reserved.</p>
 
       <ul className="bottomList">
-        <li>hii</li>
-        <li>hii</li>
-        <li>hii</li>
-        <li>hii</li>
+        <li>
+          <a href="#">💻</a>
+        </li>
+        <li>
+          <a href="#">📧</a>
+        </li>
+        <li>
+          <a href="#">📞</a>
+        </li>
+        <li>
+          <a href="#">📍</a>
+        </li>
       </ul>
     </footer>
   );
