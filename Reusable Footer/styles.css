@@ -1,1 +1,19 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
 
+.unlist {
+  margin-top: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+ul {
+  list-style: none;
+}
+
+.bottomList {
+  display: flex;
+}
