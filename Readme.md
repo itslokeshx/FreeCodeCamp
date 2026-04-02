@@ -4,16 +4,16 @@ A collection of projects built while completing the FreeCodeCamp curriculum.
 
 ## Tech Stack
 
-* HTML
-* CSS
-* JavaScript
+- HTML
+- CSS
+- JavaScript
 
 ## Highlights
 
-* Responsive layouts
-* Reusable components (Navbar, Footer)
-* Mega navigation with submenu support
-* Clean and consistent UI styling
+- Responsive layouts
+- Reusable components (Navbar, Footer)
+- Mega navigation with submenu support
+- Clean and consistent UI styling
 
 ## Purpose
 
