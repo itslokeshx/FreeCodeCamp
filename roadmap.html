@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roadmap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --black: #f0f0f0;
+        --white: #111111;
+        --gray-100: #1a1a1a;
+        --gray-200: #242424;
+        --gray-300: #383838;
+        --gray-400: #606060;
+        --gray-500: #888888;
+        --gray-600: #aaaaaa;
+        --gray-700: #cccccc;
+        --done-bg: #181818;
+        --topbar-bg: rgba(17, 17, 17, 0.92);
+        --check-stroke: #111111;
+      }
+
+      html.light {
+        --black: #0a0a0a;
+        --white: #fafafa;
+        --gray-100: #f4f4f4;
+        --gray-200: #e8e8e8;
+        --gray-300: #d0d0d0;
+        --gray-400: #a0a0a0;
+        --gray-500: #707070;
+        --gray-600: #505050;
+        --gray-700: #303030;
+        --done-bg: #f0f0f0;
+        --topbar-bg: rgba(250, 250, 250, 0.92);
+        --check-stroke: white;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--white);
+        color: var(--black);
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+
+      /* ── SIDEBAR ── */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 220px;
+        height: 100vh;
+        background: var(--gray-100);
+        border-right: 1px solid var(--gray-200);
+        padding: 32px 0;
+        display: flex;
+        flex-direction: column;
+        z-index: 100;
+        overflow-y: auto;
+      }
+
+      .sidebar-brand {
+        padding: 0 20px 24px;
+        border-bottom: 1px solid var(--gray-200);
+        margin-bottom: 16px;
+      }
+      .sidebar-brand .name {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        color: var(--black);
+      }
+      .sidebar-brand .goal {
+        font-size: 11px;
+        color: var(--gray-500);
+        margin-top: 2px;
+        font-family: "Geist Mono", monospace;
+      }
+
+      .sidebar-nav {
+        flex: 1;
+        padding: 0 8px;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 12.5px;
+        color: var(--gray-600);
+        transition:
+          background 0.15s,
+          color 0.15s;
+        text-decoration: none;
+        margin-bottom: 1px;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+      }
+      .nav-item:hover {
+        background: var(--gray-200);
+        color: var(--black);
+      }
+      .nav-item.active {
+        background: var(--black);
+        color: var(--white);
+      }
+      .nav-item .chunk-num {
+        font-family: "Geist Mono", monospace;
+        font-size: 10px;
+        opacity: 0.6;
+        flex-shrink: 0;
+        width: 16px;
+      }
+      .nav-item .nav-label {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .nav-item .nav-pct {
+        font-family: "Geist Mono", monospace;
+        font-size: 10px;
+        opacity: 0.5;
+      }
+
+      .sidebar-footer {
+        padding: 16px 20px 0;
+        border-top: 1px solid var(--gray-200);
+        margin-top: 8px;
+      }
+      .overall-label {
+        font-size: 10px;
+        color: var(--gray-500);
+        font-family: "Geist Mono", monospace;
+        margin-bottom: 6px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .overall-bar {
+        height: 3px;
+        background: var(--gray-200);
+        border-radius: 2px;
+        overflow: hidden;
+        margin-bottom: 4px;
+      }
+      .overall-fill {
+        height: 100%;
+        background: var(--black);
+        border-radius: 2px;
+        transition: width 0.4s ease;
+      }
+      .overall-pct {
+        font-family: "Geist Mono", monospace;
+        font-size: 11px;
+        color: var(--black);
+        font-weight: 500;
+      }
+
+      /* ── MAIN ── */
+      .main {
+        margin-left: 220px;
+        min-height: 100vh;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        background: var(--topbar-bg);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--gray-200);
+        padding: 14px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 50;
+      }
+      .topbar-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--gray-600);
+      }
+      .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .streak-badge {
+        font-family: "Geist Mono", monospace;
+        font-size: 11px;
+        color: var(--gray-500);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .reset-btn {
+        font-size: 11px;
+        color: var(--gray-400);
+        background: none;
+        border: 1px solid var(--gray-200);
+        border-radius: 5px;
+        padding: 4px 10px;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        transition: all 0.15s;
+      }
+      .reset-btn:hover {
+        border-color: var(--gray-400);
+        color: var(--black);
+      }
+
+      .content {
+        padding: 48px 40px 80px;
+        max-width: 780px;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        margin-bottom: 48px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .hero-tag {
+        font-family: "Geist Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-400);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .hero-title {
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+      .hero-sub {
+        font-size: 13px;
+        color: var(--gray-500);
+        font-style: italic;
+      }
+      .meta-row {
+        display: flex;
+        gap: 24px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+      .meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .meta-label {
+        font-size: 10px;
+        font-family: "Geist Mono", monospace;
+        color: var(--gray-400);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .meta-value {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--black);
+      }
+
+      /* ── CHUNK ── */
+      .chunk {
+        margin-bottom: 40px;
+        scroll-margin-top: 80px;
+      }
+
+      .chunk-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        gap: 16px;
+      }
+      .chunk-left {
+      }
+      .chunk-index {
+        font-family: "Geist Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-400);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .chunk-title {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--black);
+        margin-bottom: 2px;
+      }
+      .chunk-goal {
+        font-size: 12px;
+        color: var(--gray-500);
+        font-style: italic;
+      }
+      .chunk-progress-wrap {
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .chunk-pct-num {
+        font-family: "Geist Mono", monospace;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--black);
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      .chunk-bar {
+        width: 80px;
+        height: 2px;
+        background: var(--gray-200);
+        border-radius: 2px;
+        overflow: hidden;
+        margin-left: auto;
+      }
+      .chunk-fill {
+        height: 100%;
+        background: var(--black);
+        border-radius: 2px;
+        transition: width 0.4s ease;
+      }
+
+      /* ── TASK GROUPS ── */
+      .task-group {
+        margin-bottom: 8px;
+      }
+      .group-label {
+        font-family: "Geist Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-400);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        margin-top: 16px;
+        padding-left: 2px;
+      }
+
+      /* ── TASK ITEM ── */
+      .task-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.1s;
+        margin-bottom: 1px;
+        border: 1px solid transparent;
+      }
+      .task-item:hover {
+        background: var(--gray-100);
+        border-color: var(--gray-200);
+      }
+      .task-item.done {
+        background: var(--done-bg);
+      }
+      .task-item.done .task-main {
+        color: var(--gray-400);
+        text-decoration: line-through;
+        text-decoration-color: var(--gray-300);
+      }
+      .task-item.done .task-sub {
+        color: var(--gray-400);
+        opacity: 0.6;
+      }
+
+      .task-check {
+        width: 16px;
+        height: 16px;
+        border: 1.5px solid var(--gray-300);
+        border-radius: 4px;
+        flex-shrink: 0;
+        margin-top: 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+        background: var(--white);
+      }
+      .task-item.done .task-check {
+        background: var(--black);
+        border-color: var(--black);
+      }
+      .task-check svg {
+        display: none;
+      }
+      .task-item.done .task-check svg {
+        display: block;
+      }
+
+      .task-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .task-main {
+        font-size: 13.5px;
+        font-weight: 400;
+        color: var(--black);
+        line-height: 1.4;
+      }
+      .task-sub {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        margin-top: 3px;
+        line-height: 1.4;
+      }
+      .task-date {
+        font-family: "Geist Mono", monospace;
+        font-size: 10px;
+        color: var(--gray-400);
+        flex-shrink: 0;
+        margin-top: 2px;
+        white-space: nowrap;
+      }
+
+      /* ── DSA SECTION ── */
+      .dsa-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .dsa-group {
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .dsa-group-header {
+        padding: 10px 14px;
+        background: var(--gray-100);
+        border-bottom: 1px solid var(--gray-200);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .dsa-group-title {
+        font-size: 11px;
+        font-family: "Geist Mono", monospace;
+        font-weight: 500;
+        color: var(--black);
+        letter-spacing: 0.04em;
+      }
+      .dsa-group-count {
+        font-size: 10px;
+        font-family: "Geist Mono", monospace;
+        color: var(--gray-500);
+      }
+      .dsa-items {
+        padding: 6px 8px;
+      }
+      .dsa-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 6px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.1s;
+      }
+      .dsa-item:hover {
+        background: var(--gray-100);
+      }
+      .dsa-item.done .dsa-label {
+        color: var(--gray-400);
+        text-decoration: line-through;
+        text-decoration-color: var(--gray-300);
+      }
+      .dsa-check {
+        width: 14px;
+        height: 14px;
+        border: 1.5px solid var(--gray-300);
+        border-radius: 3px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+        background: var(--white);
+      }
+      .dsa-item.done .dsa-check {
+        background: var(--black);
+        border-color: var(--black);
+      }
+      .dsa-check svg {
+        display: none;
+      }
+      .dsa-item.done .dsa-check svg {
+        display: block;
+      }
+      .dsa-label {
+        font-size: 12px;
+        color: var(--black);
+      }
+
+      /* divider */
+      .chunk-divider {
+        border: none;
+        border-top: 1px solid var(--gray-200);
+        margin: 32px 0;
+      }
+
+      .theme-btn {
+        font-size: 14px;
+        background: none;
+        border: 1px solid var(--gray-200);
+        border-radius: 5px;
+        padding: 3px 8px;
+        cursor: pointer;
+        transition: all 0.15s;
+        line-height: 1.6;
+        color: var(--gray-500);
+      }
+      .theme-btn:hover {
+        border-color: var(--gray-400);
+        color: var(--black);
+      }
+
+      html {
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      @keyframes flash {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .flash {
+        animation: flash 0.3s ease;
+      }
+
+      @media (max-width: 700px) {
+        .sidebar {
+          display: none;
+        }
+        .main {
+          margin-left: 0;
+        }
+        .content {
+          padding: 24px 20px 60px;
+        }
+        .dsa-grid {
+          grid-template-columns: 1fr;
+        }
+        .topbar {
+          padding: 12px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="sidebar-brand">
+        <div class="name">Loki</div>
+        <div class="goal">Internship · July 2026</div>
+      </div>
+      <div class="sidebar-nav" id="sidebarNav"></div>
+      <div class="sidebar-footer">
+        <div class="overall-label">Overall</div>
+        <div class="overall-bar">
+          <div class="overall-fill" id="overallFill" style="width: 0%"></div>
+        </div>
+        <div class="overall-pct" id="overallPct">0%</div>
+      </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="main">
+      <div class="topbar">
+        <div class="topbar-title">MERN + DSA Roadmap</div>
+        <div class="topbar-right">
+          <div class="streak-badge" id="streakBadge">⬛ 0 done</div>
+          <button class="reset-btn" onclick="confirmReset()">Reset</button>
+          <button
+            class="theme-btn"
+            id="themeBtn"
+            onclick="toggleTheme()"
+            title="Toggle dark mode"
+          >
+            ☀︎
+          </button>
+        </div>
+      </div>
+      <div class="content">
+        <!-- HERO -->
+        <div class="hero">
+          <div class="hero-tag">Progress Tracker</div>
+          <div class="hero-title">Internship Ready<br />by July 2026.</div>
+          <div class="hero-sub">No action faking. No skipping. Just work.</div>
+          <div class="meta-row">
+            <div class="meta-item">
+              <div class="meta-label">User</div>
+              <div class="meta-value">Loki</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Stack</div>
+              <div class="meta-value">MERN + DSA</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Chunks</div>
+              <div class="meta-value">7</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Deadline</div>
+              <div class="meta-value">Jul 2026</div>
+            </div>
+          </div>
+        </div>
+        <!-- CHUNKS RENDERED HERE -->
+        <div id="chunksRoot"></div>
+      </div>
+    </main>
+
+    <script>
+      // ── DATA ──────────────────────────────────────────────────────────────────
+      const CHUNKS = [
+        {
+          id: "c1",
+          index: "Chunk 01",
+          title: "The React Sprint",
+          goal: "Stop watching tutorials. Start typing code.",
+          groups: [
+            {
+              label: null,
+              tasks: [
+                {
+                  id: "c1t1",
+                  main: "React Fundamentals",
+                  sub: "Complete FreeCodeCamp React Basics. Type every single line yourself.",
+                  date: "Jan 27–30",
+                },
+                {
+                  id: "c1t2",
+                  main: "Hooks & State (Part 1)",
+                  sub: "useState, useEffect, rendering lists · Build counter/color-switcher (no tutorial)",
+                  date: "Jan 31–Feb 04",
+                },
+                {
+                  id: "c1t3",
+                  main: "Hooks & State (Part 2)",
+                  sub: "Prop drilling vs Context API basics · Complete FCC State/Hooks section",
+                  date: "Feb 04–08",
+                },
+                {
+                  id: "c1t4",
+                  main: "Build Week — NO GUIDES",
+                  sub: "Project 1: Movie Watchlist (OMDB API) · Project 2: Memory Card Game",
+                  date: "Feb 09–15",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "c2",
+          index: "Chunk 02",
+          title: "Backend Core",
+          goal: "Understand how the server and database talk.",
+          groups: [
+            {
+              label: null,
+              tasks: [
+                {
+                  id: "c2t1",
+                  main: "Crash Courses",
+                  sub: 'Node.js, Express, MongoDB (Odin Project) · Milestone: localhost:3000 "Hello World"',
+                  date: "Feb 16–22",
+                },
+                {
+                  id: "c2t2",
+                  main: "First Backend Apps",
+                  sub: "Basic Info Site (pure Node) · Mini Message Board (Express+EJS) · Inventory App (CRUD+MVC)",
+                  date: "Feb 23–Mar 01",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "c3",
+          index: "Chunk 03",
+          title: "Advanced Full Stack",
+          goal: "Security, Authentication, and Real APIs.",
+          groups: [
+            {
+              label: null,
+              tasks: [
+                {
+                  id: "c3t1",
+                  main: "Auth & File Upload",
+                  sub: "Members Only (Passport.js, Bcrypt, Admin) · File Uploader (Multer + Cloudinary)",
+                  date: "Mar 02–08",
+                },
+                {
+                  id: "c3t2",
+                  main: "Architecture Projects",
+                  sub: "Blog API (REST + React frontend) · Odin Book Capstone (Social Media Clone)",
+                  date: "Mar 09–15",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "c4",
+          index: "Chunk 04",
+          title: "The Career Launchpad",
+          goal: "One massive project and a resume that sells it.",
+          groups: [
+            {
+              label: null,
+              tasks: [
+                {
+                  id: "c4t1",
+                  main: "Global Community Site",
+                  sub: "MERN + Socket.io · Channels, DMs, Profiles · Deploy to Vercel/Render",
+                  date: "Mar 16–29",
+                },
+                {
+                  id: "c4t2",
+                  main: "Portfolio Polish",
+                  sub: "Resume: single-column, highlight Odin Book & Community Site · Fix all READMEs",
+                  date: "Mar 30–31",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "c5",
+          index: "Chunk 05",
+          title: "Academic Freeze",
+          goal: "Secure the >9 GPA. No new dev projects.",
+          groups: [
+            {
+              label: null,
+              tasks: [
+                {
+                  id: "c5t1",
+                  main: "Tailwind Week",
+                  sub: "Learn utility classes · Refactor ONE previous project with Tailwind",
+                  date: "Apr 01–07",
+                },
+                {
+                  id: "c5t2",
+                  main: "Exam Mode",
+                  sub: "100% focus on College Semesters · Coding only on weekends (small refactors)",
+                  date: "Apr 08–May 31",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "c6",
+          index: "Chunk 06",
+          title: "DSA Internship Grind",
+          goal: "Pass the coding interview.",
+          dsa: true,
+          dsaWeeks: [
+            {
+              label: "WEEK 1–2 · ARRAYS",
+              items: [
+                { id: "dsa_arr_1", label: "Two Sum" },
+                { id: "dsa_arr_2", label: "Best Time to Buy and Sell Stock" },
+                { id: "dsa_arr_3", label: "Contains Duplicate" },
+                { id: "dsa_arr_4", label: "Move Zeroes" },
+                {
+                  id: "dsa_arr_5",
+                  label: "Remove Duplicates from Sorted Array",
+                },
+                { id: "dsa_arr_6", label: "Rotate Array" },
+                { id: "dsa_arr_7", label: "Maximum Subarray" },
+                { id: "dsa_arr_8", label: "Intersection of Two Arrays II" },
+                { id: "dsa_arr_9", label: "Plus One" },
+                {
+                  id: "dsa_arr_10",
+                  label: "Find All Numbers Disappeared in an Array",
+                },
+              ],
+            },
+            {
+              label: "WEEK 1–2 · STRINGS",
+              items: [
+                { id: "dsa_str_1", label: "Valid Palindrome" },
+                { id: "dsa_str_2", label: "Reverse String" },
+                { id: "dsa_str_3", label: "Valid Anagram" },
+                {
+                  id: "dsa_str_4",
+                  label: "First Unique Character in a String",
+                },
+                { id: "dsa_str_5", label: "Longest Common Prefix" },
+                { id: "dsa_str_6", label: "Implement strStr()" },
+                { id: "dsa_str_7", label: "Reverse Words in a String" },
+              ],
+            },
+            {
+              label: "WEEK 3 · HASHMAPS",
+              items: [
+                { id: "dsa_hm_1", label: "Two Sum (HashMap)" },
+                { id: "dsa_hm_2", label: "Contains Duplicate" },
+                { id: "dsa_hm_3", label: "Group Anagrams" },
+                { id: "dsa_hm_4", label: "Majority Element" },
+                { id: "dsa_hm_5", label: "Happy Number" },
+              ],
+            },
+            {
+              label: "WEEK 3 · TWO POINTERS",
+              items: [
+                { id: "dsa_tp_1", label: "Valid Palindrome" },
+                { id: "dsa_tp_2", label: "Remove Element" },
+                { id: "dsa_tp_3", label: "Container With Most Water" },
+                {
+                  id: "dsa_tp_4",
+                  label: "Longest Substring Without Repeating Characters",
+                },
+              ],
+            },
+            {
+              label: "WEEK 4 · RECURSION / STACK",
+              items: [
+                { id: "dsa_rs_1", label: "Fibonacci Number" },
+                { id: "dsa_rs_2", label: "Valid Parentheses" },
+                { id: "dsa_rs_3", label: "Climbing Stairs" },
+              ],
+            },
+          ],
+        },
+        {
+          id: "c7",
+          index: "Chunk 07",
+          title: "Application Season",
+          goal: "Get Hired.",
+          groups: [
+            {
+              label: null,
+              tasks: [
+                {
+                  id: "c7t1",
+                  main: "Apply for paid internships",
+                  sub: "Target companies, customise resume per role",
+                  date: "July",
+                },
+                {
+                  id: "c7t2",
+                  main: "Join online hackathons",
+                  sub: "Devpost — build fast, ship something",
+                  date: "July",
+                },
+                {
+                  id: "c7t3",
+                  main: "Network on LinkedIn",
+                  sub: "Post the Global Community Site · Connect with recruiters",
+                  date: "July",
+                },
+              ],
+            },
+          ],
+        },
+      ];
+
+      // ── STATE ─────────────────────────────────────────────────────────────────
+      const STORAGE_KEY = "lokesh_roadmap_v2";
+
+      function loadState() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        } catch {
+          return {};
+        }
+      }
+      function saveState(s) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
+      }
+
+      let state = loadState();
+
+      // ── HELPERS ───────────────────────────────────────────────────────────────
+      function getAllTaskIds(chunk) {
+        if (chunk.dsa) {
+          return chunk.dsaWeeks.flatMap((w) => w.items.map((i) => i.id));
+        }
+        return chunk.groups.flatMap((g) => g.tasks.map((t) => t.id));
+      }
+
+      function chunkProgress(chunk) {
+        const ids = getAllTaskIds(chunk);
+        const done = ids.filter((id) => state[id]).length;
+        return {
+          done,
+          total: ids.length,
+          pct: ids.length ? Math.round((done / ids.length) * 100) : 0,
+        };
+      }
+
+      function overallProgress() {
+        const allIds = CHUNKS.flatMap(getAllTaskIds);
+        const done = allIds.filter((id) => state[id]).length;
+        return {
+          done,
+          total: allIds.length,
+          pct: allIds.length ? Math.round((done / allIds.length) * 100) : 0,
+        };
+      }
+
+      // ── RENDER ────────────────────────────────────────────────────────────────
+      const checkSVG = `<svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="var(--check-stroke)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      const dsaCheckSVG = `<svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="var(--check-stroke)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+      function renderChunks() {
+        const root = document.getElementById("chunksRoot");
+        root.innerHTML = "";
+
+        CHUNKS.forEach((chunk, ci) => {
+          const { done, total, pct } = chunkProgress(chunk);
+          const el = document.createElement("div");
+          el.className = "chunk";
+          el.id = chunk.id;
+
+          let innerHtml = `
+      <div class="chunk-header">
+        <div class="chunk-left">
+          <div class="chunk-index">${chunk.index}</div>
+          <div class="chunk-title">${chunk.title}</div>
+          <div class="chunk-goal">${chunk.goal}</div>
+        </div>
+        <div class="chunk-progress-wrap">
+          <div class="chunk-pct-num" id="pct-${chunk.id}">${pct}%</div>
+          <div class="chunk-bar"><div class="chunk-fill" id="fill-${chunk.id}" style="width:${pct}%"></div></div>
+        </div>
+      </div>
+    `;
+
+          if (chunk.dsa) {
+            // Pair weeks side by side
+            const pairs = [];
+            for (let i = 0; i < chunk.dsaWeeks.length; i += 2) {
+              pairs.push([chunk.dsaWeeks[i], chunk.dsaWeeks[i + 1]]);
+            }
+            pairs.forEach((pair) => {
+              innerHtml += `<div class="dsa-grid">`;
+              pair.forEach((week) => {
+                if (!week) return;
+                const wDone = week.items.filter((it) => state[it.id]).length;
+                innerHtml += `
+            <div class="dsa-group">
+              <div class="dsa-group-header">
+                <div class="dsa-group-title">${week.label}</div>
+                <div class="dsa-group-count">${wDone}/${week.items.length}</div>
+              </div>
+              <div class="dsa-items">
+          `;
+                week.items.forEach((item) => {
+                  const isDone = !!state[item.id];
+                  innerHtml += `
+              <div class="dsa-item${isDone ? " done" : ""}" onclick="toggle('${item.id}', '${chunk.id}')">
+                <div class="dsa-check">${isDone ? dsaCheckSVG : ""}</div>
+                <div class="dsa-label">${item.label}</div>
+              </div>
+            `;
+                });
+                innerHtml += `</div></div>`;
+              });
+              innerHtml += `</div>`;
+            });
+          } else {
+            chunk.groups.forEach((group) => {
+              if (group.label)
+                innerHtml += `<div class="group-label">${group.label}</div>`;
+              group.tasks.forEach((task) => {
+                const isDone = !!state[task.id];
+                innerHtml += `
+            <div class="task-item${isDone ? " done" : ""}" onclick="toggle('${task.id}', '${chunk.id}')">
+              <div class="task-check">${isDone ? checkSVG : ""}</div>
+              <div class="task-body">
+                <div class="task-main">${task.main}</div>
+                ${task.sub ? `<div class="task-sub">${task.sub}</div>` : ""}
+              </div>
+              ${task.date ? `<div class="task-date">${task.date}</div>` : ""}
+            </div>
+          `;
+              });
+            });
+          }
+
+          if (ci < CHUNKS.length - 1) innerHtml += `<hr class="chunk-divider">`;
+          el.innerHTML = innerHtml;
+          root.appendChild(el);
+        });
+      }
+
+      function renderSidebar() {
+        const nav = document.getElementById("sidebarNav");
+        nav.innerHTML = "";
+        CHUNKS.forEach((chunk) => {
+          const { pct } = chunkProgress(chunk);
+          const btn = document.createElement("a");
+          btn.className = "nav-item";
+          btn.href = `#${chunk.id}`;
+          btn.innerHTML = `<span class="chunk-num">${chunk.index.split(" ")[1]}</span><span class="nav-label">${chunk.title}</span><span class="nav-pct">${pct}%</span>`;
+          nav.appendChild(btn);
+        });
+      }
+
+      function renderOverall() {
+        const { done, total, pct } = overallProgress();
+        document.getElementById("overallFill").style.width = pct + "%";
+        document.getElementById("overallPct").textContent = pct + "%";
+        document.getElementById("streakBadge").textContent =
+          `⬛ ${done}/${total} done`;
+      }
+
+      function renderAll() {
+        renderChunks();
+        renderSidebar();
+        renderOverall();
+      }
+
+      // ── TOGGLE ────────────────────────────────────────────────────────────────
+      function toggle(id, chunkId) {
+        state[id] = !state[id];
+        saveState(state);
+
+        // Update the clicked element
+        const allItems = document.querySelectorAll(`[onclick*="'${id}'"]`);
+        allItems.forEach((el) => {
+          const isDone = state[id];
+          el.classList.toggle("done", isDone);
+          const check = el.querySelector(".task-check, .dsa-check");
+          if (!check) return;
+          if (el.classList.contains("dsa-item")) {
+            check.innerHTML = isDone ? dsaCheckSVG : "";
+          } else {
+            check.innerHTML = isDone ? checkSVG : "";
+          }
+        });
+
+        // Update chunk progress
+        const chunk = CHUNKS.find((c) => c.id === chunkId);
+        if (chunk) {
+          const { pct } = chunkProgress(chunk);
+          const pctEl = document.getElementById(`pct-${chunkId}`);
+          const fillEl = document.getElementById(`fill-${chunkId}`);
+          if (pctEl) pctEl.textContent = pct + "%";
+          if (fillEl) fillEl.style.width = pct + "%";
+        }
+
+        renderSidebar();
+        renderOverall();
+      }
+
+      // ── RESET ─────────────────────────────────────────────────────────────────
+      function confirmReset() {
+        if (confirm("Reset all progress? This cannot be undone.")) {
+          state = {};
+          saveState(state);
+          renderAll();
+        }
+      }
+
+      // ── THEME ─────────────────────────────────────────────────────────────────
+      const THEME_KEY = "lokesh_theme";
+
+      function applyTheme(light) {
+        document.documentElement.classList.toggle("light", light);
+        const btn = document.getElementById("themeBtn");
+        if (btn) btn.textContent = light ? "☽" : "☀︎";
+      }
+
+      function toggleTheme() {
+        const isLight = document.documentElement.classList.contains("light");
+        localStorage.setItem(THEME_KEY, isLight ? "dark" : "light");
+        applyTheme(!isLight);
+      }
+
+      // Load saved theme (default: dark/black)
+      applyTheme(localStorage.getItem(THEME_KEY) === "light");
+
+      // ── INIT ──────────────────────────────────────────────────────────────────
+      renderAll();
+    </script>
+  </body>
+</html>
