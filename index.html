@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lokesh · Roadmap 2026</title>
+    <title>Roadmap</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
@@ -25,14 +25,15 @@
         --border: #2a2a2a;
         --border2: #333333;
         --text: #ffffff;
-        --text2: #ffffff;
-        --text3: #888888;
-        --done-bg: #151515;
-        --done-text: #505050;
+        --text2: #e4e4e7;
+        --text3: #a1a1aa;
+        --done-bg: #1c1c1c;
+        --done-text: #71717a;
         --topbar-bg: rgba(15, 15, 15, 0.95);
         --accent: #ffffff;
         --check-fill: #111111;
       }
+
       html.light {
         --bg: #fafafa;
         --bg2: #f4f4f4;
@@ -40,24 +41,26 @@
         --border: #e2e2e2;
         --border2: #d0d0d0;
         --text: #0a0a0a;
-        --text2: #3a3a3a;
-        --text3: #909090;
+        --text2: #27272a;
+        --text3: #52525b;
         --done-bg: #efefef;
-        --done-text: #b4b4b4;
+        --done-text: #9ca3af;
         --topbar-bg: rgba(250, 250, 250, 0.95);
         --accent: #0a0a0a;
         --check-fill: #ffffff;
       }
+
       html {
         scroll-behavior: smooth;
         transition: background 0.2s;
       }
+
       body {
         background: var(--bg);
         color: var(--text);
         font-family: "DM Sans", sans-serif;
-        font-size: 14.5px;
-        line-height: 1.65;
+        font-size: 17px;
+        line-height: 1.7;
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
       }
@@ -76,33 +79,40 @@
         z-index: 100;
         overflow-y: auto;
       }
+
       .sidebar::-webkit-scrollbar {
         width: 0;
       }
+
       .sb-brand {
         padding: 24px 20px 20px;
         border-bottom: 1px solid var(--border);
       }
+
       .sb-name {
-        font-size: 13px;
+        font-size: 14.5px;
         font-weight: 600;
         color: var(--text);
         letter-spacing: 0.01em;
       }
+
       .sb-goal {
-        font-size: 10.5px;
+        font-size: 12px;
         color: var(--text3);
         font-family: "Geist Mono", monospace;
         margin-top: 2px;
       }
+
       .sb-nav {
         flex: 1;
         padding: 10px 8px;
         overflow-y: auto;
       }
+
       .sb-nav::-webkit-scrollbar {
         width: 0;
       }
+
       .nav-item {
         display: flex;
         align-items: center;
@@ -110,7 +120,7 @@
         padding: 6px 12px;
         border-radius: 6px;
         cursor: pointer;
-        font-size: 12.5px;
+        font-size: 14px;
         color: var(--text2);
         text-decoration: none;
         margin-bottom: 1px;
@@ -118,40 +128,47 @@
           background 0.12s,
           color 0.12s;
       }
+
       .nav-item:hover {
         background: var(--bg3);
         color: var(--text);
       }
+
       .nav-num {
         font-family: "Geist Mono", monospace;
-        font-size: 9px;
-        opacity: 0.5;
+        font-size: 10.5px;
+        opacity: 0.7;
         width: 14px;
         flex-shrink: 0;
       }
+
       .nav-label {
         flex: 1;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
       .nav-pct {
         font-family: "Geist Mono", monospace;
-        font-size: 9px;
-        opacity: 0.45;
+        font-size: 10.5px;
+        opacity: 0.65;
       }
+
       .sb-footer {
         padding: 14px 20px 20px;
         border-top: 1px solid var(--border);
       }
+
       .sb-overall-label {
         font-family: "Geist Mono", monospace;
-        font-size: 9px;
+        font-size: 10.5px;
         color: var(--text3);
         text-transform: uppercase;
         letter-spacing: 0.1em;
         margin-bottom: 6px;
       }
+
       .overall-bar {
         height: 2px;
         background: var(--border2);
@@ -159,15 +176,17 @@
         overflow: hidden;
         margin-bottom: 5px;
       }
+
       .overall-fill {
         height: 100%;
         background: var(--accent);
         border-radius: 2px;
         transition: width 0.4s ease;
       }
+
       .overall-pct {
         font-family: "Geist Mono", monospace;
-        font-size: 12px;
+        font-size: 13.5px;
         color: var(--text);
         font-weight: 500;
       }
@@ -177,6 +196,7 @@
         margin-left: 230px;
         min-height: 100vh;
       }
+
       .topbar {
         position: sticky;
         top: 0;
@@ -189,23 +209,27 @@
         justify-content: space-between;
         z-index: 50;
       }
+
       .topbar-title {
-        font-size: 12px;
+        font-size: 13.5px;
         font-weight: 500;
         color: var(--text2);
       }
+
       .topbar-right {
         display: flex;
         align-items: center;
         gap: 10px;
       }
+
       .topbar-count {
         font-family: "Geist Mono", monospace;
-        font-size: 11px;
+        font-size: 12.5px;
         color: var(--text3);
       }
+
       .tb-btn {
-        font-size: 11px;
+        font-size: 12.5px;
         color: var(--text3);
         background: none;
         border: 1px solid var(--border2);
@@ -216,13 +240,15 @@
         transition: all 0.15s;
         white-space: nowrap;
       }
+
       .tb-btn:hover {
         border-color: var(--text2);
         color: var(--text);
       }
+
       .theme-btn {
         padding: 3px 8px;
-        font-size: 13px;
+        font-size: 14.5px;
       }
 
       /* CONTENT */
@@ -237,14 +263,16 @@
         padding-bottom: 32px;
         border-bottom: 1px solid var(--border);
       }
+
       .hero-eyebrow {
         font-family: "Geist Mono", monospace;
-        font-size: 9px;
+        font-size: 10.5px;
         color: var(--text3);
         letter-spacing: 0.14em;
         text-transform: uppercase;
         margin-bottom: 10px;
       }
+
       .hero-title {
         font-size: 26px;
         font-weight: 600;
@@ -252,31 +280,36 @@
         line-height: 1.2;
         margin-bottom: 6px;
       }
+
       .hero-sub {
-        font-size: 12.5px;
+        font-size: 14px;
         color: var(--text2);
         font-style: italic;
       }
+
       .meta-row {
         display: flex;
         gap: 28px;
         margin-top: 20px;
         flex-wrap: wrap;
       }
+
       .meta-item {
         display: flex;
         flex-direction: column;
         gap: 2px;
       }
+
       .meta-lbl {
-        font-size: 9px;
+        font-size: 10.5px;
         font-family: "Geist Mono", monospace;
         color: var(--text3);
         text-transform: uppercase;
         letter-spacing: 0.1em;
       }
+
       .meta-val {
-        font-size: 13px;
+        font-size: 14.5px;
         font-weight: 500;
         color: var(--text);
       }
@@ -286,11 +319,13 @@
         margin-bottom: 0;
         scroll-margin-top: 72px;
       }
+
       .chunk-divider {
         border: none;
         border-top: 1px solid var(--border);
         margin: 36px 0;
       }
+
       .chunk-header {
         display: flex;
         align-items: flex-start;
@@ -298,26 +333,30 @@
         margin-bottom: 18px;
         gap: 16px;
       }
+
       .chunk-eyebrow {
         font-family: "Geist Mono", monospace;
-        font-size: 9px;
+        font-size: 10.5px;
         color: var(--text3);
         letter-spacing: 0.12em;
         text-transform: uppercase;
         margin-bottom: 4px;
       }
+
       .chunk-title {
-        font-size: 15px;
+        font-size: 16.5px;
         font-weight: 600;
         letter-spacing: -0.01em;
         color: var(--text);
         margin-bottom: 2px;
       }
+
       .chunk-goal {
-        font-size: 12.5px;
+        font-size: 14px;
         color: var(--text2);
         font-style: italic;
       }
+
       .chunk-meta {
         display: flex;
         align-items: center;
@@ -325,33 +364,39 @@
         margin-top: 7px;
         flex-wrap: wrap;
       }
+
       .chunk-tag {
         font-family: "Geist Mono", monospace;
-        font-size: 9px;
+        font-size: 10.5px;
         color: var(--text3);
         border: 1px solid var(--border2);
         border-radius: 4px;
         padding: 1px 6px;
       }
+
       .chunk-tag a {
         color: inherit;
         text-decoration: none;
       }
+
       .chunk-tag a:hover {
         color: var(--text);
       }
+
       .chunk-right {
         text-align: right;
         flex-shrink: 0;
       }
+
       .chunk-pct-num {
         font-family: "Geist Mono", monospace;
-        font-size: 16px;
+        font-size: 17.5px;
         font-weight: 500;
         color: var(--text);
         line-height: 1;
         margin-bottom: 5px;
       }
+
       .chunk-bar {
         width: 72px;
         height: 2px;
@@ -360,6 +405,7 @@
         overflow: hidden;
         margin-left: auto;
       }
+
       .chunk-fill {
         height: 100%;
         background: var(--accent);
@@ -371,6 +417,7 @@
       .section-block {
         margin-bottom: 8px;
       }
+
       .section-header {
         display: flex;
         align-items: center;
@@ -379,42 +426,49 @@
         cursor: pointer;
         user-select: none;
       }
+
       .section-header:hover .section-title {
         color: var(--text);
       }
+
       .section-title-wrap {
         display: flex;
         align-items: center;
         gap: 8px;
       }
+
       .section-icon {
         font-family: "Geist Mono", monospace;
-        font-size: 8px;
+        font-size: 9.5px;
         color: var(--text3);
         width: 12px;
         flex-shrink: 0;
       }
+
       .section-title {
-        font-size: 12px;
+        font-size: 13.5px;
         font-weight: 500;
         color: var(--text2);
         letter-spacing: 0.02em;
         transition: color 0.12s;
       }
+
       .section-badge {
         font-family: "Geist Mono", monospace;
-        font-size: 8.5px;
+        font-size: 10px;
         color: var(--text3);
         background: var(--bg3);
         border-radius: 3px;
         padding: 1px 5px;
         border: 1px solid var(--border2);
       }
+
       .section-count {
         font-family: "Geist Mono", monospace;
-        font-size: 9px;
+        font-size: 10.5px;
         color: var(--text3);
       }
+
       .section-items {
         padding-left: 4px;
       }
@@ -430,14 +484,17 @@
         transition: background 0.1s;
         margin-bottom: 1px;
       }
+
       .step-item:hover {
         background: var(--bg2);
       }
+
       .step-item.done .step-label {
         color: var(--done-text);
         text-decoration: line-through;
         text-decoration-color: var(--border2);
       }
+
       .step-check {
         width: 13px;
         height: 13px;
@@ -449,18 +506,22 @@
         justify-content: center;
         transition: all 0.14s;
       }
+
       .step-item.done .step-check {
         background: var(--accent);
         border-color: var(--accent);
       }
+
       .step-check .ck {
         display: none;
       }
+
       .step-item.done .step-check .ck {
         display: block;
       }
+
       .step-label {
-        font-size: 13px;
+        font-size: 14.5px;
         color: var(--text2);
       }
 
@@ -476,25 +537,31 @@
         margin-bottom: 1px;
         border: 1px solid transparent;
       }
+
       .task-item:hover {
         background: var(--bg2);
         border-color: var(--border);
       }
+
       .task-item.done {
         background: var(--done-bg);
       }
+
       .task-item.done .task-main {
         color: var(--done-text);
         text-decoration: line-through;
         text-decoration-color: var(--border2);
       }
+
       .task-item.done .task-sub {
         color: var(--done-text);
-        opacity: 0.6;
+        opacity: 0.75;
       }
+
       .task-item.done .task-date {
         color: var(--done-text);
       }
+
       .task-check {
         width: 15px;
         height: 15px;
@@ -507,34 +574,41 @@
         justify-content: center;
         transition: all 0.14s;
       }
+
       .task-item.done .task-check {
         background: var(--accent);
         border-color: var(--accent);
       }
+
       .task-check .ck {
         display: none;
       }
+
       .task-item.done .task-check .ck {
         display: block;
       }
+
       .task-body {
         flex: 1;
         min-width: 0;
       }
+
       .task-main {
-        font-size: 14px;
+        font-size: 15.5px;
         color: var(--text);
         line-height: 1.45;
       }
+
       .task-sub {
-        font-size: 12px;
+        font-size: 13.5px;
         color: var(--text2);
         margin-top: 2px;
         line-height: 1.4;
       }
+
       .task-date {
         font-family: "Geist Mono", monospace;
-        font-size: 9.5px;
+        font-size: 11px;
         color: var(--text3);
         flex-shrink: 0;
         margin-top: 2px;
@@ -544,18 +618,20 @@
       /* CAPSTONE */
       .week-label {
         font-family: "Geist Mono", monospace;
-        font-size: 9px;
+        font-size: 10.5px;
         color: var(--text3);
         letter-spacing: 0.1em;
         text-transform: uppercase;
         padding: 14px 0 6px 2px;
       }
+
       .capstone-block {
         border: 1px solid var(--border);
         border-radius: 9px;
         overflow: hidden;
         margin-bottom: 8px;
       }
+
       .capstone-header {
         display: flex;
         align-items: center;
@@ -565,37 +641,43 @@
         flex-wrap: wrap;
         gap: 8px;
       }
+
       .capstone-left {
         display: flex;
         align-items: center;
         gap: 10px;
       }
+
       .capstone-icon {
-        font-size: 13px;
+        font-size: 14.5px;
       }
+
       .capstone-eyebrow {
         font-family: "Geist Mono", monospace;
-        font-size: 8.5px;
+        font-size: 10px;
         color: var(--text3);
         text-transform: uppercase;
         letter-spacing: 0.1em;
         margin-bottom: 1px;
       }
+
       .capstone-name {
-        font-size: 13.5px;
+        font-size: 15px;
         font-weight: 600;
         color: var(--text);
       }
+
       .capstone-ticks {
         display: flex;
         gap: 6px;
         flex-wrap: wrap;
       }
+
       .cap-tick {
         display: flex;
         align-items: center;
         gap: 5px;
-        font-size: 11px;
+        font-size: 12.5px;
         color: var(--text2);
         cursor: pointer;
         padding: 4px 9px;
@@ -605,14 +687,17 @@
         transition: all 0.14s;
         white-space: nowrap;
       }
+
       .cap-tick:hover {
         border-color: var(--text3);
       }
+
       .cap-tick.done {
         background: var(--accent);
         border-color: var(--accent);
         color: var(--check-fill);
       }
+
       .ck-sm {
         width: 12px;
         height: 12px;
@@ -623,6 +708,7 @@
         justify-content: center;
         flex-shrink: 0;
       }
+
       .cap-tick.done .ck-sm {
         border-color: transparent;
       }
@@ -634,11 +720,13 @@
         gap: 12px;
         margin-bottom: 10px;
       }
+
       .dsa-card {
         border: 1px solid var(--border);
         border-radius: 9px;
         overflow: hidden;
       }
+
       .dsa-card-header {
         display: flex;
         align-items: center;
@@ -647,20 +735,24 @@
         background: var(--bg2);
         border-bottom: 1px solid var(--border);
       }
+
       .dsa-card-title {
         font-family: "Geist Mono", monospace;
-        font-size: 10px;
+        font-size: 11.5px;
         font-weight: 500;
         color: var(--text);
       }
+
       .dsa-card-count {
         font-family: "Geist Mono", monospace;
-        font-size: 9px;
+        font-size: 10.5px;
         color: var(--text3);
       }
+
       .dsa-items {
         padding: 6px 8px;
       }
+
       .dsa-item {
         display: flex;
         align-items: center;
@@ -670,14 +762,17 @@
         cursor: pointer;
         transition: background 0.1s;
       }
+
       .dsa-item:hover {
         background: var(--bg3);
       }
+
       .dsa-item.done .dsa-label {
         color: var(--done-text);
         text-decoration: line-through;
         text-decoration-color: var(--border2);
       }
+
       .dsa-check {
         width: 13px;
         height: 13px;
@@ -689,18 +784,22 @@
         justify-content: center;
         transition: all 0.14s;
       }
+
       .dsa-item.done .dsa-check {
         background: var(--accent);
         border-color: var(--accent);
       }
+
       .dsa-check .ck {
         display: none;
       }
+
       .dsa-item.done .dsa-check .ck {
         display: block;
       }
+
       .dsa-label {
-        font-size: 12.5px;
+        font-size: 14px;
         color: var(--text2);
       }
 
@@ -708,29 +807,83 @@
         pointer-events: none;
       }
 
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 21.5px;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .sidebar-overlay {
+        display: none;
+      }
+
       @media (max-width: 700px) {
         .sidebar {
-          display: none;
+          transform: translateX(-100%);
+          transition: transform 0.3s ease;
         }
+
+        .sidebar.open {
+          transform: translateX(0);
+        }
+
+        .sidebar-overlay {
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.6);
+          z-index: 90;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+        }
+
+        .sidebar-overlay.open {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
         .main {
           margin-left: 0;
         }
+
         .content {
           padding: 24px 18px 60px;
         }
+
         .dsa-grid {
           grid-template-columns: 1fr;
         }
+
         .topbar {
           padding: 11px 18px;
+          gap: 12px;
         }
       }
     </style>
   </head>
+
   <body>
     <nav class="sidebar">
       <div class="sb-brand">
-        <div class="sb-name">Lokesh</div>
+        <div class="sb-name">Loki</div>
         <div class="sb-goal">Internship · July 2026</div>
       </div>
       <div class="sb-nav" id="sbNav"></div>
@@ -742,10 +895,18 @@
         <div class="overall-pct" id="overallPct">0%</div>
       </div>
     </nav>
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+      onclick="toggleSidebar()"
+    ></div>
 
     <main class="main">
       <div class="topbar">
-        <div class="topbar-title">MERN + DSA · Internship Roadmap</div>
+        <div class="topbar-left">
+          <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+          <div class="topbar-title">MERN + DSA · Internship Roadmap</div>
+        </div>
         <div class="topbar-right">
           <div class="topbar-count" id="topCount">0 / 0 done</div>
           <button class="tb-btn" onclick="confirmReset()">Reset</button>
@@ -766,7 +927,7 @@
           <div class="meta-row">
             <div class="meta-item">
               <div class="meta-lbl">User</div>
-              <div class="meta-val">Lokesh</div>
+              <div class="meta-val">Loki</div>
             </div>
             <div class="meta-item">
               <div class="meta-lbl">Stack</div>
@@ -1642,8 +1803,21 @@
           a.className = "nav-item";
           a.href = `#${chunk.id}`;
           a.innerHTML = `<span class="nav-num">${chunk.index}</span><span class="nav-label">${chunk.title}</span><span class="nav-pct">${pct}%</span>`;
+          a.onclick = () => {
+            if (window.innerWidth <= 700) {
+              document.querySelector(".sidebar").classList.remove("open");
+              document
+                .getElementById("sidebarOverlay")
+                .classList.remove("open");
+            }
+          };
           nav.appendChild(a);
         });
+      }
+
+      function toggleSidebar() {
+        document.querySelector(".sidebar").classList.toggle("open");
+        document.getElementById("sidebarOverlay").classList.toggle("open");
       }
 
       function renderOverall() {
