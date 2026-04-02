@@ -17,6 +17,16 @@ export function App() {
       bio: "I like to work with different front-end technologies and play video games.",
     },
   ];
-
-  return <div className="flex-container"></div>;
+  return (
+    <div className="flex-container">
+      {profiles.map((profile) => (
+        <Card
+          key={profile.id}
+          name={profile.name}
+          title={profile.title}
+          bio={profile.bio}
+        />
+      ))}
+    </div>
+  );
 }
