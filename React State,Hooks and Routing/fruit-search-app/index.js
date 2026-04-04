@@ -3,7 +3,10 @@ const { useState, useEffect } = React;
 export function FruitsSearch() {
   return (
     <div id="search-container">
-      <form id="search-container"></form>
+      <form>
+        <label htmlFor="search-input">Search for fruits:</label>
+        <input id="search-input" type="search" />
+      </form>
     </div>
   );
 }
