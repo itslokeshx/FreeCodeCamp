@@ -1,6 +1,7 @@
 const { useState, useEffect } = React;
 
 export function FruitsSearch() {
+  const [query, setQuery] = useState("");
   return (
     <div id="search-container">
       <form>
