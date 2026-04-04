@@ -1,6 +1,8 @@
 const { useState } = React;
 
 export const ToggleApp = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
   return (
     <div id="toggle-container">
       <button id="toggle-button">Message</button>
