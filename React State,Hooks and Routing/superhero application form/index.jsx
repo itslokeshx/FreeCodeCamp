@@ -1,6 +1,15 @@
 const { useState } = React;
 
 export const SuperheroForm = () => {
+  const powerSourceOptions = [
+    "Bitten by a strange creature",
+    "Radioactive exposure",
+    "Science experiment",
+    "Alien heritage",
+    "Ancient artifact discovery",
+    "Other",
+  ];
+
   const [heroName, setHeroName] = useState("");
   const [realName, setRealName] = useState("");
   const [powerSource, setPowerSource] = useState("");
@@ -31,21 +40,16 @@ export const SuperheroForm = () => {
         </div>
         <label className="section column">
           How did you get your powers?
-          <select>
+          <select
+            value={powerSource}
+            onChange={(e) => setPowerSource(e.target.value)}
+          >
             <option value="">Select one</option>
-
-            <option value="Bitten by a strange creature">
-              Bitten by a strange creature
-            </option>
-
-            <option value="Radioactive exposure">Radioactive exposure</option>
-            <option value="Science experiment">Science experiment</option>
-            <option value="Alien heritage ">Alien heritage</option>
-
-            <option value="Ancient artifact discovery">
-              Ancient artifact discovery
-            </option>
-            <option value="Other">Other</option>
+            {powerSourceOptions.map((source) => (
+              <option key={source} value={source}>
+                {source}
+              </option>
+            ))}
           </select>
         </label>
       </form>
