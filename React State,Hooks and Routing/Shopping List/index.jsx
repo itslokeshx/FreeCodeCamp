@@ -16,6 +16,10 @@ const items = [
 export const ShoppingList = () => {
   const [query, setQuery] = useState("");
 
+  const filteredItems = items.filter((item) =>
+    item.toLowerCase().includes(query.toLowerCase()),
+  );
+
   return (
     <div className="container">
       <h1>Shopping List</h1>
@@ -30,6 +34,11 @@ export const ShoppingList = () => {
           onChange={(e) => setQuery(e.target.value)}
         />
         <p id="search-description">Type to filter the list below:</p>
+        <ul>
+          {filteredItems.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
       </form>
     </div>
   );
