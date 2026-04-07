@@ -35,12 +35,15 @@ Projects focused on component composition, props, and basic JSX syntax.
 
 Projects demonstrating state management, React Hooks, and interactive functionality.
 
-| Project              | Description                                      | Concepts                                                    |
-| -------------------- | ------------------------------------------------ | ----------------------------------------------------------- |
-| **Color Picker App** | Interactive color picker with live preview       | `useState` hook, controlled inputs, dynamic inline styles   |
-| **Toggle Text App**  | Show/hide message toggle functionality           | `useState` hook, conditional rendering, event handling      |
-| **Fruit Search App** | Real-time fruit search with debounced API calls  | `useState`, `useEffect`, fetch API, debouncing, async/await |
-| **OTP Generator**    | One-time password generator with countdown timer | `useState`, `useEffect`, `useRef`, timers, interval cleanup |
+| Project                        | Description                                      | Concepts                                                                    |
+| ------------------------------ | ------------------------------------------------ | --------------------------------------------------------------------------- |
+| **Color Picker App**           | Interactive color picker with live preview       | `useState` hook, controlled inputs, dynamic inline styles                   |
+| **Toggle Text App**            | Show/hide message toggle functionality           | `useState` hook, conditional rendering, event handling                      |
+| **Fruit Search App**           | Real-time fruit search with debounced API calls  | `useState`, `useEffect`, fetch API, debouncing, async/await                 |
+| **OTP Generator**              | One-time password generator with countdown timer | `useState`, `useEffect`, `useRef`, timers, interval cleanup                 |
+| **Superhero Application Form** | Application form for superhero registration      | `useState`, form handling, controlled inputs, checkbox arrays, form validation |
+| **Event RSVP Form (Lab)**      | Event registration form with confirmation display  | `useState`, form handling, controlled inputs, conditional rendering           |
+| **Shopping List**              | Filterable shopping list with item selection     | `useState`, `useMemo`, `useCallback`, filtering, checkbox state               |
 
 ---
 
@@ -117,6 +120,33 @@ Secure one-time password generator:
 - Countdown timer with visual feedback
 - Button state management (disabled during active OTP)
 - Auto-expiration handling
+
+#### Superhero Application Form
+
+A form for aspiring superheroes to register:
+
+- Controlled form inputs (text, password, select, checkboxes)
+- Dynamic checkbox arrays for power selection
+- Form validation with submit button disabled state
+- Multiple input types demonstration
+
+#### Event RSVP Form (Lab)
+
+Event registration with confirmation display:
+
+- Multi-field form with validation
+- Conditional rendering of confirmation summary
+- Text, email, number, and checkbox inputs
+- Post-submit data display
+
+#### Shopping List
+
+Filterable shopping list with memoization optimization:
+
+- Real-time filtering with `useMemo`
+- Optimized callback functions with `useCallback`
+- Checkbox selection with visual strike-through
+- Search input with accessible labels
 
 ---
 
