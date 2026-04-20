@@ -10,876 +10,237 @@
       rel="stylesheet"
     />
     <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+      :root{
+        --bg:#111111;--bg2:#181818;--bg3:#202020;--border:#2a2a2a;--border2:#333333;
+        --text:#ffffff;--text2:#e4e4e7;--text3:#a1a1aa;--done-bg:#1c1c1c;--done-text:#71717a;
+        --topbar-bg:rgba(15,15,15,0.95);--accent:#ffffff;--check-fill:#111111;
+        --easy:#22c55e;--med:#f59e0b;--hard:#ef4444;
       }
-
-      :root {
-        --bg: #111111;
-        --bg2: #181818;
-        --bg3: #202020;
-        --border: #2a2a2a;
-        --border2: #333333;
-        --text: #ffffff;
-        --text2: #e4e4e7;
-        --text3: #a1a1aa;
-        --done-bg: #1c1c1c;
-        --done-text: #71717a;
-        --topbar-bg: rgba(15, 15, 15, 0.95);
-        --accent: #ffffff;
-        --check-fill: #111111;
+      html.light{
+        --bg:#fafafa;--bg2:#f4f4f4;--bg3:#eeeeee;--border:#e2e2e2;--border2:#d0d0d0;
+        --text:#0a0a0a;--text2:#27272a;--text3:#52525b;--done-bg:#efefef;--done-text:#9ca3af;
+        --topbar-bg:rgba(250,250,250,0.95);--accent:#0a0a0a;--check-fill:#ffffff;
+        --easy:#16a34a;--med:#d97706;--hard:#dc2626;
       }
-
-      html.light {
-        --bg: #fafafa;
-        --bg2: #f4f4f4;
-        --bg3: #eeeeee;
-        --border: #e2e2e2;
-        --border2: #d0d0d0;
-        --text: #0a0a0a;
-        --text2: #27272a;
-        --text3: #52525b;
-        --done-bg: #efefef;
-        --done-text: #9ca3af;
-        --topbar-bg: rgba(250, 250, 250, 0.95);
-        --accent: #0a0a0a;
-        --check-fill: #ffffff;
-      }
-
-      html {
-        scroll-behavior: smooth;
-        transition: background 0.2s;
-      }
-
-      body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: "DM Sans", sans-serif;
-        font-size: 17px;
-        line-height: 1.7;
-        min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
-      }
+      html{scroll-behavior:smooth;transition:background 0.2s}
+      body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;font-size:17px;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased}
 
       /* SIDEBAR */
-      .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 230px;
-        height: 100vh;
-        background: var(--bg2);
-        border-right: 1px solid var(--border);
-        display: flex;
-        flex-direction: column;
-        z-index: 100;
-        overflow-y: auto;
-      }
-
-      .sidebar::-webkit-scrollbar {
-        width: 0;
-      }
-
-      .sb-brand {
-        padding: 24px 20px 20px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .sb-name {
-        font-size: 14.5px;
-        font-weight: 600;
-        color: var(--text);
-        letter-spacing: 0.01em;
-      }
-
-      .sb-goal {
-        font-size: 12px;
-        color: var(--text3);
-        font-family: "Geist Mono", monospace;
-        margin-top: 2px;
-      }
-
-      .sb-nav {
-        flex: 1;
-        padding: 10px 8px;
-        overflow-y: auto;
-      }
-
-      .sb-nav::-webkit-scrollbar {
-        width: 0;
-      }
-
-      .nav-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 12px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        color: var(--text2);
-        text-decoration: none;
-        margin-bottom: 1px;
-        transition:
-          background 0.12s,
-          color 0.12s;
-      }
-
-      .nav-item:hover {
-        background: var(--bg3);
-        color: var(--text);
-      }
-
-      .nav-num {
-        font-family: "Geist Mono", monospace;
-        font-size: 10.5px;
-        opacity: 0.7;
-        width: 14px;
-        flex-shrink: 0;
-      }
-
-      .nav-label {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .nav-pct {
-        font-family: "Geist Mono", monospace;
-        font-size: 10.5px;
-        opacity: 0.65;
-      }
-
-      .sb-footer {
-        padding: 14px 20px 20px;
-        border-top: 1px solid var(--border);
-      }
-
-      .sb-overall-label {
-        font-family: "Geist Mono", monospace;
-        font-size: 10.5px;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin-bottom: 6px;
-      }
-
-      .overall-bar {
-        height: 2px;
-        background: var(--border2);
-        border-radius: 2px;
-        overflow: hidden;
-        margin-bottom: 5px;
-      }
-
-      .overall-fill {
-        height: 100%;
-        background: var(--accent);
-        border-radius: 2px;
-        transition: width 0.4s ease;
-      }
-
-      .overall-pct {
-        font-family: "Geist Mono", monospace;
-        font-size: 13.5px;
-        color: var(--text);
-        font-weight: 500;
-      }
+      .sidebar{position:fixed;top:0;left:0;width:230px;height:100vh;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;overflow-y:auto}
+      .sidebar::-webkit-scrollbar{width:0}
+      .sb-brand{padding:24px 20px 20px;border-bottom:1px solid var(--border)}
+      .sb-name{font-size:14.5px;font-weight:600;color:var(--text);letter-spacing:.01em}
+      .sb-goal{font-size:12px;color:var(--text3);font-family:"Geist Mono",monospace;margin-top:2px}
+      .sb-nav{flex:1;padding:10px 8px;overflow-y:auto}
+      .sb-nav::-webkit-scrollbar{width:0}
+      .nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:14px;color:var(--text2);text-decoration:none;margin-bottom:1px;transition:background .12s,color .12s}
+      .nav-item:hover{background:var(--bg3);color:var(--text)}
+      .nav-num{font-family:"Geist Mono",monospace;font-size:10.5px;opacity:.7;width:14px;flex-shrink:0}
+      .nav-label{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .nav-pct{font-family:"Geist Mono",monospace;font-size:10.5px;opacity:.65}
+      .sb-footer{padding:14px 20px 20px;border-top:1px solid var(--border)}
+      .sb-overall-label{font-family:"Geist Mono",monospace;font-size:10.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+      .overall-bar{height:2px;background:var(--border2);border-radius:2px;overflow:hidden;margin-bottom:5px}
+      .overall-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease}
+      .overall-pct{font-family:"Geist Mono",monospace;font-size:13.5px;color:var(--text);font-weight:500}
 
       /* TOPBAR */
-      .main {
-        margin-left: 230px;
-        min-height: 100vh;
-      }
-
-      .topbar {
-        position: sticky;
-        top: 0;
-        background: var(--topbar-bg);
-        backdrop-filter: blur(14px);
-        border-bottom: 1px solid var(--border);
-        padding: 12px 40px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        z-index: 50;
-      }
-
-      .topbar-title {
-        font-size: 13.5px;
-        font-weight: 500;
-        color: var(--text2);
-      }
-
-      .topbar-right {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .topbar-count {
-        font-family: "Geist Mono", monospace;
-        font-size: 12.5px;
-        color: var(--text3);
-      }
-
-      .tb-btn {
-        font-size: 12.5px;
-        color: var(--text3);
-        background: none;
-        border: 1px solid var(--border2);
-        border-radius: 5px;
-        padding: 3px 10px;
-        cursor: pointer;
-        font-family: "DM Sans", sans-serif;
-        transition: all 0.15s;
-        white-space: nowrap;
-      }
-
-      .tb-btn:hover {
-        border-color: var(--text2);
-        color: var(--text);
-      }
-
-      .theme-btn {
-        padding: 3px 8px;
-        font-size: 14.5px;
-      }
+      .main{margin-left:230px;min-height:100vh}
+      .topbar{position:sticky;top:0;background:var(--topbar-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:12px 40px;display:flex;align-items:center;justify-content:space-between;z-index:50}
+      .topbar-title{font-size:13.5px;font-weight:500;color:var(--text2)}
+      .topbar-right{display:flex;align-items:center;gap:10px}
+      .topbar-count{font-family:"Geist Mono",monospace;font-size:12.5px;color:var(--text3)}
+      .tb-btn{font-size:12.5px;color:var(--text3);background:none;border:1px solid var(--border2);border-radius:5px;padding:3px 10px;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .15s;white-space:nowrap}
+      .tb-btn:hover{border-color:var(--text2);color:var(--text)}
+      .theme-btn{padding:3px 8px;font-size:14.5px}
 
       /* CONTENT */
-      .content {
-        padding: 44px 40px 100px;
-        max-width: 820px;
-      }
+      .content{padding:44px 40px 100px;max-width:820px}
 
       /* HERO */
-      .hero {
-        margin-bottom: 44px;
-        padding-bottom: 32px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .hero-eyebrow {
-        font-family: "Geist Mono", monospace;
-        font-size: 10.5px;
-        color: var(--text3);
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-
-      .hero-title {
-        font-size: 26px;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-        line-height: 1.2;
-        margin-bottom: 6px;
-      }
-
-      .hero-sub {
-        font-size: 14px;
-        color: var(--text2);
-        font-style: italic;
-      }
-
-      .meta-row {
-        display: flex;
-        gap: 28px;
-        margin-top: 20px;
-        flex-wrap: wrap;
-      }
-
-      .meta-item {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-
-      .meta-lbl {
-        font-size: 10.5px;
-        font-family: "Geist Mono", monospace;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-      }
-
-      .meta-val {
-        font-size: 14.5px;
-        font-weight: 500;
-        color: var(--text);
-      }
+      .hero{margin-bottom:44px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+      .hero-eyebrow{font-family:"Geist Mono",monospace;font-size:10.5px;color:var(--text3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+      .hero-title{font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px}
+      .hero-sub{font-size:14px;color:var(--text2);font-style:italic}
+      .meta-row{display:flex;gap:28px;margin-top:20px;flex-wrap:wrap}
+      .meta-item{display:flex;flex-direction:column;gap:2px}
+      .meta-lbl{font-size:10.5px;font-family:"Geist Mono",monospace;color:var(--text3);text-transform:uppercase;letter-spacing:.1em}
+      .meta-val{font-size:14.5px;font-weight:500;color:var(--text)}
 
       /* CHUNK */
-      .chunk {
-        margin-bottom: 0;
-        scroll-margin-top: 72px;
-      }
-
-      .chunk-divider {
-        border: none;
-        border-top: 1px solid var(--border);
-        margin: 36px 0;
-      }
-
-      .chunk-header {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        margin-bottom: 18px;
-        gap: 16px;
-      }
-
-      .chunk-eyebrow {
-        font-family: "Geist Mono", monospace;
-        font-size: 10.5px;
-        color: var(--text3);
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        margin-bottom: 4px;
-      }
-
-      .chunk-title {
-        font-size: 16.5px;
-        font-weight: 600;
-        letter-spacing: -0.01em;
-        color: var(--text);
-        margin-bottom: 2px;
-      }
-
-      .chunk-goal {
-        font-size: 14px;
-        color: var(--text2);
-        font-style: italic;
-      }
-
-      .chunk-meta {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-top: 7px;
-        flex-wrap: wrap;
-      }
-
-      .chunk-tag {
-        font-family: "Geist Mono", monospace;
-        font-size: 10.5px;
-        color: var(--text3);
-        border: 1px solid var(--border2);
-        border-radius: 4px;
-        padding: 1px 6px;
-      }
-
-      .chunk-tag a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .chunk-tag a:hover {
-        color: var(--text);
-      }
-
-      .chunk-right {
-        text-align: right;
-        flex-shrink: 0;
-      }
-
-      .chunk-pct-num {
-        font-family: "Geist Mono", monospace;
-        font-size: 17.5px;
-        font-weight: 500;
-        color: var(--text);
-        line-height: 1;
-        margin-bottom: 5px;
-      }
-
-      .chunk-bar {
-        width: 72px;
-        height: 2px;
-        background: var(--border2);
-        border-radius: 2px;
-        overflow: hidden;
-        margin-left: auto;
-      }
-
-      .chunk-fill {
-        height: 100%;
-        background: var(--accent);
-        border-radius: 2px;
-        transition: width 0.4s ease;
-      }
+      .chunk{margin-bottom:0;scroll-margin-top:72px}
+      .chunk-divider{border:none;border-top:1px solid var(--border);margin:36px 0}
+      .chunk-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;gap:16px}
+      .chunk-eyebrow{font-family:"Geist Mono",monospace;font-size:10.5px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+      .chunk-title{font-size:16.5px;font-weight:600;letter-spacing:-.01em;color:var(--text);margin-bottom:2px}
+      .chunk-goal{font-size:14px;color:var(--text2);font-style:italic}
+      .chunk-meta{display:flex;align-items:center;gap:6px;margin-top:7px;flex-wrap:wrap}
+      .chunk-tag{font-family:"Geist Mono",monospace;font-size:10.5px;color:var(--text3);border:1px solid var(--border2);border-radius:4px;padding:1px 6px}
+      .chunk-tag a{color:inherit;text-decoration:none}
+      .chunk-tag a:hover{color:var(--text)}
+      .chunk-right{text-align:right;flex-shrink:0}
+      .chunk-pct-num{font-family:"Geist Mono",monospace;font-size:17.5px;font-weight:500;color:var(--text);line-height:1;margin-bottom:5px}
+      .chunk-bar{width:72px;height:2px;background:var(--border2);border-radius:2px;overflow:hidden;margin-left:auto}
+      .chunk-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease}
 
       /* SECTION */
-      .section-block {
-        margin-bottom: 8px;
-      }
-
-      .section-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 7px 0 5px;
-        cursor: pointer;
-        user-select: none;
-      }
-
-      .section-header:hover .section-title {
-        color: var(--text);
-      }
-
-      .section-title-wrap {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .section-icon {
-        font-family: "Geist Mono", monospace;
-        font-size: 9.5px;
-        color: var(--text3);
-        width: 12px;
-        flex-shrink: 0;
-      }
-
-      .section-title {
-        font-size: 13.5px;
-        font-weight: 500;
-        color: var(--text2);
-        letter-spacing: 0.02em;
-        transition: color 0.12s;
-      }
-
-      .section-badge {
-        font-family: "Geist Mono", monospace;
-        font-size: 10px;
-        color: var(--text3);
-        background: var(--bg3);
-        border-radius: 3px;
-        padding: 1px 5px;
-        border: 1px solid var(--border2);
-      }
-
-      .section-count {
-        font-family: "Geist Mono", monospace;
-        font-size: 10.5px;
-        color: var(--text3);
-      }
-
-      .section-items {
-        padding-left: 4px;
-      }
+      .section-block{margin-bottom:8px}
+      .section-header{display:flex;align-items:center;justify-content:space-between;padding:7px 0 5px;cursor:pointer;user-select:none}
+      .section-header:hover .section-title{color:var(--text)}
+      .section-title-wrap{display:flex;align-items:center;gap:8px}
+      .section-icon{font-family:"Geist Mono",monospace;font-size:9.5px;color:var(--text3);width:12px;flex-shrink:0}
+      .section-title{font-size:13.5px;font-weight:500;color:var(--text2);letter-spacing:.02em;transition:color .12s}
+      .section-badge{font-family:"Geist Mono",monospace;font-size:10px;color:var(--text3);background:var(--bg3);border-radius:3px;padding:1px 5px;border:1px solid var(--border2)}
+      .section-count{font-family:"Geist Mono",monospace;font-size:10.5px;color:var(--text3)}
+      .section-items{padding-left:4px}
 
       /* STEP */
-      .step-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 5px 8px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background 0.1s;
-        margin-bottom: 1px;
-      }
-
-      .step-item:hover {
-        background: var(--bg2);
-      }
-
-      .step-item.done .step-label {
-        color: var(--done-text);
-        text-decoration: line-through;
-        text-decoration-color: var(--border2);
-      }
-
-      .step-check {
-        width: 13px;
-        height: 13px;
-        border: 1.5px solid var(--border2);
-        border-radius: 3px;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.14s;
-      }
-
-      .step-item.done .step-check {
-        background: var(--accent);
-        border-color: var(--accent);
-      }
-
-      .step-check .ck {
-        display: none;
-      }
-
-      .step-item.done .step-check .ck {
-        display: block;
-      }
-
-      .step-label {
-        font-size: 14.5px;
-        color: var(--text2);
-      }
+      .step-item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:5px;cursor:pointer;transition:background .1s;margin-bottom:1px}
+      .step-item:hover{background:var(--bg2)}
+      .step-item.done .step-label{color:var(--done-text);text-decoration:line-through;text-decoration-color:var(--border2)}
+      .step-check{width:13px;height:13px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .14s}
+      .step-item.done .step-check{background:var(--accent);border-color:var(--accent)}
+      .step-check .ck{display:none}
+      .step-item.done .step-check .ck{display:block}
+      .step-label{font-size:14.5px;color:var(--text2)}
 
       /* TASK */
-      .task-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 8px 10px;
-        border-radius: 7px;
-        cursor: pointer;
-        transition: background 0.1s;
-        margin-bottom: 1px;
-        border: 1px solid transparent;
-      }
-
-      .task-item:hover {
-        background: var(--bg2);
-        border-color: var(--border);
-      }
-
-      .task-item.done {
-        background: var(--done-bg);
-      }
-
-      .task-item.done .task-main {
-        color: var(--done-text);
-        text-decoration: line-through;
-        text-decoration-color: var(--border2);
-      }
-
-      .task-item.done .task-sub {
-        color: var(--done-text);
-        opacity: 0.75;
-      }
-
-      .task-item.done .task-date {
-        color: var(--done-text);
-      }
-
-      .task-check {
-        width: 15px;
-        height: 15px;
-        border: 1.5px solid var(--border2);
-        border-radius: 4px;
-        flex-shrink: 0;
-        margin-top: 1px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.14s;
-      }
-
-      .task-item.done .task-check {
-        background: var(--accent);
-        border-color: var(--accent);
-      }
-
-      .task-check .ck {
-        display: none;
-      }
-
-      .task-item.done .task-check .ck {
-        display: block;
-      }
-
-      .task-body {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .task-main {
-        font-size: 15.5px;
-        color: var(--text);
-        line-height: 1.45;
-      }
-
-      .task-sub {
-        font-size: 13.5px;
-        color: var(--text2);
-        margin-top: 2px;
-        line-height: 1.4;
-      }
-
-      .task-date {
-        font-family: "Geist Mono", monospace;
-        font-size: 11px;
-        color: var(--text3);
-        flex-shrink: 0;
-        margin-top: 2px;
-        white-space: nowrap;
-      }
+      .task-item{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:7px;cursor:pointer;transition:background .1s;margin-bottom:1px;border:1px solid transparent}
+      .task-item:hover{background:var(--bg2);border-color:var(--border)}
+      .task-item.done{background:var(--done-bg)}
+      .task-item.done .task-main{color:var(--done-text);text-decoration:line-through;text-decoration-color:var(--border2)}
+      .task-item.done .task-sub{color:var(--done-text);opacity:.75}
+      .task-item.done .task-date{color:var(--done-text)}
+      .task-check{width:15px;height:15px;border:1.5px solid var(--border2);border-radius:4px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .14s}
+      .task-item.done .task-check{background:var(--accent);border-color:var(--accent)}
+      .task-check .ck{display:none}
+      .task-item.done .task-check .ck{display:block}
+      .task-body{flex:1;min-width:0}
+      .task-main{font-size:15.5px;color:var(--text);line-height:1.45}
+      .task-sub{font-size:13.5px;color:var(--text2);margin-top:2px;line-height:1.4}
+      .task-date{font-family:"Geist Mono",monospace;font-size:11px;color:var(--text3);flex-shrink:0;margin-top:2px;white-space:nowrap}
 
       /* CAPSTONE */
-      .week-label {
-        font-family: "Geist Mono", monospace;
-        font-size: 10.5px;
-        color: var(--text3);
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        padding: 14px 0 6px 2px;
+      .week-label{font-family:"Geist Mono",monospace;font-size:10.5px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;padding:14px 0 6px 2px}
+      .capstone-block{border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:8px}
+      .capstone-header{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg2);flex-wrap:wrap;gap:8px}
+      .capstone-left{display:flex;align-items:center;gap:10px}
+      .capstone-icon{font-size:14.5px}
+      .capstone-eyebrow{font-family:"Geist Mono",monospace;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1px}
+      .capstone-name{font-size:15px;font-weight:600;color:var(--text)}
+      .capstone-ticks{display:flex;gap:6px;flex-wrap:wrap}
+      .cap-tick{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--text2);cursor:pointer;padding:4px 9px;border-radius:5px;border:1px solid var(--border);background:var(--bg3);transition:all .14s;white-space:nowrap}
+      .cap-tick:hover{border-color:var(--text3)}
+      .cap-tick.done{background:var(--accent);border-color:var(--accent);color:var(--check-fill)}
+      .ck-sm{width:12px;height:12px;border:1.5px solid currentColor;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+      .cap-tick.done .ck-sm{border-color:transparent}
+
+      /* DSA SECTION */
+      .dsa-phase-banner{
+        background:var(--bg2);border:1px solid var(--border);border-radius:10px;
+        padding:14px 18px;margin-bottom:16px;margin-top:8px;
       }
-
-      .capstone-block {
-        border: 1px solid var(--border);
-        border-radius: 9px;
-        overflow: hidden;
-        margin-bottom: 8px;
+      .dsa-phase-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:12px;flex-wrap:wrap}
+      .dsa-phase-left{display:flex;align-items:center;gap:10px}
+      .dsa-phase-num{
+        font-family:"Geist Mono",monospace;font-size:11px;font-weight:500;
+        background:var(--bg3);border:1px solid var(--border2);border-radius:5px;
+        padding:2px 8px;color:var(--text3)
       }
+      .dsa-phase-title{font-size:15px;font-weight:600;color:var(--text)}
+      .dsa-phase-goal{font-size:12.5px;color:var(--text3);font-style:italic}
+      .dsa-phase-bar-wrap{display:flex;align-items:center;gap:8px;margin-top:8px}
+      .dsa-phase-bar{flex:1;height:2px;background:var(--border2);border-radius:2px;overflow:hidden}
+      .dsa-phase-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease}
+      .dsa-phase-pct{font-family:"Geist Mono",monospace;font-size:10.5px;color:var(--text3)}
 
-      .capstone-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 11px 14px;
-        background: var(--bg2);
-        flex-wrap: wrap;
-        gap: 8px;
+      .dsa-starter-box{
+        border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:20px;
       }
-
-      .capstone-left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
+      .dsa-starter-hd{
+        background:var(--bg2);border-bottom:1px solid var(--border);
+        padding:10px 14px;display:flex;align-items:center;gap:8px;
       }
-
-      .capstone-icon {
-        font-size: 14.5px;
+      .dsa-starter-hd-title{font-family:"Geist Mono",monospace;font-size:11.5px;font-weight:500;color:var(--text)}
+      .dsa-starter-body{padding:10px 14px;display:flex;flex-wrap:wrap;gap:6px}
+      .dsa-pill{
+        font-family:"Geist Mono",monospace;font-size:11px;
+        border:1px solid var(--border2);border-radius:4px;padding:2px 8px;
+        color:var(--text3);background:var(--bg3);text-decoration:none;
+        transition:all .13s;display:inline-block;
       }
+      .dsa-pill:hover{border-color:var(--text2);color:var(--text)}
+      .dsa-pill.yt{border-color:#3f2323;color:#f87171}
+      .dsa-pill.yt:hover{border-color:#f87171}
 
-      .capstone-eyebrow {
-        font-family: "Geist Mono", monospace;
-        font-size: 10px;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        margin-bottom: 1px;
+      .dsa-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px}
+      .dsa-card{border:1px solid var(--border);border-radius:9px;overflow:hidden}
+      .dsa-card-header{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--bg2);border-bottom:1px solid var(--border)}
+      .dsa-card-title{font-family:"Geist Mono",monospace;font-size:11.5px;font-weight:500;color:var(--text)}
+      .dsa-card-count{font-family:"Geist Mono",monospace;font-size:10.5px;color:var(--text3)}
+      .dsa-items{padding:6px 8px}
+      .dsa-item{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:5px;cursor:pointer;transition:background .1s}
+      .dsa-item:hover{background:var(--bg3)}
+      .dsa-item.done .dsa-label{color:var(--done-text);text-decoration:line-through;text-decoration-color:var(--border2)}
+      .dsa-check{width:13px;height:13px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .14s}
+      .dsa-item.done .dsa-check{background:var(--accent);border-color:var(--accent)}
+      .dsa-check .ck{display:none}
+      .dsa-item.done .dsa-check .ck{display:block}
+      .dsa-label{font-size:13.5px;color:var(--text2);flex:1;min-width:0}
+      .diff-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-left:auto}
+      .diff-e{background:var(--easy)}
+      .diff-m{background:var(--med)}
+      .diff-h{background:var(--hard)}
+
+      .dsa-pattern-row{
+        display:flex;align-items:center;justify-content:space-between;
+        padding:6px 10px;border-radius:6px;cursor:pointer;
+        transition:background .1s;margin-bottom:1px;
+        border:1px solid transparent;
       }
-
-      .capstone-name {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text);
+      .dsa-pattern-row:hover{background:var(--bg2);border-color:var(--border)}
+      .dsa-pattern-row.done .dsa-label{color:var(--done-text);text-decoration:line-through;text-decoration-color:var(--border2)}
+      .dsa-prow-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+      .lc-link{
+        font-family:"Geist Mono",monospace;font-size:10px;color:var(--text3);
+        border:1px solid var(--border2);border-radius:3px;padding:1px 5px;
+        text-decoration:none;white-space:nowrap;flex-shrink:0;
+        transition:all .13s;
       }
+      .lc-link:hover{color:var(--text);border-color:var(--text3)}
 
-      .capstone-ticks {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
+      .dsa-stats-row{
+        display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;
       }
-
-      .cap-tick {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 12.5px;
-        color: var(--text2);
-        cursor: pointer;
-        padding: 4px 9px;
-        border-radius: 5px;
-        border: 1px solid var(--border);
-        background: var(--bg3);
-        transition: all 0.14s;
-        white-space: nowrap;
+      .dsa-stat-box{
+        flex:1;min-width:100px;background:var(--bg2);border:1px solid var(--border);
+        border-radius:8px;padding:10px 14px;
       }
+      .dsa-stat-lbl{font-family:"Geist Mono",monospace;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+      .dsa-stat-val{font-family:"Geist Mono",monospace;font-size:18px;font-weight:500;color:var(--text)}
+      .dsa-stat-sub{font-size:11px;color:var(--text3);margin-top:1px}
 
-      .cap-tick:hover {
-        border-color: var(--text3);
-      }
+      .ck{pointer-events:none}
 
-      .cap-tick.done {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: var(--check-fill);
-      }
+      /* MOBILE */
+      .mobile-menu-btn{display:none;background:none;border:none;color:var(--text);font-size:21.5px;cursor:pointer;padding:0}
+      .topbar-left{display:flex;align-items:center;gap:12px}
+      .sidebar-overlay{display:none}
 
-      .ck-sm {
-        width: 12px;
-        height: 12px;
-        border: 1.5px solid currentColor;
-        border-radius: 3px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-      }
-
-      .cap-tick.done .ck-sm {
-        border-color: transparent;
-      }
-
-      /* DSA */
-      .dsa-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-bottom: 10px;
-      }
-
-      .dsa-card {
-        border: 1px solid var(--border);
-        border-radius: 9px;
-        overflow: hidden;
-      }
-
-      .dsa-card-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 9px 12px;
-        background: var(--bg2);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .dsa-card-title {
-        font-family: "Geist Mono", monospace;
-        font-size: 11.5px;
-        font-weight: 500;
-        color: var(--text);
-      }
-
-      .dsa-card-count {
-        font-family: "Geist Mono", monospace;
-        font-size: 10.5px;
-        color: var(--text3);
-      }
-
-      .dsa-items {
-        padding: 6px 8px;
-      }
-
-      .dsa-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 5px 6px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background 0.1s;
-      }
-
-      .dsa-item:hover {
-        background: var(--bg3);
-      }
-
-      .dsa-item.done .dsa-label {
-        color: var(--done-text);
-        text-decoration: line-through;
-        text-decoration-color: var(--border2);
-      }
-
-      .dsa-check {
-        width: 13px;
-        height: 13px;
-        border: 1.5px solid var(--border2);
-        border-radius: 3px;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.14s;
-      }
-
-      .dsa-item.done .dsa-check {
-        background: var(--accent);
-        border-color: var(--accent);
-      }
-
-      .dsa-check .ck {
-        display: none;
-      }
-
-      .dsa-item.done .dsa-check .ck {
-        display: block;
-      }
-
-      .dsa-label {
-        font-size: 14px;
-        color: var(--text2);
-      }
-
-      .ck {
-        pointer-events: none;
-      }
-
-      .mobile-menu-btn {
-        display: none;
-        background: none;
-        border: none;
-        color: var(--text);
-        font-size: 21.5px;
-        cursor: pointer;
-        padding: 0;
-      }
-
-      .topbar-left {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .sidebar-overlay {
-        display: none;
-      }
-
-      @media (max-width: 700px) {
-        .sidebar {
-          transform: translateX(-100%);
-          transition: transform 0.3s ease;
-        }
-
-        .sidebar.open {
-          transform: translateX(0);
-        }
-
-        .sidebar-overlay {
-          display: block;
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.6);
-          z-index: 90;
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity 0.3s ease;
-        }
-
-        .sidebar-overlay.open {
-          opacity: 1;
-          pointer-events: auto;
-        }
-
-        .mobile-menu-btn {
-          display: block;
-        }
-
-        .main {
-          margin-left: 0;
-        }
-
-        .content {
-          padding: 24px 18px 60px;
-        }
-
-        .dsa-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .topbar {
-          padding: 11px 18px;
-          gap: 12px;
-        }
+      @media(max-width:700px){
+        .sidebar{transform:translateX(-100%);transition:transform .3s ease}
+        .sidebar.open{transform:translateX(0)}
+        .sidebar-overlay{display:block;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:90;opacity:0;pointer-events:none;transition:opacity .3s ease}
+        .sidebar-overlay.open{opacity:1;pointer-events:auto}
+        .mobile-menu-btn{display:block}
+        .main{margin-left:0}
+        .content{padding:24px 18px 60px}
+        .dsa-grid{grid-template-columns:1fr}
+        .topbar{padding:11px 18px;gap:12px}
       }
     </style>
   </head>
-
   <body>
     <nav class="sidebar">
       <div class="sb-brand">
@@ -889,17 +250,11 @@
       <div class="sb-nav" id="sbNav"></div>
       <div class="sb-footer">
         <div class="sb-overall-label">Overall Progress</div>
-        <div class="overall-bar">
-          <div class="overall-fill" id="overallFill" style="width: 0%"></div>
-        </div>
+        <div class="overall-bar"><div class="overall-fill" id="overallFill" style="width:0%"></div></div>
         <div class="overall-pct" id="overallPct">0%</div>
       </div>
     </nav>
-    <div
-      class="sidebar-overlay"
-      id="sidebarOverlay"
-      onclick="toggleSidebar()"
-    ></div>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
     <main class="main">
       <div class="topbar">
@@ -910,37 +265,19 @@
         <div class="topbar-right">
           <div class="topbar-count" id="topCount">0 / 0 done</div>
           <button class="tb-btn" onclick="confirmReset()">Reset</button>
-          <button
-            class="tb-btn theme-btn"
-            id="themeBtn"
-            onclick="toggleTheme()"
-          >
-            ☀︎
-          </button>
+          <button class="tb-btn theme-btn" id="themeBtn" onclick="toggleTheme()">☀︎</button>
         </div>
       </div>
       <div class="content">
         <div class="hero">
           <div class="hero-eyebrow">Progress Tracker · 2026</div>
-          <div class="hero-title">Internship Ready<br />by July 2026.</div>
+          <div class="hero-title">Internship Ready<br/>by July 2026.</div>
           <div class="hero-sub">No action faking. No skipping. Just work.</div>
           <div class="meta-row">
-            <div class="meta-item">
-              <div class="meta-lbl">User</div>
-              <div class="meta-val">Loki</div>
-            </div>
-            <div class="meta-item">
-              <div class="meta-lbl">Stack</div>
-              <div class="meta-val">MERN + DSA</div>
-            </div>
-            <div class="meta-item">
-              <div class="meta-lbl">Chunks</div>
-              <div class="meta-val">8</div>
-            </div>
-            <div class="meta-item">
-              <div class="meta-lbl">Deadline</div>
-              <div class="meta-val">Jul 2026</div>
-            </div>
+            <div class="meta-item"><div class="meta-lbl">User</div><div class="meta-val">Loki</div></div>
+            <div class="meta-item"><div class="meta-lbl">Stack</div><div class="meta-val">MERN + DSA</div></div>
+            <div class="meta-item"><div class="meta-lbl">Chunks</div><div class="meta-val">8</div></div>
+            <div class="meta-item"><div class="meta-lbl">Deadline</div><div class="meta-val">Jul 2026</div></div>
           </div>
         </div>
         <div id="chunksRoot"></div>
@@ -948,987 +285,799 @@
     </main>
 
     <script>
-      const CK15 = `<svg class="ck" width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="var(--check-fill)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      const CK13 = `<svg class="ck" width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="var(--check-fill)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      const CK11 = `<svg class="ck" width="7" height="5" viewBox="0 0 7 5" fill="none"><path d="M1 2.5L2.8 4.5L6 1" stroke="var(--check-fill)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const CK15=`<svg class="ck" width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="var(--check-fill)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const CK13=`<svg class="ck" width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="var(--check-fill)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const CK11=`<svg class="ck" width="7" height="5" viewBox="0 0 7 5" fill="none"><path d="M1 2.5L2.8 4.5L6 1" stroke="var(--check-fill)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-      const CHUNKS = [
-        {
-          id: "c1",
-          index: "01",
-          title: "The React Sprint",
-          goal: "Stop watching tutorials. Start typing code.",
-          tags: [
-            { label: "FreeCodeCamp", url: "https://www.freecodecamp.org/" },
-          ],
-          type: "fcc",
-          sections: [
-            {
-              id: "s_se",
-              title: "Working with State & Responding to Events",
-              badge: "Theory",
-              collapsed: false,
-              items: [
-                { id: "fcc_se_1", label: "How Do Events Work in React?" },
-                {
-                  id: "fcc_se_2",
-                  label: "What is State, and How Does the useState Hook Work?",
-                },
-                {
-                  id: "fcc_se_3",
-                  label:
-                    "What Is Rendering in React, and How Are Components Displayed on the Screen?",
-                },
-                {
-                  id: "fcc_se_4",
-                  label: "How Do You Update Objects in State?",
-                },
-                { id: "fcc_se_5", label: "How Do You Update Arrays in State?" },
-              ],
-            },
-            {
-              id: "s_toggle",
-              title: "Toggle Text App",
-              badge: "Workshop",
-              collapsed: true,
-              items: Array.from({ length: 13 }, (_, i) => ({
-                id: `fcc_ta_${i + 1}`,
-                label: `Step ${i + 1}`,
-              })),
-            },
-            {
-              id: "s_colorpicker",
-              title: "Build a Color Picker App",
-              badge: "Lab",
-              collapsed: false,
-              items: [
-                { id: "fcc_cp_1", label: "Complete the Color Picker Lab" },
-              ],
-            },
-            {
-              id: "s_er",
-              title: "Understanding Effects & Referencing Values in React",
-              badge: "Theory",
-              collapsed: false,
-              items: [
-                {
-                  id: "fcc_er_1",
-                  label: "How Do You Reference Values Using Refs?",
-                },
-                {
-                  id: "fcc_er_2",
-                  label:
-                    "What Are Effects in React, and How Does the useEffect Hook Work?",
-                },
-                {
-                  id: "fcc_er_3",
-                  label: "How Can You Create Custom Hooks in React?",
-                },
-              ],
-            },
-            {
-              id: "s_fruit",
-              title: "Build a Fruit Search App",
-              badge: "Workshop",
-              collapsed: true,
-              items: Array.from({ length: 21 }, (_, i) => ({
-                id: `fcc_fs_${i + 1}`,
-                label: `Step ${i + 1}`,
-              })),
-            },
-            {
-              id: "s_otp",
-              title: "Build a One-Time Password Generator",
-              badge: "Lab",
-              collapsed: false,
-              items: [
-                { id: "fcc_otp_1", label: "Complete the OTP Generator Lab" },
-              ],
-            },
-            {
-              id: "s_shr",
-              title: "React State and Hooks Review",
-              badge: "Review",
-              collapsed: false,
-              items: [
-                { id: "fcc_shr_1", label: "Complete the State & Hooks Review" },
-              ],
-            },
-            {
-              id: "s_shq",
-              title: "React State and Hooks Quiz",
-              badge: "Quiz",
-              collapsed: false,
-              items: [
-                { id: "fcc_shq_1", label: "Pass the State & Hooks Quiz" },
-              ],
-            },
-            {
-              id: "s_forms",
-              title: "Working with Forms in React",
-              badge: "Theory",
-              collapsed: false,
-              items: [
-                { id: "fcc_ft_1", label: "How Do Forms Work in React?" },
-                {
-                  id: "fcc_ft_2",
-                  label:
-                    "What Is the useActionState Hook, and How Does It Work?",
-                },
-              ],
-            },
-            {
-              id: "s_superhero",
-              title: "Build a Superhero Application Form",
-              badge: "Workshop",
-              collapsed: true,
-              items: Array.from({ length: 21 }, (_, i) => ({
-                id: `fcc_sf_${i + 1}`,
-                label: `Step ${i + 1}`,
-              })),
-            },
-            {
-              id: "s_rsvp",
-              title: "Build an Event RSVP",
-              badge: "Lab",
-              collapsed: false,
-              items: [
-                { id: "fcc_rsvp_1", label: "Complete the Event RSVP Lab" },
-              ],
-            },
-            {
-              id: "s_df",
-              title: "Working with Data Fetching & Memoization in React",
-              badge: "Theory",
-              collapsed: false,
-              items: [
-                {
-                  id: "fcc_df_1",
-                  label: "How Does Data Fetching Work in React?",
-                },
-                {
-                  id: "fcc_df_2",
-                  label:
-                    "What Is the useOptimistic Hook, and How Does It Work?",
-                },
-                {
-                  id: "fcc_df_3",
-                  label:
-                    "What Is Memoization, and How Does the useMemo Hook Work?",
-                },
-                {
-                  id: "fcc_df_4",
-                  label: "How Do the useCallback Hook and React.memo Work?",
-                },
-              ],
-            },
-            {
-              id: "s_shopping",
-              title: "Build a Shopping List App",
-              badge: "Workshop",
-              collapsed: true,
-              items: Array.from({ length: 30 }, (_, i) => ({
-                id: `fcc_sl_${i + 1}`,
-                label: `Step ${i + 1}`,
-              })),
-            },
-            {
-              id: "s_routing",
-              title: "Routing, React Frameworks & Dependency Management",
-              badge: "Theory",
-              collapsed: false,
-              items: [
-                {
-                  id: "fcc_rt_1",
-                  label:
-                    "What Is Dependency Management, and How Does It Work with Libraries Like React?",
-                },
-                { id: "fcc_rt_2", label: "How Does Routing Work in React?" },
-                {
-                  id: "fcc_rt_3",
-                  label:
-                    "What Are React Frameworks, and Why Are They Commonly Used in the Industry?",
-                },
-              ],
-            },
-            {
-              id: "s_debug",
-              title: "React Strategies and Debugging",
-              badge: "Theory",
-              collapsed: false,
-              items: [
-                { id: "fcc_sd_1", label: "What Is Prop Drilling?" },
-                {
-                  id: "fcc_sd_2",
-                  label:
-                    "What Are State Management Libraries, and When Should You Use Them?",
-                },
-                {
-                  id: "fcc_sd_3",
-                  label:
-                    "How Can You Debug Your React Components Using the React DevTools?",
-                },
-                {
-                  id: "fcc_sd_4",
-                  label:
-                    "What Are React Server Components, and How Do They Work?",
-                },
-              ],
-            },
-            {
-              id: "s_frr",
-              title: "React Forms, Data Fetching and Routing Review",
-              badge: "Review",
-              collapsed: false,
-              items: [{ id: "fcc_frr_1", label: "Complete the Review" }],
-            },
-            {
-              id: "s_frq",
-              title: "React Forms, Data Fetching and Routing Quiz",
-              badge: "Quiz",
-              collapsed: false,
-              items: [{ id: "fcc_frq_1", label: "Pass the Quiz" }],
-            },
-          ],
-          capstones: [
-            {
-              id: "cap_movie",
-              name: "Movie Watchlist (OMDB API)",
-              icon: "🎬",
-              tick1: { id: "cap_mov_b", label: "Built" },
-              tick2: { id: "cap_mov_d", label: "Deployed" },
-            },
-            {
-              id: "cap_memory",
-              name: "Memory Card Game",
-              icon: "🃏",
-              tick1: { id: "cap_mem_b", label: "Built" },
-              tick2: { id: "cap_mem_d", label: "Deployed" },
-            },
-          ],
-        },
-        {
-          id: "c2",
-          index: "02",
-          title: "Backend Core",
-          goal: "Understand how the server and database talk.",
-          tags: [
-            {
-              label: "Node.js YT",
-              url: "https://youtu.be/32M1al-Y6Ag?si=r2O_ngSRzfoawNUU",
-            },
-            {
-              label: "Express YT",
-              url: "https://www.youtube.com/watch?v=CnH3kAXSrmU",
-            },
-            {
-              label: "MongoDB YT",
-              url: "https://www.youtube.com/watch?v=ofme2o29ngU",
-            },
-            {
-              label: "Odin Project",
-              url: "https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs",
-            },
-          ],
-          type: "odin",
-          sections: [
-            {
-              id: "s_intro_node",
-              title: "Introduction to NodeJS",
-              badge: "Module",
-              collapsed: false,
-              items: [
-                { id: "op_be_1", label: "Introduction to the Back End" },
-                { id: "op_be_2", label: "Introduction: What is NodeJS?" },
-                { id: "op_be_3", label: "Getting Started with Node" },
-                { id: "op_be_4", label: "Debugging Node" },
-                { id: "op_be_5", label: "Environment Variables" },
-              ],
-            },
-            {
-              id: "s_express",
-              title: "Express",
-              badge: "Module",
-              collapsed: false,
-              items: [
-                { id: "op_ex_1", label: "Introduction to Frameworks" },
-                { id: "op_ex_2", label: "Introduction to Express" },
-                { id: "op_ex_3", label: "Routes" },
-                { id: "op_ex_4", label: "Controllers" },
-                { id: "op_ex_5", label: "Views" },
-                { id: "op_ex_6", label: "Deployment" },
-              ],
-            },
-            {
-              id: "s_forms_db",
-              title: "Forms, Data Handling & PostgreSQL",
-              badge: "Module",
-              collapsed: false,
-              items: [
-                { id: "op_fd_1", label: "Forms and Data Handling" },
-                { id: "op_fd_2", label: "Installing PostgreSQL" },
-                { id: "op_fd_3", label: "Using PostgreSQL" },
-              ],
-            },
-          ],
-          capstones: [
-            {
-              id: "cap_bs",
-              name: "Basic Informational Site (Pure Node, manual routing)",
-              icon: "🌐",
-              tick1: { id: "cap_bs_b", label: "Built" },
-              tick2: { id: "cap_bs_d", label: "Deployed" },
-            },
-            {
-              id: "cap_mb",
-              name: "Mini Message Board (Express + EJS forms)",
-              icon: "💬",
-              tick1: { id: "cap_mb_b", label: "Built" },
-              tick2: { id: "cap_mb_d", label: "Deployed" },
-            },
-            {
-              id: "cap_inv",
-              name: "Inventory App (CRUD + MVC Pattern)",
-              icon: "📦",
-              tick1: { id: "cap_inv_b", label: "Built" },
-              tick2: { id: "cap_inv_d", label: "Deployed" },
-            },
-          ],
-        },
-        {
-          id: "c3",
-          index: "03",
-          title: "Advanced Full Stack",
-          goal: "Security, Authentication, and Real APIs.",
-          tags: [
-            {
-              label: "Odin Project",
-              url: "https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs",
-            },
-          ],
-          type: "odin",
-          sections: [
-            {
-              id: "s_auth",
-              title: "Authentication",
-              badge: "Module",
-              collapsed: false,
-              items: [
-                {
-                  id: "op_auth_1",
-                  label:
-                    "Authentication Basics (Passport.js, Sessions, Bcrypt, Admin Roles)",
-                },
-              ],
-            },
-            {
-              id: "s_orm",
-              title: "ORMs",
-              badge: "Module",
-              collapsed: false,
-              items: [{ id: "op_orm_1", label: "Prisma ORM" }],
-            },
-            {
-              id: "s_apis",
-              title: "APIs",
-              badge: "Module",
-              collapsed: false,
-              items: [
-                { id: "op_api_1", label: "API Basics" },
-                { id: "op_api_2", label: "API Security" },
-              ],
-            },
-            {
-              id: "s_testing",
-              title: "Testing Express",
-              badge: "Module",
-              collapsed: false,
-              items: [
-                { id: "op_test_1", label: "Testing Routes and Controllers" },
-                { id: "op_test_2", label: "Testing Database Operations" },
-              ],
-            },
-          ],
-          capstones: [
-            {
-              id: "cap_memonly",
-              name: "Members Only (Passport.js + Bcrypt + Admin roles)",
-              icon: "🔐",
-              tick1: { id: "cap_mo_b", label: "Built" },
-              tick2: { id: "cap_mo_d", label: "Deployed" },
-            },
-            {
-              id: "cap_fileup",
-              name: "File Uploader (Multer + Cloudinary)",
-              icon: "📁",
-              tick1: { id: "cap_fu_b", label: "Built" },
-              tick2: { id: "cap_fu_d", label: "Deployed" },
-            },
-            {
-              id: "cap_blog",
-              name: "Blog API (REST backend + Separate React frontend)",
-              icon: "✍️",
-              tick1: { id: "cap_bl_b", label: "Built" },
-              tick2: { id: "cap_bl_d", label: "Deployed" },
-            },
-          ],
-        },
-        {
-          id: "c4",
-          index: "04",
-          title: "The Career Launchpad",
-          goal: "One massive project and a resume that sells it.",
-          tags: [
-            {
-              label: "Odin Project",
-              url: "https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs",
-            },
-          ],
-          type: "tasks",
-          tasks: [
-            {
-              id: "c4t_waldo",
-              main: "Where's Waldo — Photo Tagging App",
-              sub: "Full Stack · Odin Project",
-              date: "",
-            },
-            {
-              id: "c4t_msg",
-              main: "Messaging App",
-              sub: "Full Stack · Odin Project",
-              date: "",
-            },
-          ],
-          capstones: [
-            {
-              id: "cap_ob",
-              name: "Odin Book Capstone (Social Media Clone)",
-              icon: "📖",
-              tick1: { id: "cap_ob_b", label: "Built" },
-              tick2: { id: "cap_ob_d", label: "Deployed" },
-            },
-            {
-              id: "cap_gc",
-              name: "Global Community Site (MERN + Socket.io · Channels, DMs, Profiles)",
-              icon: "🌍",
-              tick1: { id: "cap_gc_b", label: "Built" },
-              tick2: { id: "cap_gc_d", label: "Deployed on Vercel/Render" },
-            },
-          ],
-        },
-        {
-          id: "c5",
-          index: "05",
-          title: "Portfolio Polish",
-          goal: "Resume and GitHub that actually sell your work.",
-          tags: [],
-          type: "tasks",
-          tasks: [
-            {
-              id: "c5t1",
-              main: "Resume",
-              sub: "Single column · Highlight Odin Book & Community Site",
-              date: "Mar 30–31",
-            },
-            {
-              id: "c5t2",
-              main: "GitHub READMEs",
-              sub: "Fix all READMEs with screenshots and demo links",
-              date: "Mar 30–31",
-            },
-          ],
-          capstones: [],
-        },
-        {
-          id: "c6",
-          index: "06",
-          title: "Academic Freeze",
-          goal: "Secure the >9 GPA. No new dev projects.",
-          tags: [],
-          type: "tasks",
-          tasks: [
-            {
-              id: "c6t1",
-              main: "Tailwind Week",
-              sub: "Learn utility classes · Refactor ONE previous project with Tailwind",
-              date: "Apr 01–07",
-            },
-            {
-              id: "c6t2",
-              main: "Exam Mode",
-              sub: "100% College Semesters · Coding only on weekends (small refactors)",
-              date: "Apr 08–May 31",
-            },
-          ],
-          capstones: [],
-        },
-        {
-          id: "c7",
-          index: "07",
-          title: "DSA Internship Grind",
-          goal: "Pass the coding interview. June.",
-          tags: [],
-          type: "dsa",
-          dsaGroups: [
-            {
-              week: "Week 1–2",
-              title: "Arrays",
-              items: [
-                { id: "dsa_arr_1", label: "Two Sum" },
-                { id: "dsa_arr_2", label: "Best Time to Buy and Sell Stock" },
-                { id: "dsa_arr_3", label: "Contains Duplicate" },
-                { id: "dsa_arr_4", label: "Move Zeroes" },
-                {
-                  id: "dsa_arr_5",
-                  label: "Remove Duplicates from Sorted Array",
-                },
-                { id: "dsa_arr_6", label: "Rotate Array" },
-                { id: "dsa_arr_7", label: "Maximum Subarray" },
-                { id: "dsa_arr_8", label: "Intersection of Two Arrays II" },
-                { id: "dsa_arr_9", label: "Plus One" },
-                {
-                  id: "dsa_arr_10",
-                  label: "Find All Numbers Disappeared in an Array",
-                },
-              ],
-            },
-            {
-              week: "Week 1–2",
-              title: "Strings",
-              items: [
-                { id: "dsa_str_1", label: "Valid Palindrome" },
-                { id: "dsa_str_2", label: "Reverse String" },
-                { id: "dsa_str_3", label: "Valid Anagram" },
-                {
-                  id: "dsa_str_4",
-                  label: "First Unique Character in a String",
-                },
-                { id: "dsa_str_5", label: "Longest Common Prefix" },
-                { id: "dsa_str_6", label: "Implement strStr()" },
-                { id: "dsa_str_7", label: "Reverse Words in a String" },
-              ],
-            },
-            {
-              week: "Week 3",
-              title: "Hashmaps",
-              items: [
-                { id: "dsa_hm_1", label: "Two Sum (HashMap)" },
-                { id: "dsa_hm_2", label: "Contains Duplicate" },
-                { id: "dsa_hm_3", label: "Group Anagrams" },
-                { id: "dsa_hm_4", label: "Majority Element" },
-                { id: "dsa_hm_5", label: "Happy Number" },
-              ],
-            },
-            {
-              week: "Week 3",
-              title: "Two Pointers",
-              items: [
-                { id: "dsa_tp_1", label: "Valid Palindrome" },
-                { id: "dsa_tp_2", label: "Remove Element" },
-                { id: "dsa_tp_3", label: "Container With Most Water" },
-                {
-                  id: "dsa_tp_4",
-                  label: "Longest Substring Without Repeating Characters",
-                },
-              ],
-            },
-            {
-              week: "Week 4",
-              title: "Recursion / Stack",
-              items: [
-                { id: "dsa_rs_1", label: "Fibonacci Number" },
-                { id: "dsa_rs_2", label: "Valid Parentheses" },
-                { id: "dsa_rs_3", label: "Climbing Stairs" },
-              ],
-            },
-          ],
-        },
-        {
-          id: "c8",
-          index: "08",
-          title: "Application Season",
-          goal: "Get Hired. July.",
-          tags: [],
-          type: "tasks",
-          tasks: [
-            {
-              id: "c8t1",
-              main: "Apply for paid internships",
-              sub: "Target companies · customise resume per role",
-              date: "July",
-            },
-            {
-              id: "c8t2",
-              main: "Join online hackathons",
-              sub: "Devpost — build fast, ship something",
-              date: "July",
-            },
-            {
-              id: "c8t3",
-              main: "Network on LinkedIn",
-              sub: "Post Global Community Site · Connect with recruiters",
-              date: "July",
-            },
-          ],
-          capstones: [],
-        },
-      ];
+// difficulty: e=easy, m=medium, h=hard
+// lc = leetcode problem number
+const DSA_PHASES = [
+  {
+    id:"ph1", num:"Phase 1", title:"Foundations", goal:"C++ STL + Big-O. Get comfortable before patterns.",
+    weeks:"Week 1–2 · ~20 problems",
+    groups:[
+      { id:"ph1_arr", title:"Arrays & Prefix Sum", pattern:"Prefix Sum",
+        items:[
+          {id:"d_1",  label:"Two Sum",                          lc:"1",   diff:"e"},
+          {id:"d_2",  label:"Best Time to Buy & Sell Stock",    lc:"121", diff:"e"},
+          {id:"d_3",  label:"Contains Duplicate",               lc:"217", diff:"e"},
+          {id:"d_4",  label:"Product of Array Except Self",     lc:"238", diff:"m"},
+          {id:"d_5",  label:"Maximum Subarray (Kadane)",        lc:"53",  diff:"m"},
+          {id:"d_6",  label:"Maximum Product Subarray",         lc:"152", diff:"m"},
+          {id:"d_7",  label:"Find Min in Rotated Sorted Array", lc:"153", diff:"m"},
+          {id:"d_8",  label:"Range Sum Query — Immutable",      lc:"303", diff:"e"},
+          {id:"d_9",  label:"Subarray Sum Equals K",            lc:"560", diff:"m"},
+          {id:"d_10", label:"Running Sum of 1D Array",          lc:"1480",diff:"e"},
+        ]
+      },
+      { id:"ph1_str", title:"Strings & Hashing", pattern:"HashMap",
+        items:[
+          {id:"d_11", label:"Valid Palindrome",                 lc:"125", diff:"e"},
+          {id:"d_12", label:"Valid Anagram",                    lc:"242", diff:"e"},
+          {id:"d_13", label:"Group Anagrams",                   lc:"49",  diff:"m"},
+          {id:"d_14", label:"Longest Common Prefix",            lc:"14",  diff:"e"},
+          {id:"d_15", label:"Encode & Decode Strings",          lc:"271", diff:"m"},
+          {id:"d_16", label:"Majority Element",                 lc:"169", diff:"e"},
+          {id:"d_17", label:"Happy Number",                     lc:"202", diff:"e"},
+          {id:"d_18", label:"First Unique Char in String",      lc:"387", diff:"e"},
+          {id:"d_19", label:"Isomorphic Strings",               lc:"205", diff:"e"},
+          {id:"d_20", label:"Longest Palindrome",               lc:"409", diff:"e"},
+        ]
+      },
+    ]
+  },
+  {
+    id:"ph2", num:"Phase 2", title:"Core Patterns I", goal:"Two Pointers, Sliding Window, Binary Search. The bread & butter.",
+    weeks:"Week 3–4 · ~25 problems",
+    groups:[
+      { id:"ph2_tp", title:"Two Pointers", pattern:"Two Pointers",
+        items:[
+          {id:"d_21", label:"Valid Palindrome II",              lc:"680", diff:"e"},
+          {id:"d_22", label:"3Sum",                             lc:"15",  diff:"m"},
+          {id:"d_23", label:"Container With Most Water",        lc:"11",  diff:"m"},
+          {id:"d_24", label:"Trapping Rain Water",              lc:"42",  diff:"h"},
+          {id:"d_25", label:"Remove Duplicates (Sorted Array)", lc:"26",  diff:"e"},
+          {id:"d_26", label:"Move Zeroes",                      lc:"283", diff:"e"},
+        ]
+      },
+      { id:"ph2_sw", title:"Sliding Window", pattern:"Sliding Window",
+        items:[
+          {id:"d_27", label:"Longest Substr Without Repeating", lc:"3",   diff:"m"},
+          {id:"d_28", label:"Longest Repeating Char Replacement",lc:"424",diff:"m"},
+          {id:"d_29", label:"Minimum Window Substring",         lc:"76",  diff:"h"},
+          {id:"d_30", label:"Permutation in String",            lc:"567", diff:"m"},
+          {id:"d_31", label:"Max Avg Subarray I",               lc:"643", diff:"e"},
+          {id:"d_32", label:"Fruits Into Baskets",              lc:"904", diff:"m"},
+        ]
+      },
+      { id:"ph2_bs", title:"Binary Search", pattern:"Modified Binary Search",
+        items:[
+          {id:"d_33", label:"Binary Search",                    lc:"704", diff:"e"},
+          {id:"d_34", label:"Search in Rotated Sorted Array",   lc:"33",  diff:"m"},
+          {id:"d_35", label:"Find Min in Rotated Sorted Array II",lc:"154",diff:"h"},
+          {id:"d_36", label:"Search a 2D Matrix",               lc:"74",  diff:"m"},
+          {id:"d_37", label:"Koko Eating Bananas",              lc:"875", diff:"m"},
+          {id:"d_38", label:"Time Based Key-Value Store",       lc:"981", diff:"m"},
+        ]
+      },
+      { id:"ph2_ll", title:"Linked List", pattern:"Fast & Slow Pointers",
+        items:[
+          {id:"d_39", label:"Reverse Linked List",              lc:"206", diff:"e"},
+          {id:"d_40", label:"Merge Two Sorted Lists",           lc:"21",  diff:"e"},
+          {id:"d_41", label:"Linked List Cycle",                lc:"141", diff:"e"},
+          {id:"d_42", label:"Middle of Linked List",            lc:"876", diff:"e"},
+          {id:"d_43", label:"Remove Nth Node From End",         lc:"19",  diff:"m"},
+          {id:"d_44", label:"Reorder List",                     lc:"143", diff:"m"},
+          {id:"d_45", label:"LRU Cache",                        lc:"146", diff:"m"},
+        ]
+      },
+    ]
+  },
+  {
+    id:"ph3", num:"Phase 3", title:"Trees & Graphs", goal:"The most asked in internship interviews. Own DFS and BFS.",
+    weeks:"Week 5–6 · ~25 problems",
+    groups:[
+      { id:"ph3_tdfs", title:"Binary Tree DFS", pattern:"Tree DFS",
+        items:[
+          {id:"d_46", label:"Invert Binary Tree",               lc:"226", diff:"e"},
+          {id:"d_47", label:"Max Depth of Binary Tree",         lc:"104", diff:"e"},
+          {id:"d_48", label:"Same Tree",                        lc:"100", diff:"e"},
+          {id:"d_49", label:"Subtree of Another Tree",          lc:"572", diff:"e"},
+          {id:"d_50", label:"Lowest Common Ancestor (BST)",     lc:"235", diff:"m"},
+          {id:"d_51", label:"Validate Binary Search Tree",      lc:"98",  diff:"m"},
+          {id:"d_52", label:"Kth Smallest in BST",              lc:"230", diff:"m"},
+          {id:"d_53", label:"Construct Tree from Pre+Inorder",  lc:"105", diff:"m"},
+          {id:"d_54", label:"Serialize & Deserialize BTree",    lc:"297", diff:"h"},
+          {id:"d_55", label:"Binary Tree Max Path Sum",         lc:"124", diff:"h"},
+        ]
+      },
+      { id:"ph3_tbfs", title:"Binary Tree BFS", pattern:"Tree BFS",
+        items:[
+          {id:"d_56", label:"Binary Tree Level Order Traversal",lc:"102", diff:"m"},
+          {id:"d_57", label:"Right Side View",                  lc:"199", diff:"m"},
+          {id:"d_58", label:"Average of Levels",                lc:"637", diff:"e"},
+          {id:"d_59", label:"Zigzag Level Order Traversal",     lc:"103", diff:"m"},
+        ]
+      },
+      { id:"ph3_g", title:"Graphs (DFS + BFS)", pattern:"DFS / BFS",
+        items:[
+          {id:"d_60", label:"Number of Islands",                lc:"200", diff:"m"},
+          {id:"d_61", label:"Clone Graph",                      lc:"133", diff:"m"},
+          {id:"d_62", label:"Pacific Atlantic Water Flow",      lc:"417", diff:"m"},
+          {id:"d_63", label:"Surrounded Regions",               lc:"130", diff:"m"},
+          {id:"d_64", label:"Rotting Oranges",                  lc:"994", diff:"m"},
+          {id:"d_65", label:"Walls and Gates",                  lc:"286", diff:"m"},
+          {id:"d_66", label:"Word Ladder",                      lc:"127", diff:"h"},
+          {id:"d_67", label:"Course Schedule",                  lc:"207", diff:"m"},
+          {id:"d_68", label:"Course Schedule II",               lc:"210", diff:"m"},
+          {id:"d_69", label:"Redundant Connection",             lc:"684", diff:"m"},
+          {id:"d_70", label:"Number of Connected Components",   lc:"323", diff:"m"},
+        ]
+      },
+    ]
+  },
+  {
+    id:"ph4", num:"Phase 4", title:"Advanced Patterns", goal:"Stacks, Heaps, Backtracking. Separate you from the crowd.",
+    weeks:"Week 7–8 · ~20 problems",
+    groups:[
+      { id:"ph4_ms", title:"Monotonic Stack", pattern:"Monotonic Stack",
+        items:[
+          {id:"d_71", label:"Valid Parentheses",                lc:"20",  diff:"e"},
+          {id:"d_72", label:"Daily Temperatures",               lc:"739", diff:"m"},
+          {id:"d_73", label:"Next Greater Element I",           lc:"496", diff:"e"},
+          {id:"d_74", label:"Largest Rectangle in Histogram",   lc:"84",  diff:"h"},
+          {id:"d_75", label:"Car Fleet",                        lc:"853", diff:"m"},
+        ]
+      },
+      { id:"ph4_heap", title:"Heaps / Top-K", pattern:"Top K Elements",
+        items:[
+          {id:"d_76", label:"Kth Largest Element in Array",     lc:"215", diff:"m"},
+          {id:"d_77", label:"Top K Frequent Elements",          lc:"347", diff:"m"},
+          {id:"d_78", label:"Find Median from Data Stream",     lc:"295", diff:"h"},
+          {id:"d_79", label:"K Closest Points to Origin",       lc:"973", diff:"m"},
+          {id:"d_80", label:"Task Scheduler",                   lc:"621", diff:"m"},
+        ]
+      },
+      { id:"ph4_bt", title:"Backtracking", pattern:"Backtracking",
+        items:[
+          {id:"d_81", label:"Subsets",                          lc:"78",  diff:"m"},
+          {id:"d_82", label:"Subsets II",                       lc:"90",  diff:"m"},
+          {id:"d_83", label:"Combination Sum",                  lc:"39",  diff:"m"},
+          {id:"d_84", label:"Combination Sum II",               lc:"40",  diff:"m"},
+          {id:"d_85", label:"Permutations",                     lc:"46",  diff:"m"},
+          {id:"d_86", label:"Word Search",                      lc:"79",  diff:"m"},
+          {id:"d_87", label:"N-Queens",                         lc:"51",  diff:"h"},
+          {id:"d_88", label:"Palindrome Partitioning",          lc:"131", diff:"m"},
+        ]
+      },
+      { id:"ph4_oi", title:"Overlapping Intervals", pattern:"Merge Intervals",
+        items:[
+          {id:"d_89", label:"Merge Intervals",                  lc:"56",  diff:"m"},
+          {id:"d_90", label:"Insert Interval",                  lc:"57",  diff:"m"},
+        ]
+      },
+    ]
+  },
+  {
+    id:"ph5", num:"Phase 5", title:"Dynamic Programming", goal:"The final boss. Learn the patterns, not the solutions.",
+    weeks:"Week 9–10 · ~10 problems",
+    groups:[
+      { id:"ph5_dp1d", title:"1-D DP", pattern:"Dynamic Programming",
+        items:[
+          {id:"d_91", label:"Climbing Stairs",                  lc:"70",  diff:"e"},
+          {id:"d_92", label:"House Robber",                     lc:"198", diff:"m"},
+          {id:"d_93", label:"House Robber II",                  lc:"213", diff:"m"},
+          {id:"d_94", label:"Longest Palindromic Substring",    lc:"5",   diff:"m"},
+          {id:"d_95", label:"Palindromic Substrings",           lc:"647", diff:"m"},
+        ]
+      },
+      { id:"ph5_dp2d", title:"2-D DP", pattern:"Dynamic Programming",
+        items:[
+          {id:"d_96", label:"Unique Paths",                     lc:"62",  diff:"m"},
+          {id:"d_97", label:"Longest Common Subsequence",       lc:"1143",diff:"m"},
+          {id:"d_98", label:"Edit Distance",                    lc:"72",  diff:"h"},
+          {id:"d_99", label:"Coin Change",                      lc:"322", diff:"m"},
+          {id:"d_100",label:"Word Break",                       lc:"139", diff:"m"},
+        ]
+      },
+    ]
+  },
+];
 
-      // STATE
-      const SK = "lokesh_v3";
-      let S = (() => {
-        try {
-          return JSON.parse(localStorage.getItem(SK)) || {};
-        } catch {
-          return {};
-        }
-      })();
-      const save = () => localStorage.setItem(SK, JSON.stringify(S));
-      const CSK = "lokesh_cs_v3";
-      let CS = (() => {
-        try {
-          return JSON.parse(localStorage.getItem(CSK)) || {};
-        } catch {
-          return {};
-        }
-      })();
-      const saveCS = () => localStorage.setItem(CSK, JSON.stringify(CS));
+const CHUNKS = [
+  {
+    id:"c1",index:"01",title:"The React Sprint",goal:"Stop watching tutorials. Start typing code.",
+    tags:[{label:"FreeCodeCamp",url:"https://www.freecodecamp.org/"}],
+    type:"fcc",
+    sections:[
+      {id:"s_se",title:"Working with State & Responding to Events",badge:"Theory",collapsed:false,items:[
+        {id:"fcc_se_1",label:"How Do Events Work in React?"},
+        {id:"fcc_se_2",label:"What is State, and How Does the useState Hook Work?"},
+        {id:"fcc_se_3",label:"What Is Rendering in React, and How Are Components Displayed on the Screen?"},
+        {id:"fcc_se_4",label:"How Do You Update Objects in State?"},
+        {id:"fcc_se_5",label:"How Do You Update Arrays in State?"},
+      ]},
+      {id:"s_toggle",title:"Toggle Text App",badge:"Workshop",collapsed:true,items:Array.from({length:13},(_,i)=>({id:`fcc_ta_${i+1}`,label:`Step ${i+1}`}))},
+      {id:"s_colorpicker",title:"Build a Color Picker App",badge:"Lab",collapsed:false,items:[{id:"fcc_cp_1",label:"Complete the Color Picker Lab"}]},
+      {id:"s_er",title:"Understanding Effects & Referencing Values in React",badge:"Theory",collapsed:false,items:[
+        {id:"fcc_er_1",label:"How Do You Reference Values Using Refs?"},
+        {id:"fcc_er_2",label:"What Are Effects in React, and How Does the useEffect Hook Work?"},
+        {id:"fcc_er_3",label:"How Can You Create Custom Hooks in React?"},
+      ]},
+      {id:"s_fruit",title:"Build a Fruit Search App",badge:"Workshop",collapsed:true,items:Array.from({length:21},(_,i)=>({id:`fcc_fs_${i+1}`,label:`Step ${i+1}`}))},
+      {id:"s_otp",title:"Build a One-Time Password Generator",badge:"Lab",collapsed:false,items:[{id:"fcc_otp_1",label:"Complete the OTP Generator Lab"}]},
+      {id:"s_shr",title:"React State and Hooks Review",badge:"Review",collapsed:false,items:[{id:"fcc_shr_1",label:"Complete the State & Hooks Review"}]},
+      {id:"s_shq",title:"React State and Hooks Quiz",badge:"Quiz",collapsed:false,items:[{id:"fcc_shq_1",label:"Pass the State & Hooks Quiz"}]},
+      {id:"s_forms",title:"Working with Forms in React",badge:"Theory",collapsed:false,items:[
+        {id:"fcc_ft_1",label:"How Do Forms Work in React?"},
+        {id:"fcc_ft_2",label:"What Is the useActionState Hook, and How Does It Work?"},
+      ]},
+      {id:"s_superhero",title:"Build a Superhero Application Form",badge:"Workshop",collapsed:true,items:Array.from({length:21},(_,i)=>({id:`fcc_sf_${i+1}`,label:`Step ${i+1}`}))},
+      {id:"s_rsvp",title:"Build an Event RSVP",badge:"Lab",collapsed:false,items:[{id:"fcc_rsvp_1",label:"Complete the Event RSVP Lab"}]},
+      {id:"s_df",title:"Working with Data Fetching & Memoization in React",badge:"Theory",collapsed:false,items:[
+        {id:"fcc_df_1",label:"How Does Data Fetching Work in React?"},
+        {id:"fcc_df_2",label:"What Is the useOptimistic Hook, and How Does It Work?"},
+        {id:"fcc_df_3",label:"What Is Memoization, and How Does the useMemo Hook Work?"},
+        {id:"fcc_df_4",label:"How Do the useCallback Hook and React.memo Work?"},
+      ]},
+      {id:"s_shopping",title:"Build a Shopping List App",badge:"Workshop",collapsed:true,items:Array.from({length:30},(_,i)=>({id:`fcc_sl_${i+1}`,label:`Step ${i+1}`}))},
+      {id:"s_routing",title:"Routing, React Frameworks & Dependency Management",badge:"Theory",collapsed:false,items:[
+        {id:"fcc_rt_1",label:"What Is Dependency Management, and How Does It Work with Libraries Like React?"},
+        {id:"fcc_rt_2",label:"How Does Routing Work in React?"},
+        {id:"fcc_rt_3",label:"What Are React Frameworks, and Why Are They Commonly Used in the Industry?"},
+      ]},
+      {id:"s_debug",title:"React Strategies and Debugging",badge:"Theory",collapsed:false,items:[
+        {id:"fcc_sd_1",label:"What Is Prop Drilling?"},
+        {id:"fcc_sd_2",label:"What Are State Management Libraries, and When Should You Use Them?"},
+        {id:"fcc_sd_3",label:"How Can You Debug Your React Components Using the React DevTools?"},
+        {id:"fcc_sd_4",label:"What Are React Server Components, and How Do They Work?"},
+      ]},
+      {id:"s_frr",title:"React Forms, Data Fetching and Routing Review",badge:"Review",collapsed:false,items:[{id:"fcc_frr_1",label:"Complete the Review"}]},
+      {id:"s_frq",title:"React Forms, Data Fetching and Routing Quiz",badge:"Quiz",collapsed:false,items:[{id:"fcc_frq_1",label:"Pass the Quiz"}]},
+    ],
+    capstones:[
+      {id:"cap_movie",name:"Movie Watchlist (OMDB API)",icon:"🎬",tick1:{id:"cap_mov_b",label:"Built"},tick2:{id:"cap_mov_d",label:"Deployed"}},
+      {id:"cap_memory",name:"Memory Card Game",icon:"🃏",tick1:{id:"cap_mem_b",label:"Built"},tick2:{id:"cap_mem_d",label:"Deployed"}},
+    ],
+  },
+  {
+    id:"c2",index:"02",title:"Backend Core",goal:"Understand how the server and database talk.",
+    tags:[
+      {label:"Node.js YT",url:"https://youtu.be/32M1al-Y6Ag?si=r2O_ngSRzfoawNUU"},
+      {label:"Express YT",url:"https://www.youtube.com/watch?v=CnH3kAXSrmU"},
+      {label:"MongoDB YT",url:"https://www.youtube.com/watch?v=ofme2o29ngU"},
+      {label:"Odin Project",url:"https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs"},
+    ],
+    type:"odin",
+    sections:[
+      {id:"s_intro_node",title:"Introduction to NodeJS",badge:"Module",collapsed:false,items:[
+        {id:"op_be_1",label:"Introduction to the Back End"},
+        {id:"op_be_2",label:"Introduction: What is NodeJS?"},
+        {id:"op_be_3",label:"Getting Started with Node"},
+        {id:"op_be_4",label:"Debugging Node"},
+        {id:"op_be_5",label:"Environment Variables"},
+      ]},
+      {id:"s_express",title:"Express",badge:"Module",collapsed:false,items:[
+        {id:"op_ex_1",label:"Introduction to Frameworks"},
+        {id:"op_ex_2",label:"Introduction to Express"},
+        {id:"op_ex_3",label:"Routes"},
+        {id:"op_ex_4",label:"Controllers"},
+        {id:"op_ex_5",label:"Views"},
+        {id:"op_ex_6",label:"Deployment"},
+      ]},
+      {id:"s_forms_db",title:"Forms, Data Handling & PostgreSQL",badge:"Module",collapsed:false,items:[
+        {id:"op_fd_1",label:"Forms and Data Handling"},
+        {id:"op_fd_2",label:"Installing PostgreSQL"},
+        {id:"op_fd_3",label:"Using PostgreSQL"},
+      ]},
+    ],
+    capstones:[
+      {id:"cap_bs",name:"Basic Informational Site (Pure Node, manual routing)",icon:"🌐",tick1:{id:"cap_bs_b",label:"Built"},tick2:{id:"cap_bs_d",label:"Deployed"}},
+      {id:"cap_mb",name:"Mini Message Board (Express + EJS forms)",icon:"💬",tick1:{id:"cap_mb_b",label:"Built"},tick2:{id:"cap_mb_d",label:"Deployed"}},
+      {id:"cap_inv",name:"Inventory App (CRUD + MVC Pattern)",icon:"📦",tick1:{id:"cap_inv_b",label:"Built"},tick2:{id:"cap_inv_d",label:"Deployed"}},
+    ],
+  },
+  {
+    id:"c3",index:"03",title:"Advanced Full Stack",goal:"Security, Authentication, and Real APIs.",
+    tags:[{label:"Odin Project",url:"https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs"}],
+    type:"odin",
+    sections:[
+      {id:"s_auth",title:"Authentication",badge:"Module",collapsed:false,items:[
+        {id:"op_auth_1",label:"Authentication Basics (Passport.js, Sessions, Bcrypt, Admin Roles)"},
+      ]},
+      {id:"s_orm",title:"ORMs",badge:"Module",collapsed:false,items:[
+        {id:"op_orm_1",label:"Prisma ORM"},
+      ]},
+      {id:"s_apis",title:"APIs",badge:"Module",collapsed:false,items:[
+        {id:"op_api_1",label:"API Basics"},
+        {id:"op_api_2",label:"API Security"},
+      ]},
+      {id:"s_testing",title:"Testing Express",badge:"Module",collapsed:false,items:[
+        {id:"op_test_1",label:"Testing Routes and Controllers"},
+        {id:"op_test_2",label:"Testing Database Operations"},
+      ]},
+    ],
+    capstones:[
+      {id:"cap_memonly",name:"Members Only (Passport.js + Bcrypt + Admin roles)",icon:"🔐",tick1:{id:"cap_mo_b",label:"Built"},tick2:{id:"cap_mo_d",label:"Deployed"}},
+      {id:"cap_fileup",name:"File Uploader (Multer + Cloudinary)",icon:"📁",tick1:{id:"cap_fu_b",label:"Built"},tick2:{id:"cap_fu_d",label:"Deployed"}},
+      {id:"cap_blog",name:"Blog API (REST backend + Separate React frontend)",icon:"✍️",tick1:{id:"cap_bl_b",label:"Built"},tick2:{id:"cap_bl_d",label:"Deployed"}},
+    ],
+  },
+  {
+    id:"c4",index:"04",title:"The Career Launchpad",goal:"One massive project and a resume that sells it.",
+    tags:[{label:"Odin Project",url:"https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs"}],
+    type:"tasks",
+    tasks:[
+      {id:"c4t_waldo",main:"Where's Waldo — Photo Tagging App",sub:"Full Stack · Odin Project",date:""},
+      {id:"c4t_msg",main:"Messaging App",sub:"Full Stack · Odin Project",date:""},
+    ],
+    capstones:[
+      {id:"cap_ob",name:"Odin Book Capstone (Social Media Clone)",icon:"📖",tick1:{id:"cap_ob_b",label:"Built"},tick2:{id:"cap_ob_d",label:"Deployed"}},
+      {id:"cap_gc",name:"Global Community Site (MERN + Socket.io · Channels, DMs, Profiles)",icon:"🌍",tick1:{id:"cap_gc_b",label:"Built"},tick2:{id:"cap_gc_d",label:"Deployed on Vercel/Render"}},
+    ],
+  },
+  {
+    id:"c5",index:"05",title:"Portfolio Polish",goal:"Resume and GitHub that actually sell your work.",
+    tags:[],type:"tasks",
+    tasks:[
+      {id:"c5t1",main:"Resume",sub:"Single column · Highlight Odin Book & Community Site",date:"Mar 30–31"},
+      {id:"c5t2",main:"GitHub READMEs",sub:"Fix all READMEs with screenshots and demo links",date:"Mar 30–31"},
+    ],
+    capstones:[],
+  },
+  {
+    id:"c6",index:"06",title:"Academic Freeze",goal:"Secure the >9 GPA. No new dev projects.",
+    tags:[],type:"tasks",
+    tasks:[
+      {id:"c6t1",main:"Tailwind Week",sub:"Learn utility classes · Refactor ONE previous project with Tailwind",date:"Apr 01–07"},
+      {id:"c6t2",main:"Exam Mode",sub:"100% College Semesters · Coding only on weekends (small refactors)",date:"Apr 08–May 31"},
+    ],
+    capstones:[],
+  },
+  {
+    id:"c7",index:"07",title:"DSA Internship Grind",goal:"100 problems. 15 patterns. Pass the interview. June.",
+    tags:[],type:"dsa",
+  },
+  {
+    id:"c8",index:"08",title:"Application Season",goal:"Get Hired. July.",
+    tags:[],type:"tasks",
+    tasks:[
+      {id:"c8t1",main:"Apply for paid internships",sub:"Target companies · customise resume per role",date:"July"},
+      {id:"c8t2",main:"Join online hackathons",sub:"Devpost — build fast, ship something",date:"July"},
+      {id:"c8t3",main:"Network on LinkedIn",sub:"Post Global Community Site · Connect with recruiters",date:"July"},
+    ],
+    capstones:[],
+  },
+];
 
-      function getAllIds(chunk) {
-        const ids = [];
-        if (chunk.type === "fcc" || chunk.type === "odin") {
-          chunk.sections.forEach((s) => s.items.forEach((i) => ids.push(i.id)));
-          (chunk.capstones || []).forEach((c) => {
-            ids.push(c.tick1.id);
-            ids.push(c.tick2.id);
-          });
-        } else if (chunk.type === "tasks") {
-          (chunk.tasks || []).forEach((t) => ids.push(t.id));
-          (chunk.capstones || []).forEach((c) => {
-            ids.push(c.tick1.id);
-            ids.push(c.tick2.id);
-          });
-        } else if (chunk.type === "dsa") {
-          chunk.dsaGroups.forEach((g) =>
-            g.items.forEach((i) => ids.push(i.id)),
-          );
-        }
-        return ids;
-      }
-      function chunkProg(chunk) {
-        const ids = getAllIds(chunk);
-        const done = ids.filter((id) => S[id]).length;
-        return {
-          done,
-          total: ids.length,
-          pct: ids.length ? Math.round((done / ids.length) * 100) : 0,
-        };
-      }
-      function overallProg() {
-        const all = CHUNKS.flatMap(getAllIds);
-        const done = all.filter((id) => S[id]).length;
-        return {
-          done,
-          total: all.length,
-          pct: all.length ? Math.round((done / all.length) * 100) : 0,
-        };
-      }
+// STATE
+const SK="lokesh_v4";
+let S=(()=>{try{return JSON.parse(localStorage.getItem(SK))||{};}catch{return{}}})();
+const save=()=>localStorage.setItem(SK,JSON.stringify(S));
+const CSK="lokesh_cs_v4";
+let CS=(()=>{try{return JSON.parse(localStorage.getItem(CSK))||{};}catch{return{}}})();
+const saveCS=()=>localStorage.setItem(CSK,JSON.stringify(CS));
 
-      function renderAll() {
-        renderChunks();
-        renderSidebar();
-        renderOverall();
-      }
+function getAllDsaIds(){
+  const ids=[];
+  DSA_PHASES.forEach(ph=>ph.groups.forEach(g=>g.items.forEach(i=>ids.push(i.id))));
+  return ids;
+}
+function getAllIds(chunk){
+  const ids=[];
+  if(chunk.type==="fcc"||chunk.type==="odin"){
+    chunk.sections.forEach(s=>s.items.forEach(i=>ids.push(i.id)));
+    (chunk.capstones||[]).forEach(c=>{ids.push(c.tick1.id);ids.push(c.tick2.id)});
+  }else if(chunk.type==="tasks"){
+    (chunk.tasks||[]).forEach(t=>ids.push(t.id));
+    (chunk.capstones||[]).forEach(c=>{ids.push(c.tick1.id);ids.push(c.tick2.id)});
+  }else if(chunk.type==="dsa"){
+    getAllDsaIds().forEach(id=>ids.push(id));
+  }
+  return ids;
+}
+function chunkProg(chunk){
+  const ids=getAllIds(chunk);
+  const done=ids.filter(id=>S[id]).length;
+  return{done,total:ids.length,pct:ids.length?Math.round(done/ids.length*100):0};
+}
+function overallProg(){
+  const all=CHUNKS.flatMap(getAllIds);
+  const done=all.filter(id=>S[id]).length;
+  return{done,total:all.length,pct:all.length?Math.round(done/all.length*100):0};
+}
+function phaseProg(ph){
+  const ids=[];
+  ph.groups.forEach(g=>g.items.forEach(i=>ids.push(i.id)));
+  const done=ids.filter(id=>S[id]).length;
+  return{done,total:ids.length,pct:ids.length?Math.round(done/ids.length*100):0};
+}
+function dsaTotal(){
+  const ids=getAllDsaIds();
+  const done=ids.filter(id=>S[id]).length;
+  return{done,total:ids.length,easy:ids.filter(id=>getDiff(id)==="e"&&S[id]).length,med:ids.filter(id=>getDiff(id)==="m"&&S[id]).length,hard:ids.filter(id=>getDiff(id)==="h"&&S[id]).length};
+}
+function getDiff(id){
+  for(const ph of DSA_PHASES)for(const g of ph.groups)for(const item of g.items)if(item.id===id)return item.diff;
+  return"e";
+}
 
-      function capstoneHTML(cap, chunkId) {
-        const d1 = !!S[cap.tick1.id],
-          d2 = !!S[cap.tick2.id];
-        return `<div class="capstone-block">
-    <div class="capstone-header">
-      <div class="capstone-left">
-        <span class="capstone-icon">${cap.icon}</span>
-        <div>
-          <div class="capstone-eyebrow">Capstone</div>
-          <div class="capstone-name">${cap.name}</div>
-        </div>
-      </div>
-      <div class="capstone-ticks">
-        <div class="cap-tick${d1 ? " done" : ""}" onclick="toggleItem('${cap.tick1.id}','${chunkId}')">
-          <div class="ck-sm">${d1 ? CK11 : ""}</div>${cap.tick1.label}
-        </div>
-        <div class="cap-tick${d2 ? " done" : ""}" onclick="toggleItem('${cap.tick2.id}','${chunkId}')">
-          <div class="ck-sm">${d2 ? CK11 : ""}</div>${cap.tick2.label}
-        </div>
+function capstoneHTML(cap,chunkId){
+  const d1=!!S[cap.tick1.id],d2=!!S[cap.tick2.id];
+  return`<div class="capstone-block">
+  <div class="capstone-header">
+    <div class="capstone-left">
+      <span class="capstone-icon">${cap.icon}</span>
+      <div>
+        <div class="capstone-eyebrow">Capstone</div>
+        <div class="capstone-name">${cap.name}</div>
       </div>
     </div>
-  </div>`;
-      }
-
-      function renderChunks() {
-        const root = document.getElementById("chunksRoot");
-        root.innerHTML = "";
-        CHUNKS.forEach((chunk, ci) => {
-          const { pct } = chunkProg(chunk);
-          const el = document.createElement("div");
-          el.className = "chunk";
-          el.id = chunk.id;
-          let h = `<div class="chunk-header">
-      <div>
-        <div class="chunk-eyebrow">Chunk ${chunk.index}</div>
-        <div class="chunk-title">${chunk.title}</div>
-        <div class="chunk-goal">${chunk.goal}</div>
-        ${chunk.tags && chunk.tags.length ? `<div class="chunk-meta">${chunk.tags.map((t) => `<span class="chunk-tag">${t.url ? `<a href="${t.url}" target="_blank" rel="noopener">${t.label}</a>` : t.label}</span>`).join("")}</div>` : ""}
+    <div class="capstone-ticks">
+      <div class="cap-tick${d1?" done":""}" onclick="toggleItem('${cap.tick1.id}','${chunkId}')">
+        <div class="ck-sm">${d1?CK11:""}</div>${cap.tick1.label}
       </div>
-      <div class="chunk-right">
-        <div class="chunk-pct-num" id="pct-${chunk.id}">${pct}%</div>
-        <div class="chunk-bar"><div class="chunk-fill" id="fill-${chunk.id}" style="width:${pct}%"></div></div>
+      <div class="cap-tick${d2?" done":""}" onclick="toggleItem('${cap.tick2.id}','${chunkId}')">
+        <div class="ck-sm">${d2?CK11:""}</div>${cap.tick2.label}
+      </div>
+    </div>
+  </div>
+</div>`;
+}
+
+function renderDsaChunk(){
+  const stats=dsaTotal();
+  let h=``;
+
+  // starter kit box
+  h+=`<div class="dsa-starter-box">
+  <div class="dsa-starter-hd">
+    <span style="font-size:13px">📦</span>
+    <div class="dsa-starter-hd-title">Starter Kit — C++ STL Cheatsheet & Resources</div>
+  </div>
+  <div class="dsa-starter-body">
+    <a class="dsa-pill" href="https://cppreference.com" target="_blank">cppreference.com</a>
+    <a class="dsa-pill" href="https://leetcode.com/studyplan/top-100-liked/" target="_blank">LC Top 100</a>
+    <a class="dsa-pill" href="https://neetcode.io/roadmap" target="_blank">NeetCode Roadmap</a>
+    <a class="dsa-pill" href="https://seanprashad.com/leetcode-patterns/" target="_blank">LC Patterns</a>
+    <a class="dsa-pill" href="https://visualgo.net" target="_blank">VisuAlgo</a>
+    <a class="dsa-pill yt" href="https://www.youtube.com/@NeetCode" target="_blank">▶ NeetCode YT</a>
+    <a class="dsa-pill yt" href="https://www.youtube.com/@takeUforward" target="_blank">▶ Striver (TUF)</a>
+    <a class="dsa-pill yt" href="https://www.youtube.com/@Abdul_Bari" target="_blank">▶ Abdul Bari</a>
+    <a class="dsa-pill" href="https://www.bigocheatsheet.com/" target="_blank">Big-O Cheatsheet</a>
+    <a class="dsa-pill" href="https://github.com/seanprashad/leetcode-patterns" target="_blank">GitHub Patterns</a>
+  </div>
+</div>`;
+
+  // stats
+  const eT=getAllDsaIds().filter(id=>getDiff(id)==="e").length;
+  const mT=getAllDsaIds().filter(id=>getDiff(id)==="m").length;
+  const hT=getAllDsaIds().filter(id=>getDiff(id)==="h").length;
+  h+=`<div class="dsa-stats-row">
+  <div class="dsa-stat-box">
+    <div class="dsa-stat-lbl">Total Solved</div>
+    <div class="dsa-stat-val" id="dsa_stat_total">${stats.done}/${stats.total}</div>
+    <div class="dsa-stat-sub">problems</div>
+  </div>
+  <div class="dsa-stat-box">
+    <div class="dsa-stat-lbl" style="color:var(--easy)">Easy</div>
+    <div class="dsa-stat-val" id="dsa_stat_easy" style="color:var(--easy)">${stats.easy}/${eT}</div>
+    <div class="dsa-stat-sub">solved</div>
+  </div>
+  <div class="dsa-stat-box">
+    <div class="dsa-stat-lbl" style="color:var(--med)">Medium</div>
+    <div class="dsa-stat-val" id="dsa_stat_med" style="color:var(--med)">${stats.med}/${mT}</div>
+    <div class="dsa-stat-sub">solved</div>
+  </div>
+  <div class="dsa-stat-box">
+    <div class="dsa-stat-lbl" style="color:var(--hard)">Hard</div>
+    <div class="dsa-stat-val" id="dsa_stat_hard" style="color:var(--hard)">${stats.hard}/${hT}</div>
+    <div class="dsa-stat-sub">solved</div>
+  </div>
+</div>`;
+
+  // phases
+  DSA_PHASES.forEach(ph=>{
+    const{done,total,pct}=phaseProg(ph);
+    h+=`<div class="dsa-phase-banner" id="dsa-ph-${ph.id}">
+  <div class="dsa-phase-top">
+    <div class="dsa-phase-left">
+      <span class="dsa-phase-num">${ph.num}</span>
+      <div>
+        <div class="dsa-phase-title">${ph.title}</div>
+        <div class="dsa-phase-goal">${ph.goal}</div>
+      </div>
+    </div>
+    <div style="text-align:right;flex-shrink:0">
+      <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:500;color:var(--text)" id="dsa-ph-pct-${ph.id}">${pct}%</div>
+      <div style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--text3)">${ph.weeks}</div>
+    </div>
+  </div>
+  <div class="dsa-phase-bar-wrap">
+    <div class="dsa-phase-bar"><div class="dsa-phase-fill" id="dsa-ph-fill-${ph.id}" style="width:${pct}%"></div></div>
+    <div class="dsa-phase-pct">${done}/${total}</div>
+  </div>
+</div>`;
+
+    // groups in 2-col grid
+    const pairs=[];
+    for(let i=0;i<ph.groups.length;i+=2)pairs.push([ph.groups[i],ph.groups[i+1]]);
+    pairs.forEach(pair=>{
+      h+=`<div class="dsa-grid">`;
+      pair.forEach(grp=>{
+        if(!grp)return;
+        const gD=grp.items.filter(i=>S[i.id]).length;
+        h+=`<div class="dsa-card">
+  <div class="dsa-card-header">
+    <div class="dsa-card-title">${grp.title}</div>
+    <div class="dsa-card-count" id="dc-${grp.id}">${gD}/${grp.items.length}</div>
+  </div>
+  <div class="dsa-items">
+    ${grp.items.map(item=>{
+      const done=!!S[item.id];
+      return`<div class="dsa-pattern-row${done?" done":""}" onclick="toggleItem('${item.id}','c7')">
+      <div class="dsa-prow-left">
+        <div class="dsa-check">${done?CK13:""}</div>
+        <div class="dsa-label">${item.label}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        <a class="lc-link" href="https://leetcode.com/problems/${lcSlug(item.label)}/" target="_blank" onclick="event.stopPropagation()">#${item.lc}</a>
+        <div class="diff-dot diff-${item.diff}"></div>
       </div>
     </div>`;
+    }).join("")}
+  </div>
+</div>`;
+      });
+      h+=`</div>`;
+    });
+  });
 
-          if (chunk.type === "fcc" || chunk.type === "odin") {
-            chunk.sections.forEach((sec) => {
-              const isC =
-                CS[sec.id] !== undefined ? CS[sec.id] : sec.collapsed || false;
-              const dSec = sec.items.filter((i) => S[i.id]).length;
-              h += `<div class="section-block" id="sec-${sec.id}">
-          <div class="section-header" onclick="toggleSection('${sec.id}')">
-            <div class="section-title-wrap">
-              <span class="section-icon">${isC ? "▶" : "▼"}</span>
-              <span class="section-title">${sec.title}</span>
-              <span class="section-badge">${sec.badge}</span>
-            </div>
-            <span class="section-count" id="sc-${sec.id}">${dSec}/${sec.items.length}</span>
-          </div>
-          ${
-            !isC
-              ? `<div class="section-items">${sec.items
-                  .map((item) => {
-                    const done = !!S[item.id];
-                    return `<div class="step-item${done ? " done" : ""}" onclick="toggleItem('${item.id}','${chunk.id}','${sec.id}')">
-              <div class="step-check">${done ? CK11 : ""}</div>
-              <div class="step-label">${item.label}</div>
-            </div>`;
-                  })
-                  .join("")}</div>`
-              : ""
-          }
-        </div>`;
-            });
-            if (chunk.capstones && chunk.capstones.length) {
-              h += `<div class="week-label">Capstone Projects</div>`;
-              chunk.capstones.forEach((cap) => {
-                h += capstoneHTML(cap, chunk.id);
-              });
-            }
-          } else if (chunk.type === "tasks") {
-            (chunk.tasks || []).forEach((task) => {
-              const done = !!S[task.id];
-              h += `<div class="task-item${done ? " done" : ""}" onclick="toggleItem('${task.id}','${chunk.id}')">
-          <div class="task-check">${done ? CK15 : ""}</div>
-          <div class="task-body">
-            <div class="task-main">${task.main}</div>
-            ${task.sub ? `<div class="task-sub">${task.sub}</div>` : ""}
-          </div>
-          ${task.date ? `<div class="task-date">${task.date}</div>` : ""}
-        </div>`;
-            });
-            if (chunk.capstones && chunk.capstones.length) {
-              h += `<div class="week-label">Capstone Projects</div>`;
-              chunk.capstones.forEach((cap) => {
-                h += capstoneHTML(cap, chunk.id);
-              });
-            }
-          } else if (chunk.type === "dsa") {
-            let lastW = "";
-            const pairs = [];
-            for (let i = 0; i < chunk.dsaGroups.length; i += 2)
-              pairs.push([chunk.dsaGroups[i], chunk.dsaGroups[i + 1]]);
-            pairs.forEach((pair) => {
-              if (pair[0].week !== lastW) {
-                h += `<div class="week-label">${pair[0].week}</div>`;
-                lastW = pair[0].week;
-              }
-              h += `<div class="dsa-grid">`;
-              pair.forEach((grp) => {
-                if (!grp) return;
-                const gD = grp.items.filter((i) => S[i.id]).length;
-                h += `<div class="dsa-card">
-            <div class="dsa-card-header">
-              <div class="dsa-card-title">${grp.title}</div>
-              <div class="dsa-card-count" id="dc-${grp.items[0].id.split("_").slice(0, 2).join("_")}">${gD}/${grp.items.length}</div>
-            </div>
-            <div class="dsa-items">
-              ${grp.items
-                .map((item) => {
-                  const done = !!S[item.id];
-                  return `<div class="dsa-item${done ? " done" : ""}" onclick="toggleItem('${item.id}','${chunk.id}')">
-                  <div class="dsa-check">${done ? CK13 : ""}</div>
-                  <div class="dsa-label">${item.label}</div>
-                </div>`;
-                })
-                .join("")}
-            </div>
-          </div>`;
-              });
-              h += `</div>`;
-            });
-          }
+  return h;
+}
 
-          if (ci < CHUNKS.length - 1) h += `<hr class="chunk-divider">`;
-          el.innerHTML = h;
-          root.appendChild(el);
-        });
+function lcSlug(name){
+  return name.toLowerCase()
+    .replace(/[^a-z0-9 ]/g,"")
+    .replace(/\s+/g,"-")
+    .replace(/-+/g,"-")
+    .replace(/^-|-$/g,"");
+}
+
+function renderChunks(){
+  const root=document.getElementById("chunksRoot");
+  root.innerHTML="";
+  CHUNKS.forEach((chunk,ci)=>{
+    const{pct}=chunkProg(chunk);
+    const el=document.createElement("div");
+    el.className="chunk";
+    el.id=chunk.id;
+
+    let h=`<div class="chunk-header">
+  <div>
+    <div class="chunk-eyebrow">Chunk ${chunk.index}</div>
+    <div class="chunk-title">${chunk.title}</div>
+    <div class="chunk-goal">${chunk.goal}</div>
+    ${chunk.tags&&chunk.tags.length?`<div class="chunk-meta">${chunk.tags.map(t=>`<span class="chunk-tag">${t.url?`<a href="${t.url}" target="_blank" rel="noopener">${t.label}</a>`:t.label}</span>`).join("")}</div>`:""}
+  </div>
+  <div class="chunk-right">
+    <div class="chunk-pct-num" id="pct-${chunk.id}">${pct}%</div>
+    <div class="chunk-bar"><div class="chunk-fill" id="fill-${chunk.id}" style="width:${pct}%"></div></div>
+  </div>
+</div>`;
+
+    if(chunk.type==="fcc"||chunk.type==="odin"){
+      chunk.sections.forEach(sec=>{
+        const isC=CS[sec.id]!==undefined?CS[sec.id]:sec.collapsed||false;
+        const dSec=sec.items.filter(i=>S[i.id]).length;
+        h+=`<div class="section-block" id="sec-${sec.id}">
+  <div class="section-header" onclick="toggleSection('${sec.id}')">
+    <div class="section-title-wrap">
+      <span class="section-icon">${isC?"▶":"▼"}</span>
+      <span class="section-title">${sec.title}</span>
+      <span class="section-badge">${sec.badge}</span>
+    </div>
+    <span class="section-count" id="sc-${sec.id}">${dSec}/${sec.items.length}</span>
+  </div>
+  ${!isC?`<div class="section-items">${sec.items.map(item=>{
+    const done=!!S[item.id];
+    return`<div class="step-item${done?" done":""}" onclick="toggleItem('${item.id}','${chunk.id}','${sec.id}')">
+      <div class="step-check">${done?CK11:""}</div>
+      <div class="step-label">${item.label}</div>
+    </div>`;
+  }).join("")}</div>`:""}
+</div>`;
+      });
+      if(chunk.capstones&&chunk.capstones.length){
+        h+=`<div class="week-label">Capstone Projects</div>`;
+        chunk.capstones.forEach(cap=>{h+=capstoneHTML(cap,chunk.id)});
       }
-
-      function renderSidebar() {
-        const nav = document.getElementById("sbNav");
-        nav.innerHTML = "";
-        CHUNKS.forEach((chunk) => {
-          const { pct } = chunkProg(chunk);
-          const a = document.createElement("a");
-          a.className = "nav-item";
-          a.href = `#${chunk.id}`;
-          a.innerHTML = `<span class="nav-num">${chunk.index}</span><span class="nav-label">${chunk.title}</span><span class="nav-pct">${pct}%</span>`;
-          a.onclick = () => {
-            if (window.innerWidth <= 700) {
-              document.querySelector(".sidebar").classList.remove("open");
-              document
-                .getElementById("sidebarOverlay")
-                .classList.remove("open");
-            }
-          };
-          nav.appendChild(a);
-        });
+    } else if(chunk.type==="tasks"){
+      (chunk.tasks||[]).forEach(task=>{
+        const done=!!S[task.id];
+        h+=`<div class="task-item${done?" done":""}" onclick="toggleItem('${task.id}','${chunk.id}')">
+  <div class="task-check">${done?CK15:""}</div>
+  <div class="task-body">
+    <div class="task-main">${task.main}</div>
+    ${task.sub?`<div class="task-sub">${task.sub}</div>`:""}
+  </div>
+  ${task.date?`<div class="task-date">${task.date}</div>`:""}
+</div>`;
+      });
+      if(chunk.capstones&&chunk.capstones.length){
+        h+=`<div class="week-label">Capstone Projects</div>`;
+        chunk.capstones.forEach(cap=>{h+=capstoneHTML(cap,chunk.id)});
       }
+    } else if(chunk.type==="dsa"){
+      h+=renderDsaChunk();
+    }
 
-      function toggleSidebar() {
-        document.querySelector(".sidebar").classList.toggle("open");
-        document.getElementById("sidebarOverlay").classList.toggle("open");
+    if(ci<CHUNKS.length-1)h+=`<hr class="chunk-divider">`;
+    el.innerHTML=h;
+    root.appendChild(el);
+  });
+}
+
+function renderSidebar(){
+  const nav=document.getElementById("sbNav");
+  nav.innerHTML="";
+  CHUNKS.forEach(chunk=>{
+    const{pct}=chunkProg(chunk);
+    const a=document.createElement("a");
+    a.className="nav-item";
+    a.href=`#${chunk.id}`;
+    a.innerHTML=`<span class="nav-num">${chunk.index}</span><span class="nav-label">${chunk.title}</span><span class="nav-pct">${pct}%</span>`;
+    a.onclick=()=>{if(window.innerWidth<=700){document.querySelector(".sidebar").classList.remove("open");document.getElementById("sidebarOverlay").classList.remove("open")}};
+    nav.appendChild(a);
+  });
+}
+
+function renderOverall(){
+  const{done,total,pct}=overallProg();
+  document.getElementById("overallFill").style.width=pct+"%";
+  document.getElementById("overallPct").textContent=pct+"%";
+  document.getElementById("topCount").textContent=`${done} / ${total} done`;
+}
+
+function renderAll(){renderChunks();renderSidebar();renderOverall()}
+
+function toggleItem(id,chunkId,secId){
+  S[id]=!S[id];save();
+  const isDone=S[id];
+
+  // update all matching elements
+  document.querySelectorAll(`[onclick*="'${id}'"]`).forEach(el=>{
+    el.classList.toggle("done",isDone);
+    const isStep=el.classList.contains("step-item");
+    const isDsa=el.classList.contains("dsa-item")||el.classList.contains("dsa-pattern-row");
+    const isCap=el.classList.contains("cap-tick");
+    if(isCap){const sm=el.querySelector(".ck-sm");if(sm)sm.innerHTML=isDone?CK11:"";}
+    else{
+      const ck=el.querySelector(".step-check,.dsa-check,.task-check");
+      if(!ck)return;
+      ck.innerHTML=isDone?(isDsa?CK13:isStep?CK11:CK15):"";
+    }
+  });
+
+  // section count
+  if(secId){
+    const scEl=document.getElementById(`sc-${secId}`);
+    if(scEl){
+      for(const chunk of CHUNKS){
+        if(!chunk.sections)continue;
+        const sec=chunk.sections.find(s=>s.id===secId);
+        if(sec){scEl.textContent=`${sec.items.filter(i=>S[i.id]).length}/${sec.items.length}`;break}
       }
+    }
+  }
 
-      function renderOverall() {
-        const { done, total, pct } = overallProg();
-        document.getElementById("overallFill").style.width = pct + "%";
-        document.getElementById("overallPct").textContent = pct + "%";
-        document.getElementById("topCount").textContent =
-          `${done} / ${total} done`;
+  // dsa group count
+  for(const ph of DSA_PHASES){
+    for(const grp of ph.groups){
+      if(grp.items.some(i=>i.id===id)){
+        const cel=document.getElementById(`dc-${grp.id}`);
+        if(cel)cel.textContent=`${grp.items.filter(i=>S[i.id]).length}/${grp.items.length}`;
+        // phase bar
+        const{done,total,pct}=phaseProg(ph);
+        const pf=document.getElementById(`dsa-ph-fill-${ph.id}`);
+        const pp=document.getElementById(`dsa-ph-pct-${ph.id}`);
+        const pb=document.getElementById(`dsa-ph-${ph.id}`);
+        if(pf)pf.style.width=pct+"%";
+        if(pp)pp.textContent=pct+"%";
+        // update the done/total in bar-wrap
+        if(pb){const pw=pb.querySelector(".dsa-phase-pct");if(pw)pw.textContent=`${done}/${total}`;}
+        break;
       }
+    }
+  }
 
-      function toggleItem(id, chunkId, secId) {
-        S[id] = !S[id];
-        save();
-        const isDone = S[id];
+  // dsa stats
+  const stats=dsaTotal();
+  const allIds=getAllDsaIds();
+  const eT=allIds.filter(id=>getDiff(id)==="e").length;
+  const mT=allIds.filter(id=>getDiff(id)==="m").length;
+  const hT=allIds.filter(id=>getDiff(id)==="h").length;
+  const st=document.getElementById("dsa_stat_total");
+  const se=document.getElementById("dsa_stat_easy");
+  const sm=document.getElementById("dsa_stat_med");
+  const sh=document.getElementById("dsa_stat_hard");
+  if(st)st.textContent=`${stats.done}/${stats.total}`;
+  if(se)se.textContent=`${stats.easy}/${eT}`;
+  if(sm)sm.textContent=`${stats.med}/${mT}`;
+  if(sh)sh.textContent=`${stats.hard}/${hT}`;
 
-        document.querySelectorAll(`[onclick*="'${id}'"]`).forEach((el) => {
-          el.classList.toggle("done", isDone);
-          const isStep = el.classList.contains("step-item");
-          const isDsa = el.classList.contains("dsa-item");
-          const isCap = el.classList.contains("cap-tick");
-          if (isCap) {
-            const sm = el.querySelector(".ck-sm");
-            if (sm) sm.innerHTML = isDone ? CK11 : "";
-          } else {
-            const ck = el.querySelector(".step-check,.dsa-check,.task-check");
-            if (!ck) return;
-            ck.innerHTML = isDone ? (isDsa ? CK13 : isStep ? CK11 : CK15) : "";
-          }
-        });
+  // chunk bar
+  const chunk=CHUNKS.find(c=>c.id===chunkId);
+  if(chunk){
+    const{pct}=chunkProg(chunk);
+    const pe=document.getElementById(`pct-${chunkId}`);
+    const fe=document.getElementById(`fill-${chunkId}`);
+    if(pe)pe.textContent=pct+"%";
+    if(fe)fe.style.width=pct+"%";
+  }
+  renderSidebar();
+  renderOverall();
+}
 
-        // update section count
-        if (secId) {
-          const scEl = document.getElementById(`sc-${secId}`);
-          if (scEl) {
-            for (const chunk of CHUNKS) {
-              if (!chunk.sections) continue;
-              const sec = chunk.sections.find((s) => s.id === secId);
-              if (sec) {
-                scEl.textContent = `${sec.items.filter((i) => S[i.id]).length}/${sec.items.length}`;
-                break;
-              }
-            }
-          }
-        }
+function toggleSidebar(){
+  document.querySelector(".sidebar").classList.toggle("open");
+  document.getElementById("sidebarOverlay").classList.toggle("open");
+}
 
-        // update chunk bar
-        const chunk = CHUNKS.find((c) => c.id === chunkId);
-        if (chunk) {
-          const { pct } = chunkProg(chunk);
-          const pe = document.getElementById(`pct-${chunkId}`);
-          const fe = document.getElementById(`fill-${chunkId}`);
-          if (pe) pe.textContent = pct + "%";
-          if (fe) fe.style.width = pct + "%";
-        }
-        renderSidebar();
-        renderOverall();
+function toggleSection(secId){
+  let defC=false;
+  for(const chunk of CHUNKS){
+    if(!chunk.sections)continue;
+    const sec=chunk.sections.find(s=>s.id===secId);
+    if(sec){defC=sec.collapsed||false;break}
+  }
+  const curr=CS[secId]!==undefined?CS[secId]:defC;
+  CS[secId]=!curr;saveCS();
+  const secEl=document.getElementById(`sec-${secId}`);
+  if(!secEl)return;
+  const icon=secEl.querySelector(".section-icon");
+  const isNowC=CS[secId];
+  if(icon)icon.textContent=isNowC?"▶":"▼";
+  let items=secEl.querySelector(".section-items");
+  if(isNowC&&items){items.remove();}
+  if(!isNowC&&!items){
+    for(const chunk of CHUNKS){
+      if(!chunk.sections)continue;
+      const sec=chunk.sections.find(s=>s.id===secId);
+      if(sec){
+        const div=document.createElement("div");
+        div.className="section-items";
+        div.innerHTML=sec.items.map(item=>{
+          const done=!!S[item.id];
+          return`<div class="step-item${done?" done":""}" onclick="toggleItem('${item.id}','${chunk.id}','${sec.id}')">
+    <div class="step-check">${done?CK11:""}</div>
+    <div class="step-label">${item.label}</div>
+  </div>`;
+        }).join("");
+        secEl.appendChild(div);break;
       }
+    }
+  }
+}
 
-      function toggleSection(secId) {
-        let defC = false;
-        for (const chunk of CHUNKS) {
-          if (!chunk.sections) continue;
-          const sec = chunk.sections.find((s) => s.id === secId);
-          if (sec) {
-            defC = sec.collapsed || false;
-            break;
-          }
-        }
-        const curr = CS[secId] !== undefined ? CS[secId] : defC;
-        CS[secId] = !curr;
-        saveCS();
-        const secEl = document.getElementById(`sec-${secId}`);
-        if (!secEl) return;
-        const icon = secEl.querySelector(".section-icon");
-        const isNowC = CS[secId];
-        if (icon) icon.textContent = isNowC ? "▶" : "▼";
-        let items = secEl.querySelector(".section-items");
-        if (isNowC && items) {
-          items.remove();
-        }
-        if (!isNowC && !items) {
-          for (const chunk of CHUNKS) {
-            if (!chunk.sections) continue;
-            const sec = chunk.sections.find((s) => s.id === secId);
-            if (sec) {
-              const div = document.createElement("div");
-              div.className = "section-items";
-              div.innerHTML = sec.items
-                .map((item) => {
-                  const done = !!S[item.id];
-                  return `<div class="step-item${done ? " done" : ""}" onclick="toggleItem('${item.id}','${chunk.id}','${sec.id}')">
-            <div class="step-check">${done ? CK11 : ""}</div>
-            <div class="step-label">${item.label}</div>
-          </div>`;
-                })
-                .join("");
-              secEl.appendChild(div);
-              break;
-            }
-          }
-        }
-      }
+function confirmReset(){
+  if(confirm("Reset all progress? This cannot be undone.")){S={};save();renderAll()}
+}
 
-      function confirmReset() {
-        if (confirm("Reset all progress? This cannot be undone.")) {
-          S = {};
-          save();
-          renderAll();
-        }
-      }
+const TK="lokesh_theme_v4";
+function applyTheme(light){
+  document.documentElement.classList.toggle("light",light);
+  const btn=document.getElementById("themeBtn");
+  if(btn)btn.textContent=light?"☽":"☀︎";
+}
+function toggleTheme(){
+  const isL=document.documentElement.classList.contains("light");
+  localStorage.setItem(TK,isL?"dark":"light");
+  applyTheme(!isL);
+}
+applyTheme(localStorage.getItem(TK)==="light");
 
-      const TK = "lokesh_theme_v3";
-      function applyTheme(light) {
-        document.documentElement.classList.toggle("light", light);
-        const btn = document.getElementById("themeBtn");
-        if (btn) btn.textContent = light ? "☽" : "☀︎";
-      }
-      function toggleTheme() {
-        const isL = document.documentElement.classList.contains("light");
-        localStorage.setItem(TK, isL ? "dark" : "light");
-        applyTheme(!isL);
-      }
-      applyTheme(localStorage.getItem(TK) === "light");
-
-      renderAll();
+renderAll();
     </script>
   </body>
 </html>
