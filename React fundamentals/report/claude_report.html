@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Screen Time Case Study — 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #09090F;
+    --surface:  #111118;
+    --card:     #17171F;
+    --border:   #24242E;
+    --orange:   #FF5F1F;
+    --orange-d: #C44A17;
+    --teal:     #00C49A;
+    --teal-d:   #009978;
+    --yellow:   #F5A623;
+    --red:      #FF3B5C;
+    --purple:   #8B6FE8;
+    --text:     #EEEEF5;
+    --muted:    #6B6B80;
+    --dim:      #9999AA;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ─── LAYOUT ─── */
+  .page { max-width: 860px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+  .hero-title {
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .hero-title span { color: var(--orange); }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--dim);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hero-meta-item .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .hero-meta-item .value { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 700; color: var(--text); }
+
+  /* ─── SECTIONS ─── */
+  .section { padding: 52px 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+
+  /* ─── STAT CARDS ─── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 0;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .stat-card.orange::before { background: var(--orange); }
+  .stat-card.teal::before   { background: var(--teal); }
+  .stat-card.red::before    { background: var(--red); }
+  .stat-card.yellow::before { background: var(--yellow); }
+  .stat-card.purple::before { background: var(--purple); }
+  .stat-card.dim::before    { background: var(--muted); }
+
+  .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .stat-value { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; line-height: 1.1; margin-bottom: 6px; }
+  .stat-value.orange { color: var(--orange); }
+  .stat-value.teal   { color: var(--teal); }
+  .stat-value.red    { color: var(--red); }
+  .stat-value.yellow { color: var(--yellow); }
+  .stat-value.purple { color: var(--purple); }
+  .stat-note { font-size: 12px; color: var(--muted); }
+
+  /* ─── TABLE ─── */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .data-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tbody tr:hover { background: var(--card); }
+  .mono-cell { font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+  .level-badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .level-habitual  { background: rgba(0,196,154,0.15); color: var(--teal); }
+  .level-dependent { background: rgba(245,166,35,0.15); color: var(--yellow); }
+  .level-addicted  { background: rgba(255,60,92,0.18); color: var(--red); }
+  .goal-good { color: var(--teal); font-weight: 700; }
+  .goal-bad  { color: var(--red); }
+  .goal-ok   { color: var(--yellow); }
+
+  /* ─── BARS ─── */
+  .bar-row { margin-bottom: 18px; }
+  .bar-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 7px; }
+  .bar-name { font-size: 13px; font-weight: 500; }
+  .bar-val  { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--dim); }
+  .bar-track { height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .bar-fill  { height: 100%; border-radius: 99px; transition: width 0.3s; }
+  .bar-fill.orange { background: var(--orange); }
+  .bar-fill.teal   { background: var(--teal); }
+  .bar-fill.yellow { background: var(--yellow); }
+  .bar-fill.red    { background: var(--red); }
+  .bar-fill.purple { background: var(--purple); }
+  .bar-fill.muted  { background: var(--muted); }
+
+  /* ─── ARC ─── */
+  .arc-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .arc-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+  }
+  .arc-step::after {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+  .arc-step:last-child::after { display: none; }
+  .arc-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+    z-index: 1;
+    position: relative;
+  }
+  .arc-dot.addicted  { background: rgba(255,60,92,0.2); border: 2px solid var(--red); color: var(--red); }
+  .arc-dot.dependent { background: rgba(245,166,35,0.2); border: 2px solid var(--yellow); color: var(--yellow); }
+  .arc-dot.habitual  { background: rgba(0,196,154,0.2); border: 2px solid var(--teal); color: var(--teal); }
+  .arc-month { font-size: 11px; color: var(--muted); font-weight: 600; }
+  .arc-usage { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim); }
+  .arc-level { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; }
+  .arc-level.addicted  { color: var(--red); }
+  .arc-level.dependent { color: var(--yellow); }
+  .arc-level.habitual  { color: var(--teal); }
+
+  /* ─── SPLIT VISUAL ─── */
+  .big-split {
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 56px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+  }
+  .split-waste {
+    background: linear-gradient(90deg, #FF5F1F, #C44A17);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.04em;
+  }
+  .split-prod {
+    background: rgba(139,111,232,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--purple);
+    font-weight: 600;
+  }
+  .split-focus {
+    background: linear-gradient(90deg, #009978, #00C49A);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    white-space: nowrap;
+    padding: 0 8px;
+  }
+  .split-other {
+    background: var(--card);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .split-legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--dim);
+  }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* ─── COMPARISON ─── */
+  .vs-block {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+  .vs-side {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+  }
+  .vs-side.waste { border-top: 3px solid var(--orange); }
+  .vs-side.focus { border-top: 3px solid var(--teal); }
+  .vs-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 14px; }
+  .vs-label.waste { color: var(--orange); }
+  .vs-label.focus { color: var(--teal); }
+  .vs-big  { font-family: 'JetBrains Mono', monospace; font-size: 40px; font-weight: 700; line-height: 1; margin-bottom: 6px; }
+  .vs-big.waste { color: var(--orange); }
+  .vs-big.focus { color: var(--teal); }
+  .vs-desc { font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+  .vs-items { font-size: 12px; color: var(--dim); line-height: 2; }
+  .vs-divider { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 900; color: var(--muted); text-align: center; }
+
+  /* ─── STUDY GRID ─── */
+  .study-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .study-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .study-name { font-size: 13px; font-weight: 600; }
+  .study-time { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--teal); font-weight: 700; }
+
+  /* ─── VERDICT ─── */
+  .verdict-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .verdict-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange), var(--purple), var(--teal));
+  }
+  .verdict-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 72px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--orange), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .verdict-grade { font-size: 14px; color: var(--dim); margin-bottom: 28px; }
+  .verdict-bullets {
+    text-align: left;
+    max-width: 520px;
+    margin: 0 auto 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .verdict-bullet {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--dim);
+  }
+  .verdict-bullet .icon { font-size: 16px; flex-shrink: 0; }
+  .verdict-note {
+    font-size: 14px;
+    color: var(--teal);
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  /* ─── CALLOUT ─── */
+  .callout {
+    background: rgba(255,95,31,0.07);
+    border: 1px solid rgba(255,95,31,0.25);
+    border-left: 3px solid var(--orange);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--dim);
+    margin-top: 20px;
+    line-height: 1.7;
+  }
+  .callout.green {
+    background: rgba(0,196,154,0.07);
+    border-color: rgba(0,196,154,0.25);
+    border-left-color: var(--teal);
+  }
+  .callout strong { color: var(--text); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .tag.orange { background: rgba(255,95,31,0.15); color: var(--orange); }
+  .tag.teal   { background: rgba(0,196,154,0.15); color: var(--teal); }
+
+  @media(max-width: 600px) {
+    .study-grid { grid-template-columns: 1fr; }
+    .vs-block { grid-template-columns: 1fr; }
+    .vs-divider { display: none; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════════════════════════════════════════
+       HERO
+  ═════════════════════════════════════════════════ -->
+  <div class="hero">
+    <div class="hero-eyebrow">YourHour · Pomodoro · 2026 Data Audit</div>
+    <h1 class="hero-title">
+      You spent <span>784 hours</span><br>on your phone in 2026.
+    </h1>
+    <p class="hero-sub">
+      This is a case study of 162 days of screen time — where it went, what it cost you, 
+      and the 118 hours that actually meant something.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Period</span>
+        <span class="value">01 Jan – 11 Jun, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Days Tracked</span>
+        <span class="value">162 days</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Data Sources</span>
+        <span class="value">YourHour + Pomodoro</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 1: THE NUMBERS
+  ═════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Section 01</div>
+    <div class="section-title">The numbers at a glance</div>
+
+    <div class="stats-grid">
+      <div class="stat-card orange">
+        <div class="stat-label">Total Screen Time</div>
+        <div class="stat-value orange mono">783h 45m</div>
+        <div class="stat-note">Avg 4h 50m every single day</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-label">Entertainment / Waste</div>
+        <div class="stat-value red mono">527h 15m</div>
+        <div class="stat-note">Social + Media categories · 67.3% of total</div>
+      </div>
+      <div class="stat-card teal">
+        <div class="stat-label">Deep Focused Work</div>
+        <div class="stat-value teal mono">117h 56m</div>
+        <div class="stat-note">Study + Coding (Pomodoro-tracked)</div>
+      </div>
+      <div class="stat-card yellow">
+        <div class="stat-label">Total Phone Unlocks</div>
+        <div class="stat-value yellow mono">17,998</div>
+        <div class="stat-note">Avg 111 times/day — once every 8.6 min</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-label">Waste-to-Focus Ratio</div>
+        <div class="stat-value purple mono">4.5 : 1</div>
+        <div class="stat-note">For every 1h focused → 4.5h wasted</div>
+      </div>
+      <div class="stat-card dim">
+        <div class="stat-label">Addiction Level</div>
+        <div class="stat-value mono" style="font-size:22px; color: var(--teal);">Addicted → Habitual</div>
+        <div class="stat-note">Peak Feb/Mar · Improving since April ↑</div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      Of your <strong>2,592 waking hours</strong> in 2026 so far —
+      your phone consumed <strong>30.2%</strong> of them.
+      Focused work: <strong>4.5%</strong>.
+      The remaining 65% was offline life (classes, eating, commuting, sleep-adjacent rest).
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 2: MONTHLY BREAKDOWN
+  ═════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Section 02</div>
+    <div class="section-title">Month by month — the full picture</div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Total Usage</th>
+          <th>Avg / Day</th>
+          <th>Unlocks</th>
+          <th>Addiction Level</th>
+          <th>Goal Met</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>January</strong></td>
+          <td class="mono-cell">129h 25m</td>
+          <td class="mono-cell">4h 18m</td>
+          <td class="mono-cell">3,132</td>
+          <td><span class="level-badge level-dependent">Dependent</span></td>
+          <td class="goal-ok mono-cell">4/30</td>
+        </tr>
+        <tr>
+          <td><strong>February</strong> 🔴</td>
+          <td class="mono-cell" style="color:var(--red)">193h 25m</td>
+          <td class="mono-cell" style="color:var(--red)">6h 54m</td>
+          <td class="mono-cell">3,978</td>
+          <td><span class="level-badge level-addicted">Addicted</span></td>
+          <td class="goal-bad mono-cell">0/28 ←</td>
+        </tr>
+        <tr>
+          <td><strong>March</strong> 🔴</td>
+          <td class="mono-cell" style="color:var(--red)">200h 00m</td>
+          <td class="mono-cell" style="color:var(--orange)">6h 27m</td>
+          <td class="mono-cell" style="color:var(--red)">4,119</td>
+          <td><span class="level-badge level-addicted">Addicted</span></td>
+          <td class="goal-bad mono-cell">1/31</td>
+        </tr>
+        <tr>
+          <td><strong>April</strong> 🟢</td>
+          <td class="mono-cell" style="color:var(--teal)">105h 38m</td>
+          <td class="mono-cell" style="color:var(--teal)">3h 31m</td>
+          <td class="mono-cell">3,019</td>
+          <td><span class="level-badge level-dependent">Dependent</span></td>
+          <td class="goal-good mono-cell">13/30 ↑</td>
+        </tr>
+        <tr>
+          <td><strong>May</strong></td>
+          <td class="mono-cell">120h 55m</td>
+          <td class="mono-cell">3h 54m</td>
+          <td class="mono-cell">2,766</td>
+          <td><span class="level-badge level-dependent">Dependent</span></td>
+          <td class="goal-ok mono-cell">9/31</td>
+        </tr>
+        <tr>
+          <td><strong>June</strong> <span style="font-size:11px;color:var(--muted)">(11 days)</span></td>
+          <td class="mono-cell" style="color:var(--teal)">34h 22m</td>
+          <td class="mono-cell" style="color:var(--teal)">3h 07m</td>
+          <td class="mono-cell">984</td>
+          <td><span class="level-badge level-habitual">Habitual ↑</span></td>
+          <td class="goal-good mono-cell">5/11</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>March was the worst month ever.</strong> 200 hours of screen time. 4,119 unlocks.
+      Goal met on just 1 out of 31 days. That's 6h27m of phone use daily — almost a full working shift, every day, for a month.
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 3: TIME ALLOCATION
+  ═════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Section 03</div>
+    <div class="section-title">Where did 784 hours actually go?</div>
+
+    <div class="big-split">
+      <div class="split-waste" style="flex: 5.27">Social / Entertainment — 527h</div>
+      <div class="split-prod" style="flex: 0.87">Prod · 87h</div>
+      <div class="split-other" style="flex: 1.69; font-size:11px;">Others · 169h</div>
+    </div>
+
+    <div class="split-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>Social / Entertainment (527h · 67%)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>Productivity — ChatGPT, Claude (87h · 11%)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--muted)"></div>Others — uncategorised (169h · 22%)</div>
+    </div>
+
+    <div class="section-title" style="font-size:20px; margin-bottom:20px;">Top apps — lifetime total</div>
+
+    <div class="bar-row">
+      <div class="bar-meta">
+        <span class="bar-name">🌐 Chrome <span style="font-size:11px;color:var(--red)">(confirmed: mindless browsing, YouTube Shorts, Twitter)</span></span>
+        <span class="bar-val">337h 05m · 43%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill orange" style="width:100%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-meta">
+        <span class="bar-name">💬 WhatsApp</span>
+        <span class="bar-val">125h 06m · 16%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill yellow" style="width:37%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-meta">
+        <span class="bar-name">🎵 YouTube Music</span>
+        <span class="bar-val">~43h 00m · 5.5%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill muted" style="width:13%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-meta">
+        <span class="bar-name">📞 Phone (calls)</span>
+        <span class="bar-val">~51h 00m · 6.5%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill muted" style="width:15%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-meta">
+        <span class="bar-name">🤖 ChatGPT / Claude</span>
+        <span class="bar-val">28h 01m · 3.6%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill purple" style="width:8%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-meta">
+        <span class="bar-name">♟️ Chess (March only — then uninstalled)</span>
+        <span class="bar-val">25h 09m · 3.2%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill red" style="width:7.5%"></div></div>
+    </div>
+
+    <div class="callout">
+      <strong>Chrome alone = 337 hours.</strong> That is 14 full days spent opening Chrome on your phone.
+      You told Chrome "just checking something" 17,998 times.
+      It told you nothing useful on most of those visits.
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 4: THE ADDICTION ARC
+  ═════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Section 04</div>
+    <div class="section-title">The arc — from Addicted to Habitual</div>
+
+    <div class="arc-row" style="margin-bottom:24px;">
+      <div class="arc-step">
+        <div class="arc-dot dependent">D</div>
+        <div class="arc-month">Jan</div>
+        <div class="arc-usage">129h</div>
+        <div class="arc-level dependent">DEPENDENT</div>
+      </div>
+      <div class="arc-step">
+        <div class="arc-dot addicted">A</div>
+        <div class="arc-month">Feb</div>
+        <div class="arc-usage">193h</div>
+        <div class="arc-level addicted">ADDICTED</div>
+      </div>
+      <div class="arc-step">
+        <div class="arc-dot addicted">A</div>
+        <div class="arc-month">Mar</div>
+        <div class="arc-usage">200h ↑</div>
+        <div class="arc-level addicted">ADDICTED</div>
+      </div>
+      <div class="arc-step">
+        <div class="arc-dot dependent">D</div>
+        <div class="arc-month">Apr</div>
+        <div class="arc-usage">105h ↓</div>
+        <div class="arc-level dependent">DEPENDENT</div>
+      </div>
+      <div class="arc-step">
+        <div class="arc-dot dependent">D</div>
+        <div class="arc-month">May</div>
+        <div class="arc-usage">120h</div>
+        <div class="arc-level dependent">DEPENDENT</div>
+      </div>
+      <div class="arc-step">
+        <div class="arc-dot habitual">H</div>
+        <div class="arc-month">Jun</div>
+        <div class="arc-usage">34h ↓↓</div>
+        <div class="arc-level habitual">HABITUAL ✓</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:28px;">
+      <div class="section-title" style="font-size:18px; margin-bottom:14px;">What happened in April?</div>
+      <div style="font-size:14px; color:var(--dim); line-height:1.8;">
+        April was the biggest single-month drop: <strong style="color:var(--teal)">−87h 47m</strong> compared to March (a 44% cut).
+        Goal met jumped from 1/31 days → 13/30 days. Unlocks dropped by 1,100.
+        This is when the Pomodoro data shows IAT exam prep kicking in hard — study sessions got longer and more frequent.
+        The Chess app (25h in March) also disappeared — uninstalled between March and April. That alone recovered almost a full working day.
+      </div>
+    </div>
+
+    <div style="margin-bottom:0;">
+      <div class="section-title" style="font-size:18px; margin-bottom:14px;">WhatsApp trend — a clear improvement</div>
+      <div class="bar-row">
+        <div class="bar-meta"><span class="bar-name">January</span><span class="bar-val">22h 36m</span></div>
+        <div class="bar-track"><div class="bar-fill yellow" style="width:50%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-meta"><span class="bar-name">February <span style="font-size:11px;color:var(--red)">peak</span></span><span class="bar-val">44h 49m</span></div>
+        <div class="bar-track"><div class="bar-fill red" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-meta"><span class="bar-name">March</span><span class="bar-val">31h 50m</span></div>
+        <div class="bar-track"><div class="bar-fill orange" style="width:71%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-meta"><span class="bar-name">April</span><span class="bar-val">13h 09m</span></div>
+        <div class="bar-track"><div class="bar-fill yellow" style="width:29%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-meta"><span class="bar-name">May <span style="font-size:11px;color:var(--teal)">↓54% vs Jan</span></span><span class="bar-val">6h 08m</span></div>
+        <div class="bar-track"><div class="bar-fill teal" style="width:14%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-meta"><span class="bar-name">June (11 days)</span><span class="bar-val">6h 34m</span></div>
+        <div class="bar-track"><div class="bar-fill teal" style="width:15%"></div></div>
+      </div>
+    </div>
+
+    <div class="callout green" style="margin-top:20px;">
+      WhatsApp went from <strong>44h 49m</strong> in February to <strong>6h 8m</strong> in May —
+      an 86% reduction. That's the kind of behaviour change most people only talk about.
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 5: FOCUSED TIME
+  ═════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Section 05</div>
+    <div class="section-title">The 118 hours that actually mattered</div>
+
+    <div class="two-col" style="margin-bottom:28px;">
+      <!-- STUDY -->
+      <div>
+        <div class="tag teal">📚 Study — 73h 59m</div>
+        <div class="study-grid" style="grid-template-columns:1fr;">
+          <div class="study-card">
+            <span class="study-name">ESIOT</span><span class="study-time">7h 48m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">CSM</span><span class="study-time">7h 20m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">OOSE</span><span class="study-time">6h 53m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">WAS</span><span class="study-time">6h 41m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">MA</span><span class="study-time">6h 34m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">DM</span><span class="study-time">5h 49m</span>
+          </div>
+          <div class="study-card" style="border-color: rgba(0,196,154,0.3);">
+            <span class="study-name" style="color:var(--dim)">Total Theory</span><span class="study-time">43h 08m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">Practical (all)</span><span class="study-time">13h 54m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">IAT 1</span><span class="study-time">6h 33m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">IAT 2</span><span class="study-time">2h 37m</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CODING -->
+      <div>
+        <div class="tag purple">💻 Coding — 43h 57m</div>
+        <div class="study-grid" style="grid-template-columns:1fr;">
+          <div class="study-card">
+            <span class="study-name">React</span><span class="study-time" style="color:var(--purple)">11h 37m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">Vibe Coding</span><span class="study-time" style="color:var(--purple)">11h 06m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">Projects</span><span class="study-time" style="color:var(--purple)">10h 13m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">Node & Express</span><span class="study-time" style="color:var(--purple)">5h 02m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">DSA</span><span class="study-time" style="color:var(--purple)">3h 23m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">LLM Integration</span><span class="study-time" style="color:var(--purple)">2h 33m</span>
+          </div>
+          <div class="study-card">
+            <span class="study-name">Gemini Hackathon</span><span class="study-time" style="color:var(--purple)">1h 40m</span>
+          </div>
+          <div class="study-card" style="border-color:rgba(139,111,232,0.3);">
+            <span class="study-name" style="color:var(--dim)">Pomodoro sessions</span><span class="study-time" style="color:var(--purple)">281 sessions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout green">
+      <strong>281 Pomodoro sessions completed.</strong> That's real discipline.
+      The coding alone shows actual breadth — React, Node, DSA, LLM integration, a hackathon entry.
+      You weren't just studying to pass. You were building things.
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 6: THE LEDGER
+  ═════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Section 06</div>
+    <div class="section-title">The ledger — wasted vs invested</div>
+
+    <div class="vs-block">
+      <div class="vs-side waste">
+        <div class="vs-label waste">Time Wasted</div>
+        <div class="vs-big waste">527h</div>
+        <div class="vs-desc">Social &amp; entertainment screen time</div>
+        <div class="vs-items">
+          🌐 Chrome mindless browsing — 337h 05m<br>
+          💬 WhatsApp distraction — 125h 06m<br>
+          🎵 YouTube Music (passive) — ~43h<br>
+          ♟️ Chess app (March) — 25h 09m
+        </div>
+      </div>
+      <div class="vs-divider">vs</div>
+      <div class="vs-side focus">
+        <div class="vs-label focus">Time Invested</div>
+        <div class="vs-big focus">118h</div>
+        <div class="vs-desc">Deep focused work (Pomodoro tracked)</div>
+        <div class="vs-items">
+          📚 Semester Theory — 43h 08m<br>
+          🔬 Practicals — 13h 54m<br>
+          📝 IAT Exams — 9h 10m<br>
+          💻 Coding projects — 43h 57m<br>
+          🤖 AI tools on phone — 28h 01m
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--card); border:1px solid var(--border); border-radius:12px; padding:28px; text-align:center;">
+      <div style="font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; margin-bottom:12px;">The brutal daily average</div>
+      <div style="display:flex; justify-content:center; gap:48px; flex-wrap:wrap;">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:36px; font-weight:700; color:var(--orange)">3h 15m</div>
+          <div style="font-size:12px; color:var(--muted)">wasted per day (social/entertainment)</div>
+        </div>
+        <div style="color:var(--border); font-size:36px; align-self:center;">|</div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:36px; font-weight:700; color:var(--teal)">43m</div>
+          <div style="font-size:12px; color:var(--muted)">deep focused work per day</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 7: FINAL VERDICT
+  ═════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">Section 07</div>
+    <div class="section-title">Final verdict</div>
+
+    <div class="verdict-box">
+      <div class="verdict-score">C+</div>
+      <div class="verdict-grade">Overall 2026 (so far) · Screen Discipline Score</div>
+
+      <div class="verdict-bullets">
+        <div class="verdict-bullet">
+          <span class="icon">🔴</span>
+          <span>You lost <strong>527 hours</strong> — the equivalent of 65 eight-hour workdays — to Chrome, WhatsApp, and passive scrolling. That's not relaxation. That's leakage.</span>
+        </div>
+        <div class="verdict-bullet">
+          <span class="icon">🔴</span>
+          <span>February and March were your worst months. You picked up your phone 4,119 times in March alone — almost 133 times a day. Not once did you meet your own 3-hour usage goal in February (0/28 days).</span>
+        </div>
+        <div class="verdict-bullet">
+          <span class="icon">🟡</span>
+          <span>The 4.5:1 waste-to-focus ratio is the number to sit with. For every hour you studied or coded, your phone stole 4.5 hours back.</span>
+        </div>
+        <div class="verdict-bullet">
+          <span class="icon">🟢</span>
+          <span>But the arc is real. April was a genuine reset — screen time halved, WhatsApp down 71%, goal met 13 out of 30 days. Something clicked.</span>
+        </div>
+        <div class="verdict-bullet">
+          <span class="icon">🟢</span>
+          <span>The coding stack you built is solid — React, Node, LLM integration, a hackathon, DSA. 281 Pomodoro sessions don't happen by accident. You have the focus when you choose to use it.</span>
+        </div>
+        <div class="verdict-bullet">
+          <span class="icon">🟢</span>
+          <span>June is trending at <strong>Habitual</strong> — the first time the app has downgraded your addiction level. You're averaging 3h 7m/day and hitting your goal 5 out of 11 days. That's the best rate since tracking began.</span>
+        </div>
+      </div>
+
+      <div class="verdict-note">
+        The data doesn't say you're failing. It says you know exactly how to focus — you just haven't done it consistently yet.
+        April and June proved you can. The question for the rest of 2026 is whether those months become the rule or the exception.
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
