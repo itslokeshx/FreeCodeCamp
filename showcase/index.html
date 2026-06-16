@@ -4,389 +4,446 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FreeCodeCamp React Projects — Showcase</title>
-  <meta name="description" content="A curated showcase of 11 React mini-projects built during the FreeCodeCamp curriculum, from fundamentals to hooks and routing." />
+  <meta name="description" content="A curated showcase of 11 React mini-projects built during the FreeCodeCamp curriculum." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.5/babel.min.js"></script>
 </head>
 <body>
+  <div id="root"></div>
+  <script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
-  <!-- Floating Orbs Background -->
-  <div class="bg-orbs" aria-hidden="true">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
+/* ══════════════════════════════════════════════
+   PROJECT COMPONENTS (inlined from each project)
+   ══════════════════════════════════════════════ */
 
-  <!-- Header -->
-  <header class="hero" id="hero">
-    <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      FreeCodeCamp · React Curriculum
+// ─── 1. ProfileCard ───
+function Card({ name, title, bio }) {
+  return (
+    <div className="pc-card">
+      <h2>{name}</h2>
+      <p className="pc-card-title">{title}</p>
+      <p>{bio}</p>
     </div>
-    <h1 class="hero-title">React Projects<br /><span class="hero-gradient">Showcase</span></h1>
-    <p class="hero-sub">11 self-contained mini-projects · 2 learning modules · built from scratch</p>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num">11</div>
-        <div class="stat-label">Projects</div>
+  );
+}
+
+function ProfileCardApp() {
+  const profiles = [
+    { id: 1, name: "Mark", title: "Front-End developer", bio: "I like to work with different front-end technologies and play video games." },
+    { id: 2, name: "Tiffany", title: "Engineering manager", bio: "I have worked in tech for 15 years and love to help people grow in this industry." },
+    { id: 3, name: "Doug", title: "Back-End developer", bio: "I have been a software developer for over 20 years and I love working with Go and Rust." },
+  ];
+  return (
+    <div className="pc-flex-container">
+      {profiles.map((p) => (
+        <Card key={p.id} name={p.name} title={p.title} bio={p.bio} />
+      ))}
+    </div>
+  );
+}
+
+// ─── 2. Footer ───
+function FooterApp() {
+  return (
+    <footer className="ft-footer">
+      <div className="ft-unlist">
+        <ul><li><a href="#">Dashboard</a></li><li><a href="#">Services</a></li></ul>
+        <ul><li><a href="#">Videos</a></li><li><a href="#">Discord</a></li></ul>
+        <ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms & Conditions</a></li></ul>
       </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-num">2</div>
-        <div class="stat-label">Modules</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-num">7+</div>
-        <div class="stat-label">React Hooks</div>
+      <p>&copy; 2024 Fitness Dashboard. All Rights Reserved.</p>
+      <ul className="ft-bottomList">
+        <li><a href="#">💻</a></li><li><a href="#">📧</a></li><li><a href="#">📞</a></li><li><a href="#">📍</a></li>
+      </ul>
+    </footer>
+  );
+}
+
+// ─── 3. Mega Navbar ───
+function NavbarApp() {
+  return (
+    <nav className="nb-navbar">
+      <ul>
+        <li className="nb-nav-item"><a href="#">Dashboard</a></li>
+        <li className="nb-nav-item"><a href="#">Widgets</a></li>
+        <li className="nb-nav-item">
+          <button aria-expanded="false">Apps</button>
+          <ul className="nb-sub-menu" aria-label="Apps">
+            <li><a href="#">Calendar</a></li>
+            <li><a href="#">Chat</a></li>
+            <li><a href="#">Email</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
+// ─── 4. Mood Board ───
+function MoodBoardItem({ color, image, description }) {
+  return (
+    <div className="mb-item" style={{ backgroundColor: color }}>
+      <img className="mb-image" src={image} alt={description} />
+      <h3 className="mb-text">{description}</h3>
+    </div>
+  );
+}
+
+function MoodBoardApp() {
+  return (
+    <div>
+      <h1 className="mb-heading">Destination Mood Board</h1>
+      <div className="mb-grid">
+        <MoodBoardItem color="blue" image="https://cdn.freecodecamp.org/curriculum/labs/pathway.jpg" description="Peaceful pathway" />
+        <MoodBoardItem color="green" image="https://cdn.freecodecamp.org/curriculum/labs/grass.jpg" description="Fresh green grass" />
+        <MoodBoardItem color="orange" image="https://cdn.freecodecamp.org/curriculum/labs/shore.jpg" description="Relaxing beach shore" />
+        <MoodBoardItem color="purple" image="https://cdn.freecodecamp.org/curriculum/labs/ship.jpg" description="Adventure on the sea" />
+        <MoodBoardItem color="pink" image="https://cdn.freecodecamp.org/curriculum/labs/santorini.jpg" description="Beautiful Santorini vibes" />
       </div>
     </div>
-  </header>
+  );
+}
 
-  <!-- Filter Bar -->
-  <nav class="filter-bar" id="filterBar">
-    <button class="filter-btn active" data-filter="all" id="filter-all">All Projects</button>
-    <button class="filter-btn" data-filter="fundamentals" id="filter-fundamentals">
-      <span class="filter-dot dot-blue"></span>Fundamentals
-    </button>
-    <button class="filter-btn" data-filter="hooks" id="filter-hooks">
-      <span class="filter-dot dot-purple"></span>State & Hooks
-    </button>
-  </nav>
+// ─── 5. Color Picker ───
+function ColorPickerApp() {
+  const [color, setColor] = useState("#6c5ce7");
+  return (
+    <div className="cp-container" style={{ backgroundColor: color }}>
+      <input className="cp-input" type="color" value={color} onChange={(e) => setColor(e.target.value)} />
+    </div>
+  );
+}
 
-  <!-- Projects Grid -->
-  <main class="projects-container" id="projectsGrid">
+// ─── 6. Toggle Text ───
+function ToggleApp() {
+  const [isVisible, setIsVisible] = useState(false);
+  return (
+    <div className="tg-container">
+      <button className="tg-button" onClick={() => setIsVisible(!isVisible)}>
+        {isVisible ? "Hide" : "Show"} Message
+      </button>
+      {isVisible && <p className="tg-message">I love freeCodeCamp!</p>}
+    </div>
+  );
+}
 
-    <!-- ============ MODULE 1: FUNDAMENTALS ============ -->
+// ─── 7. Fruit Search ───
+function FruitSearchApp() {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
 
-    <article class="project-card" data-category="fundamentals" id="project-profile-card">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">🪪</div>
-          <div class="card-meta">
-            <span class="card-tag tag-fundamentals">Fundamentals</span>
-            <h2 class="card-title">Reusable ProfileCard</h2>
+  useEffect(() => {
+    if (query.trim() === '') { setResults([]); return; }
+    const timeoutId = setTimeout(async () => {
+      try {
+        const res = await fetch(`https://fruit-search.freecodecamp.rocks/api/fruits?q=${query}`);
+        const data = await res.json();
+        setResults(data.map(f => f.name));
+      } catch (err) { console.error(err); }
+    }, 700);
+    return () => clearTimeout(timeoutId);
+  }, [query]);
+
+  return (
+    <div className="fs-container">
+      <form onSubmit={(e) => e.preventDefault()}>
+        <label htmlFor="fs-input">Search for fruits:</label>
+        <input id="fs-input" className="fs-input" type="search" value={query} onChange={(e) => setQuery(e.target.value)} />
+      </form>
+      <div className="fs-results">
+        {results.length > 0 ? results.map(item => <p key={item} className="fs-item">{item}</p>) : <p>No results found</p>}
+      </div>
+    </div>
+  );
+}
+
+// ─── 8. OTP Generator ───
+function OTPApp() {
+  const [otp, setOtp] = useState("");
+  const [time, setTime] = useState(0);
+
+  function generate() { setOtp(Math.floor(100000 + Math.random() * 900000)); setTime(5); }
+
+  useEffect(() => {
+    if (time === 0) return;
+    const interval = setInterval(() => setTime(p => p - 1), 1000);
+    return () => clearInterval(interval);
+  }, [time]);
+
+  return (
+    <div className="otp-container">
+      <h1 className="otp-title">OTP Generator</h1>
+      <h2 className="otp-display">{otp ? otp : "Click 'Generate OTP' to get a code"}</h2>
+      <p className="otp-timer" aria-live="assertive">
+        {otp ? (time > 0 ? ` Expires in: ${time} seconds` : "OTP expired. Click the button to generate a new OTP.") : ""}
+      </p>
+      <button className="otp-btn" onClick={generate} disabled={time > 0}>Generate OTP</button>
+    </div>
+  );
+}
+
+// ─── 9. Superhero Form ───
+function SuperheroApp() {
+  const powerSourceOptions = ["Bitten by a strange creature","Radioactive exposure","Science experiment","Alien heritage","Ancient artifact discovery","Other"];
+  const powersOptions = ["Super Strength","Super Speed","Flight","Invisibility","Telekinesis","Other"];
+  const [heroName, setHeroName] = useState("");
+  const [realName, setRealName] = useState("");
+  const [powerSource, setPowerSource] = useState("");
+  const [powers, setPowers] = useState([]);
+
+  const handlePowersChange = (e) => {
+    const { value, checked } = e.target;
+    setPowers(checked ? [...powers, value] : powers.filter(p => p !== value));
+  };
+
+  return (
+    <div className="sh-wrap">
+      <h2>Superhero Application Form</h2>
+      <p>Please complete all fields</p>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <div className="sh-section">
+          <label>Hero Name<input type="text" value={heroName} onChange={(e) => setHeroName(e.target.value)} /></label>
+          <label>Real Name<input type="password" value={realName} onChange={(e) => setRealName(e.target.value)} /></label>
+        </div>
+        <label className="sh-section sh-column">How did you get your powers?
+          <select value={powerSource} onChange={(e) => setPowerSource(e.target.value)}>
+            <option value="">Select one</option>
+            {powerSourceOptions.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </label>
+        <label className="sh-section sh-column">List your powers:
+          {powersOptions.map(pw => (
+            <label key={pw}><input type="checkbox" value={pw} checked={powers.includes(pw)} onChange={handlePowersChange} /><span>{pw}</span></label>
+          ))}
+        </label>
+        <button className="sh-btn" type="submit" disabled={!heroName || !realName || !powerSource || powers.length===0}>Join the League</button>
+      </form>
+    </div>
+  );
+}
+
+// ─── 10. Event RSVP Form ───
+function EventRSVPApp() {
+  const [name, setName] = useState(""); const [mail, setMail] = useState("");
+  const [attend, setAttend] = useState(0); const [diet, setDiet] = useState("");
+  const [check, setCheck] = useState(false); const [submit, setSubmit] = useState(false);
+
+  return (
+    <div className="ev-wrapper">
+      <div className="ev-card">
+        <div className="ev-header">
+          <div className="ev-eyebrow">Event Registration</div>
+          <div className="ev-title">RSVP Form</div>
+          <div className="ev-subtitle">Fill in your details to confirm attendance.</div>
+        </div>
+        <div className="ev-body">
+          <form onSubmit={(e) => { e.preventDefault(); setSubmit(true); }}>
+            <div className="ev-field"><label>Name</label><input required type="text" placeholder="Jane Doe" value={name} onChange={(e) => setName(e.target.value)} /></div>
+            <div className="ev-field"><label>Email</label><input type="email" required placeholder="jane@example.com" value={mail} onChange={(e) => setMail(e.target.value)} /></div>
+            <div className="ev-field"><label>Number of Attendees</label><input type="number" required min="1" placeholder="1" value={attend} onChange={(e) => setAttend(e.target.value)} /></div>
+            <div className="ev-field"><label>Dietary Preferences <span>— optional</span></label><input type="text" placeholder="e.g. Vegan" value={diet} onChange={(e) => setDiet(e.target.value)} /></div>
+            <div className="ev-divider"></div>
+            <label className="ev-checkbox"><input type="checkbox" onChange={(e) => setCheck(e.target.checked)} /><span>Bringing additional guests?</span></label>
+            <button type="submit" className="ev-submit-btn">Confirm RSVP</button>
+          </form>
+        </div>
+        {submit && (
+          <div className="ev-confirmation">
+            <div className="ev-conf-title">RSVP Submitted</div>
+            <div className="ev-conf-row"><span className="ev-conf-key">Name</span><span className="ev-conf-val">{name}</span></div>
+            <div className="ev-conf-row"><span className="ev-conf-key">Email</span><span className="ev-conf-val">{mail}</span></div>
+            <div className="ev-conf-row"><span className="ev-conf-key">Attendees</span><span className="ev-conf-val">{attend}</span></div>
+            <div className="ev-conf-row"><span className="ev-conf-key">Dietary</span><span className="ev-conf-val">{diet || "None"}</span></div>
+            <div className="ev-conf-row"><span className="ev-conf-key">Extra Guests</span><span className="ev-conf-val">{check ? "Yes" : "No"}</span></div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── 11. Shopping List ───
+const shoppingItems = ["Apples","Bananas","Strawberries","Blueberries","Mangoes","Pineapple","Lettuce","Broccoli","Paper Towels","Dish Soap"];
+
+function ShoppingListApp() {
+  const [query, setQuery] = useState("");
+  const [selectedItems, setSelectedItems] = useState([]);
+  const filteredItems = useMemo(() => shoppingItems.filter(i => i.toLowerCase().includes(query.toLowerCase())), [query]);
+  const toggleItem = useCallback((item) => {
+    setSelectedItems(prev => prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]);
+  }, []);
+
+  return (
+    <div className="sl-container">
+      <h1>Shopping List</h1>
+      <form>
+        <label htmlFor="sl-search">Search for an item:</label>
+        <input id="sl-search" className="sl-input" type="search" placeholder="Search..." value={query} onChange={(e) => setQuery(e.target.value)} />
+        <ul className="sl-list">
+          {filteredItems.map(item => {
+            const isChecked = selectedItems.includes(item);
+            return (
+              <li key={item} style={{ textDecoration: isChecked ? "line-through" : "none" }}>
+                <label><input type="checkbox" onChange={() => toggleItem(item)} checked={isChecked} />{item}</label>
+              </li>
+            );
+          })}
+        </ul>
+      </form>
+    </div>
+  );
+}
+
+
+/* ══════════════════════════════════════
+   PROJECT REGISTRY
+   ══════════════════════════════════════ */
+
+const PROJECTS = [
+  { id: "profile-card", icon: "🪪", title: "Reusable ProfileCard", category: "fundamentals",
+    desc: "Flexible card component mapping over a data array to render user profiles with consistent styling.",
+    concepts: ["Props", "Array.map", "Flexbox"], component: ProfileCardApp },
+  { id: "footer", icon: "🦶", title: "Reusable Footer", category: "fundamentals",
+    desc: "Multi-column footer with navigation links, social icons, and copyright — built with semantic HTML.",
+    concepts: ["Semantic HTML", "Components", "CSS"], component: FooterApp },
+  { id: "navbar", icon: "🧭", title: "Mega Navbar", category: "fundamentals",
+    desc: "Navigation bar with dropdown submenu support. ARIA attributes for accessibility and hover interactions.",
+    concepts: ["Navigation", "ARIA", "Submenus"], component: NavbarApp },
+  { id: "mood-board", icon: "🎨", title: "Mood Board", category: "fundamentals", badge: "Lab",
+    desc: "Visual mood board accepting destination images and color themes via props, arranged in a CSS Grid layout.",
+    concepts: ["Props", "CSS Grid", "Images"], component: MoodBoardApp },
+  { id: "color-picker", icon: "🖌️", title: "Color Picker App", category: "hooks", badge: "Lab",
+    desc: "Interactive color selector using native HTML5 color input. Selected color updates the background in real time.",
+    concepts: ["useState", "Controlled Inputs", "Live Preview"], component: ColorPickerApp },
+  { id: "toggle-text", icon: "👁️", title: "Toggle Text App", category: "hooks",
+    desc: "Minimal toggle showing/hiding a message using boolean state and conditional rendering.",
+    concepts: ["useState", "Boolean State", "Conditional Render"], component: ToggleApp },
+  { id: "fruit-search", icon: "🍎", title: "Fruit Search App", category: "hooks",
+    desc: "Real-time search backed by FreeCodeCamp's fruit API. Features 700ms debounce and error handling.",
+    concepts: ["useState", "useEffect", "Fetch API", "Debounce"], component: FruitSearchApp },
+  { id: "otp-generator", icon: "🔐", title: "OTP Generator", category: "hooks",
+    desc: "Generates a random 6-digit OTP with a visible countdown timer. Auto-expires when timer reaches zero.",
+    concepts: ["useState", "useEffect", "useRef", "Timers"], component: OTPApp },
+  { id: "superhero-form", icon: "🦸", title: "Superhero Application Form", category: "hooks",
+    desc: "Multi-input registration form with text, password, select, and checkboxes. Validates before submission.",
+    concepts: ["Controlled Forms", "Checkbox Arrays", "Validation"], component: SuperheroApp },
+  { id: "event-form", icon: "🎟️", title: "Event RSVP Form", category: "hooks", badge: "Lab",
+    desc: "Multi-field event registration that conditionally renders a confirmation summary after submission.",
+    concepts: ["Multi-field Forms", "Conditional Render", "Post-submit UI"], component: EventRSVPApp },
+  { id: "shopping-list", icon: "🛒", title: "Shopping List", category: "hooks",
+    desc: "Filterable shopping list with useMemo for optimized filtering and useCallback for stable handlers.",
+    concepts: ["useMemo", "useCallback", "Filtering", "Performance"], component: ShoppingListApp },
+];
+
+
+/* ══════════════════════════════════════
+   SHOWCASE SHELL
+   ══════════════════════════════════════ */
+
+function ProjectCard({ project, isExpanded, onToggle }) {
+  const Comp = project.component;
+  return (
+    <article className={`project-card ${isExpanded ? 'expanded' : ''}`} id={`project-${project.id}`}>
+      <div className="card-top" onClick={onToggle}>
+        <div className="card-header">
+          <div className="card-icon">{project.icon}</div>
+          <div className="card-meta">
+            <span className={`card-tag ${project.category === 'fundamentals' ? 'tag-fundamentals' : 'tag-hooks'}`}>
+              {project.category === 'fundamentals' ? 'Fundamentals' : 'Hooks'}{project.badge ? ` · ${project.badge}` : ''}
+            </span>
+            <h2 className="card-title">{project.title}</h2>
+          </div>
+          <div className={`card-chevron ${isExpanded ? 'open' : ''}`}>▾</div>
+        </div>
+        <p className="card-desc">{project.desc}</p>
+        <div className="card-concepts">
+          {project.concepts.map(c => <span key={c} className="concept">{c}</span>)}
+        </div>
+      </div>
+      {isExpanded && (
+        <div className="card-preview">
+          <div className="preview-bar">
+            <div className="mac-dots"><span></span><span></span><span></span></div>
+            <span className="preview-label">Live Preview</span>
+          </div>
+          <div className={`preview-content proj-${project.id}`}>
+            <Comp />
           </div>
         </div>
-        <p class="card-desc">Flexible card component mapping over a data array to render user profiles with consistent styling.</p>
-        <div class="card-concepts">
-          <span class="concept">Props</span>
-          <span class="concept">Array.map</span>
-          <span class="concept">Flexbox</span>
-        </div>
-      </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20fundamentals/Reusable%20ProfileCard%20Component/index.html" title="ProfileCard Component" loading="lazy"></iframe>
-      </div>
+      )}
     </article>
+  );
+}
 
-    <article class="project-card" data-category="fundamentals" id="project-footer">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">🦶</div>
-          <div class="card-meta">
-            <span class="card-tag tag-fundamentals">Fundamentals</span>
-            <h2 class="card-title">Reusable Footer</h2>
-          </div>
-        </div>
-        <p class="card-desc">Multi-column footer with navigation links, social icons, and copyright — built with semantic HTML.</p>
-        <div class="card-concepts">
-          <span class="concept">Semantic HTML</span>
-          <span class="concept">Components</span>
-          <span class="concept">CSS</span>
-        </div>
-      </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20fundamentals/Reusable%20Footer/index.html" title="Reusable Footer" loading="lazy"></iframe>
-      </div>
-    </article>
+function App() {
+  const [filter, setFilter] = useState("all");
+  const [expanded, setExpanded] = useState({});
 
-    <article class="project-card" data-category="fundamentals" id="project-navbar">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">🧭</div>
-          <div class="card-meta">
-            <span class="card-tag tag-fundamentals">Fundamentals</span>
-            <h2 class="card-title">Mega Navbar</h2>
-          </div>
-        </div>
-        <p class="card-desc">Navigation bar with dropdown submenu support. ARIA attributes for accessibility and hover interactions.</p>
-        <div class="card-concepts">
-          <span class="concept">Navigation</span>
-          <span class="concept">ARIA</span>
-          <span class="concept">Submenus</span>
-        </div>
-      </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20fundamentals/Mega%20Navbar/index.html" title="Mega Navbar" loading="lazy"></iframe>
-      </div>
-    </article>
+  const toggleExpand = (id) => {
+    setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
+  };
 
-    <article class="project-card" data-category="fundamentals" id="project-mood-board">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">🎨</div>
-          <div class="card-meta">
-            <span class="card-tag tag-fundamentals">Fundamentals · Lab</span>
-            <h2 class="card-title">Mood Board</h2>
-          </div>
-        </div>
-        <p class="card-desc">Visual mood board accepting destination images and color themes via props, arranged in a CSS Grid layout.</p>
-        <div class="card-concepts">
-          <span class="concept">Props</span>
-          <span class="concept">CSS Grid</span>
-          <span class="concept">Images</span>
-        </div>
-      </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20fundamentals/Mood%20Board(Lab)/index.html" title="Mood Board" loading="lazy"></iframe>
-      </div>
-    </article>
+  const filtered = filter === "all" ? PROJECTS : PROJECTS.filter(p => p.category === filter);
 
-    <!-- ============ MODULE 2: STATE, HOOKS & ROUTING ============ -->
-
-    <article class="project-card" data-category="hooks" id="project-color-picker">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">🖌️</div>
-          <div class="card-meta">
-            <span class="card-tag tag-hooks">Hooks · Lab</span>
-            <h2 class="card-title">Color Picker App</h2>
-          </div>
-        </div>
-        <p class="card-desc">Interactive color selector using native HTML5 color input. Selected color updates the background in real time.</p>
-        <div class="card-concepts">
-          <span class="concept">useState</span>
-          <span class="concept">Controlled Inputs</span>
-          <span class="concept">Live Preview</span>
-        </div>
+  return (
+    <>
+      {/* Background Orbs */}
+      <div className="bg-orbs" aria-hidden="true">
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
+        <div className="orb orb-3"></div>
       </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20State,Hooks%20and%20Routing/Color%20picker%20App(LAB)/index.html" title="Color Picker App" loading="lazy"></iframe>
-      </div>
-    </article>
 
-    <article class="project-card" data-category="hooks" id="project-toggle-text">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">👁️</div>
-          <div class="card-meta">
-            <span class="card-tag tag-hooks">Hooks</span>
-            <h2 class="card-title">Toggle Text App</h2>
-          </div>
+      {/* Hero */}
+      <header className="hero">
+        <div className="hero-badge">
+          <span className="hero-badge-dot"></span>
+          FreeCodeCamp · React Curriculum
         </div>
-        <p class="card-desc">Minimal toggle showing/hiding a message using boolean state and conditional rendering.</p>
-        <div class="card-concepts">
-          <span class="concept">useState</span>
-          <span class="concept">Boolean State</span>
-          <span class="concept">Conditional Render</span>
+        <h1 className="hero-title">React Projects<br /><span className="hero-gradient">Showcase</span></h1>
+        <p className="hero-sub">11 self-contained mini-projects · 2 learning modules · built from scratch</p>
+        <div className="hero-stats">
+          <div className="stat"><div className="stat-num">11</div><div className="stat-label">Projects</div></div>
+          <div className="stat-divider"></div>
+          <div className="stat"><div className="stat-num">2</div><div className="stat-label">Modules</div></div>
+          <div className="stat-divider"></div>
+          <div className="stat"><div className="stat-num">7+</div><div className="stat-label">React Hooks</div></div>
         </div>
-      </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20State,Hooks%20and%20Routing/Toggle%20text%20app/index.html" title="Toggle Text App" loading="lazy"></iframe>
-      </div>
-    </article>
+      </header>
 
-    <article class="project-card" data-category="hooks" id="project-fruit-search">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">🍎</div>
-          <div class="card-meta">
-            <span class="card-tag tag-hooks">Hooks</span>
-            <h2 class="card-title">Fruit Search App</h2>
-          </div>
-        </div>
-        <p class="card-desc">Real-time search backed by FreeCodeCamp's fruit API. Features 700ms debounce, loading states, and error handling.</p>
-        <div class="card-concepts">
-          <span class="concept">useState</span>
-          <span class="concept">useEffect</span>
-          <span class="concept">Fetch API</span>
-          <span class="concept">Debounce</span>
-        </div>
-      </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20State,Hooks%20and%20Routing/fruit-search-app/index.html" title="Fruit Search App" loading="lazy"></iframe>
-      </div>
-    </article>
+      {/* Filters */}
+      <nav className="filter-bar">
+        {[{key:"all",label:"All Projects"},{key:"fundamentals",label:"Fundamentals",dot:"dot-blue"},{key:"hooks",label:"State & Hooks",dot:"dot-purple"}].map(f => (
+          <button key={f.key} className={`filter-btn ${filter === f.key ? 'active' : ''}`} onClick={() => setFilter(f.key)}>
+            {f.dot && <span className={`filter-dot ${f.dot}`}></span>}
+            {f.label}
+          </button>
+        ))}
+      </nav>
 
-    <article class="project-card" data-category="hooks" id="project-otp-generator">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">🔐</div>
-          <div class="card-meta">
-            <span class="card-tag tag-hooks">Hooks</span>
-            <h2 class="card-title">OTP Generator</h2>
-          </div>
-        </div>
-        <p class="card-desc">Generates a random 6-digit OTP with a visible countdown timer. Auto-expires when timer reaches zero.</p>
-        <div class="card-concepts">
-          <span class="concept">useState</span>
-          <span class="concept">useEffect</span>
-          <span class="concept">useRef</span>
-          <span class="concept">Timers</span>
-        </div>
-      </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20State,Hooks%20and%20Routing/OTP%20Generator/index.html" title="OTP Generator" loading="lazy"></iframe>
-      </div>
-    </article>
+      {/* Grid */}
+      <main className="projects-container">
+        {filtered.map(p => (
+          <ProjectCard key={p.id} project={p} isExpanded={!!expanded[p.id]} onToggle={() => toggleExpand(p.id)} />
+        ))}
+      </main>
 
-    <article class="project-card" data-category="hooks" id="project-superhero-form">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">🦸</div>
-          <div class="card-meta">
-            <span class="card-tag tag-hooks">Hooks</span>
-            <h2 class="card-title">Superhero Application Form</h2>
-          </div>
-        </div>
-        <p class="card-desc">Multi-input registration form with text, password, select, and checkboxes. Validates before submission.</p>
-        <div class="card-concepts">
-          <span class="concept">Controlled Forms</span>
-          <span class="concept">Checkbox Arrays</span>
-          <span class="concept">Validation</span>
-        </div>
-      </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20State,Hooks%20and%20Routing/superhero%20application%20form/index.html" title="Superhero Application Form" loading="lazy"></iframe>
-      </div>
-    </article>
+      {/* Footer */}
+      <footer className="site-footer">
+        <div className="footer-line"></div>
+        <p>Built with ❤️ by <strong>Loki</strong> · FreeCodeCamp React Curriculum</p>
+      </footer>
+    </>
+  );
+}
 
-    <article class="project-card" data-category="hooks" id="project-event-form">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">🎟️</div>
-          <div class="card-meta">
-            <span class="card-tag tag-hooks">Hooks · Lab</span>
-            <h2 class="card-title">Event RSVP Form</h2>
-          </div>
-        </div>
-        <p class="card-desc">Multi-field event registration that conditionally renders a confirmation summary after submission.</p>
-        <div class="card-concepts">
-          <span class="concept">Multi-field Forms</span>
-          <span class="concept">Conditional Render</span>
-          <span class="concept">Post-submit UI</span>
-        </div>
-      </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20State,Hooks%20and%20Routing/Event%20form(LAB)/index.html" title="Event RSVP Form" loading="lazy"></iframe>
-      </div>
-    </article>
-
-    <article class="project-card" data-category="hooks" id="project-shopping-list">
-      <div class="card-top">
-        <div class="card-header">
-          <div class="card-icon">🛒</div>
-          <div class="card-meta">
-            <span class="card-tag tag-hooks">Hooks</span>
-            <h2 class="card-title">Shopping List</h2>
-          </div>
-        </div>
-        <p class="card-desc">Filterable shopping list with useMemo for optimized filtering, useCallback for stable handlers, and strike-through on check.</p>
-        <div class="card-concepts">
-          <span class="concept">useMemo</span>
-          <span class="concept">useCallback</span>
-          <span class="concept">Filtering</span>
-          <span class="concept">Performance</span>
-        </div>
-      </div>
-      <div class="card-preview">
-        <div class="preview-bar">
-          <div class="mac-dots"><span></span><span></span><span></span></div>
-          <span class="preview-label">Live Preview</span>
-        </div>
-        <iframe src="../React%20State,Hooks%20and%20Routing/Shopping%20List/index.html" title="Shopping List" loading="lazy"></iframe>
-      </div>
-    </article>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="footer-line"></div>
-    <p>Built with ❤️ by <strong>Loki</strong> · FreeCodeCamp React Curriculum</p>
-  </footer>
-
-  <script>
-    /* ── Filter Logic ── */
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.project-card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-
-        cards.forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = '';
-            requestAnimationFrame(() => {
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0)';
-            });
-          } else {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            setTimeout(() => { card.style.display = 'none'; }, 300);
-          }
-        });
-      });
-    });
-
-    /* ── Scroll Reveal ── */
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08 });
-
-    cards.forEach(card => observer.observe(card));
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
 </body>
 </html>
