@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreeCodeCamp React Projects — Showcase</title>
+  <meta name="description" content="A curated showcase of 11 React mini-projects built during the FreeCodeCamp curriculum, from fundamentals to hooks and routing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Floating Orbs Background -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="hero" id="hero">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      FreeCodeCamp · React Curriculum
+    </div>
+    <h1 class="hero-title">React Projects<br /><span class="hero-gradient">Showcase</span></h1>
+    <p class="hero-sub">11 self-contained mini-projects · 2 learning modules · built from scratch</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">11</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Modules</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">7+</div>
+        <div class="stat-label">React Hooks</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filter Bar -->
+  <nav class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all" id="filter-all">All Projects</button>
+    <button class="filter-btn" data-filter="fundamentals" id="filter-fundamentals">
+      <span class="filter-dot dot-blue"></span>Fundamentals
+    </button>
+    <button class="filter-btn" data-filter="hooks" id="filter-hooks">
+      <span class="filter-dot dot-purple"></span>State & Hooks
+    </button>
+  </nav>
+
+  <!-- Projects Grid -->
+  <main class="projects-container" id="projectsGrid">
+
+    <!-- ============ MODULE 1: FUNDAMENTALS ============ -->
+
+    <article class="project-card" data-category="fundamentals" id="project-profile-card">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">🪪</div>
+          <div class="card-meta">
+            <span class="card-tag tag-fundamentals">Fundamentals</span>
+            <h2 class="card-title">Reusable ProfileCard</h2>
+          </div>
+        </div>
+        <p class="card-desc">Flexible card component mapping over a data array to render user profiles with consistent styling.</p>
+        <div class="card-concepts">
+          <span class="concept">Props</span>
+          <span class="concept">Array.map</span>
+          <span class="concept">Flexbox</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20fundamentals/Reusable%20ProfileCard%20Component/index.html" title="ProfileCard Component" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+    <article class="project-card" data-category="fundamentals" id="project-footer">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">🦶</div>
+          <div class="card-meta">
+            <span class="card-tag tag-fundamentals">Fundamentals</span>
+            <h2 class="card-title">Reusable Footer</h2>
+          </div>
+        </div>
+        <p class="card-desc">Multi-column footer with navigation links, social icons, and copyright — built with semantic HTML.</p>
+        <div class="card-concepts">
+          <span class="concept">Semantic HTML</span>
+          <span class="concept">Components</span>
+          <span class="concept">CSS</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20fundamentals/Reusable%20Footer/index.html" title="Reusable Footer" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+    <article class="project-card" data-category="fundamentals" id="project-navbar">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">🧭</div>
+          <div class="card-meta">
+            <span class="card-tag tag-fundamentals">Fundamentals</span>
+            <h2 class="card-title">Mega Navbar</h2>
+          </div>
+        </div>
+        <p class="card-desc">Navigation bar with dropdown submenu support. ARIA attributes for accessibility and hover interactions.</p>
+        <div class="card-concepts">
+          <span class="concept">Navigation</span>
+          <span class="concept">ARIA</span>
+          <span class="concept">Submenus</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20fundamentals/Mega%20Navbar/index.html" title="Mega Navbar" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+    <article class="project-card" data-category="fundamentals" id="project-mood-board">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">🎨</div>
+          <div class="card-meta">
+            <span class="card-tag tag-fundamentals">Fundamentals · Lab</span>
+            <h2 class="card-title">Mood Board</h2>
+          </div>
+        </div>
+        <p class="card-desc">Visual mood board accepting destination images and color themes via props, arranged in a CSS Grid layout.</p>
+        <div class="card-concepts">
+          <span class="concept">Props</span>
+          <span class="concept">CSS Grid</span>
+          <span class="concept">Images</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20fundamentals/Mood%20Board(Lab)/index.html" title="Mood Board" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+    <!-- ============ MODULE 2: STATE, HOOKS & ROUTING ============ -->
+
+    <article class="project-card" data-category="hooks" id="project-color-picker">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">🖌️</div>
+          <div class="card-meta">
+            <span class="card-tag tag-hooks">Hooks · Lab</span>
+            <h2 class="card-title">Color Picker App</h2>
+          </div>
+        </div>
+        <p class="card-desc">Interactive color selector using native HTML5 color input. Selected color updates the background in real time.</p>
+        <div class="card-concepts">
+          <span class="concept">useState</span>
+          <span class="concept">Controlled Inputs</span>
+          <span class="concept">Live Preview</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20State,Hooks%20and%20Routing/Color%20picker%20App(LAB)/index.html" title="Color Picker App" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+    <article class="project-card" data-category="hooks" id="project-toggle-text">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">👁️</div>
+          <div class="card-meta">
+            <span class="card-tag tag-hooks">Hooks</span>
+            <h2 class="card-title">Toggle Text App</h2>
+          </div>
+        </div>
+        <p class="card-desc">Minimal toggle showing/hiding a message using boolean state and conditional rendering.</p>
+        <div class="card-concepts">
+          <span class="concept">useState</span>
+          <span class="concept">Boolean State</span>
+          <span class="concept">Conditional Render</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20State,Hooks%20and%20Routing/Toggle%20text%20app/index.html" title="Toggle Text App" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+    <article class="project-card" data-category="hooks" id="project-fruit-search">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">🍎</div>
+          <div class="card-meta">
+            <span class="card-tag tag-hooks">Hooks</span>
+            <h2 class="card-title">Fruit Search App</h2>
+          </div>
+        </div>
+        <p class="card-desc">Real-time search backed by FreeCodeCamp's fruit API. Features 700ms debounce, loading states, and error handling.</p>
+        <div class="card-concepts">
+          <span class="concept">useState</span>
+          <span class="concept">useEffect</span>
+          <span class="concept">Fetch API</span>
+          <span class="concept">Debounce</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20State,Hooks%20and%20Routing/fruit-search-app/index.html" title="Fruit Search App" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+    <article class="project-card" data-category="hooks" id="project-otp-generator">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">🔐</div>
+          <div class="card-meta">
+            <span class="card-tag tag-hooks">Hooks</span>
+            <h2 class="card-title">OTP Generator</h2>
+          </div>
+        </div>
+        <p class="card-desc">Generates a random 6-digit OTP with a visible countdown timer. Auto-expires when timer reaches zero.</p>
+        <div class="card-concepts">
+          <span class="concept">useState</span>
+          <span class="concept">useEffect</span>
+          <span class="concept">useRef</span>
+          <span class="concept">Timers</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20State,Hooks%20and%20Routing/OTP%20Generator/index.html" title="OTP Generator" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+    <article class="project-card" data-category="hooks" id="project-superhero-form">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">🦸</div>
+          <div class="card-meta">
+            <span class="card-tag tag-hooks">Hooks</span>
+            <h2 class="card-title">Superhero Application Form</h2>
+          </div>
+        </div>
+        <p class="card-desc">Multi-input registration form with text, password, select, and checkboxes. Validates before submission.</p>
+        <div class="card-concepts">
+          <span class="concept">Controlled Forms</span>
+          <span class="concept">Checkbox Arrays</span>
+          <span class="concept">Validation</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20State,Hooks%20and%20Routing/superhero%20application%20form/index.html" title="Superhero Application Form" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+    <article class="project-card" data-category="hooks" id="project-event-form">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">🎟️</div>
+          <div class="card-meta">
+            <span class="card-tag tag-hooks">Hooks · Lab</span>
+            <h2 class="card-title">Event RSVP Form</h2>
+          </div>
+        </div>
+        <p class="card-desc">Multi-field event registration that conditionally renders a confirmation summary after submission.</p>
+        <div class="card-concepts">
+          <span class="concept">Multi-field Forms</span>
+          <span class="concept">Conditional Render</span>
+          <span class="concept">Post-submit UI</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20State,Hooks%20and%20Routing/Event%20form(LAB)/index.html" title="Event RSVP Form" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+    <article class="project-card" data-category="hooks" id="project-shopping-list">
+      <div class="card-top">
+        <div class="card-header">
+          <div class="card-icon">🛒</div>
+          <div class="card-meta">
+            <span class="card-tag tag-hooks">Hooks</span>
+            <h2 class="card-title">Shopping List</h2>
+          </div>
+        </div>
+        <p class="card-desc">Filterable shopping list with useMemo for optimized filtering, useCallback for stable handlers, and strike-through on check.</p>
+        <div class="card-concepts">
+          <span class="concept">useMemo</span>
+          <span class="concept">useCallback</span>
+          <span class="concept">Filtering</span>
+          <span class="concept">Performance</span>
+        </div>
+      </div>
+      <div class="card-preview">
+        <div class="preview-bar">
+          <div class="mac-dots"><span></span><span></span><span></span></div>
+          <span class="preview-label">Live Preview</span>
+        </div>
+        <iframe src="../React%20State,Hooks%20and%20Routing/Shopping%20List/index.html" title="Shopping List" loading="lazy" sandbox="allow-scripts"></iframe>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-line"></div>
+    <p>Built with ❤️ by <strong>Loki</strong> · FreeCodeCamp React Curriculum</p>
+  </footer>
+
+  <script>
+    /* ── Filter Logic ── */
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.project-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+
+        cards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = '';
+            requestAnimationFrame(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            });
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => { card.style.display = 'none'; }, 300);
+          }
+        });
+      });
+    });
+
+    /* ── Scroll Reveal ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    cards.forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>
