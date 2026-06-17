@@ -17,6 +17,8 @@
 
 A curated collection of React mini-projects organized into two progressive learning modules. Each project is self-contained and demonstrates specific React concepts — from component composition and props all the way to hooks, async data fetching, and performance optimization.
 
+> **🚀 Live Showcase** — Open [`showcase/index.html`](showcase/index.html) to see all 11 projects rendered on a single page with live interactive previews.
+
 ---
 
 ## Tech Stack
@@ -35,6 +37,10 @@ A curated collection of React mini-projects organized into two progressive learn
 
 ```
 FreeCodeCamp/
+├── showcase/                          ← ✨ Single-page showcase (open this!)
+│   ├── index.html
+│   └── styles.css
+│
 ├── React fundamentals/
 │   ├── Reusable ProfileCard Component/
 │   ├── Reusable Footer/
@@ -50,8 +56,8 @@ FreeCodeCamp/
 │   ├── Event form(LAB)/
 │   └── Shopping List/
 │
-├── index.html
-└── projects.html
+├── index.html                         ← Internship roadmap tracker
+└── projects.html                      ← Legacy project listing
 ```
 
 ---
@@ -66,20 +72,6 @@ FreeCodeCamp/
 | 2 | 🦶 **Reusable Footer** | Component structure · semantic HTML · CSS styling |
 | 3 | 🧭 **Mega Navbar** | Navigation patterns · submenu handling · ARIA accessibility |
 | 4 | 🎨 **Mood Board** *(Lab)* | Passing props · Grid layout · color-themed cards |
-
-### Project Details
-
-#### 🪪 Reusable ProfileCard Component
-A flexible card component that renders user profiles (name, title, bio). Maps over a data array to output multiple cards with consistent styling and a responsive Flexbox layout.
-
-#### 🦶 Reusable Footer
-A professional multi-column footer with organized navigation links, a social media icon row, and a copyright section built with semantic HTML elements.
-
-#### 🧭 Mega Navbar
-A navigation bar with full dropdown/submenu support. Includes ARIA attributes for accessibility and clean hover interactions.
-
-#### 🎨 Mood Board *(Lab)*
-A visual mood board that accepts destination images and color themes via props and arranges them in a responsive CSS Grid layout.
 
 ---
 
@@ -97,47 +89,41 @@ A visual mood board that accepts destination images and color themes via props a
 | 6 | 🎟️ **Event RSVP Form** *(Lab)* | Multi-field forms · conditional rendering · post-submit display |
 | 7 | 🛒 **Shopping List** | `useMemo` · `useCallback` · filtering · performance |
 
-### Project Details
+---
 
-#### 🎨 Color Picker App *(Lab)*
-An interactive color selection tool using the native HTML5 `<input type="color">`. The selected color updates the background in real time via a controlled `useState` hook.
+## Showcase
 
-#### 👁️ Toggle Text App
-A minimal toggle component that shows/hides a message using boolean state. Demonstrates conditional rendering and dynamic button labels.
+All 11 projects are consolidated into a **single-page showcase** at [`showcase/index.html`](showcase/index.html). It features:
 
-#### 🍎 Fruit Search App
-A real-time search interface backed by FreeCodeCamp's public fruit API. Features a 700 ms debounce on the input, loading indicators, and graceful error handling.
-
-#### 🔐 OTP Generator
-Generates a random 6-digit one-time password with a visible countdown timer. The button is disabled while an OTP is active, and the code auto-expires when the timer reaches zero.
-
-#### 🦸 Superhero Application Form
-A multi-input registration form (text, password, select, checkboxes) for aspiring superheroes. Validates inputs and keeps the submit button disabled until all required fields are filled.
-
-#### 🎟️ Event RSVP Form *(Lab)*
-A multi-field event registration form that conditionally renders a confirmation summary after submission, displaying all submitted data back to the user.
-
-#### 🛒 Shopping List
-A filterable shopping list with `useMemo` for optimized filtering and `useCallback` for stable event handlers. Items can be checked off with a visual strike-through effect.
+- 🎯 **Click-to-expand** live previews for each project
+- 🏷️ **Category filters** — All / Fundamentals / State & Hooks
+- 🖥️ **Mac-style preview windows** with traffic light dots
+- 📱 **Fully responsive** — works on desktop, tablet, and mobile
+- ⚡ **Zero build step** — runs directly from the file system (CDN React + Babel)
 
 ---
 
 ## Getting Started
 
-Each project is a standalone React app. To run any project:
+### Showcase (recommended)
+
+Simply open the showcase page — no server needed:
 
 ```bash
-# 1. Navigate into the project folder
-cd "React State,Hooks and Routing/OTP Generator"   # (example)
-
-# 2. Install dependencies
-npm install
-
-# 3. Start the development server
-npm start
+# Just open this file in your browser
+showcase/index.html
 ```
 
-> **Note:** Projects were bootstrapped with Create React App. Ensure you have **Node.js ≥ 14** and **npm ≥ 6** installed.
+### Individual Projects
+
+Each project is also a standalone React app:
+
+```bash
+# Navigate into any project folder and open index.html
+React State,Hooks and Routing/OTP Generator/index.html
+```
+
+> **Note:** Projects use CDN-loaded React 18 + Babel Standalone. No `npm install` required.
 
 ---
 

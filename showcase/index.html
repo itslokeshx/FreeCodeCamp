@@ -4,263 +4,168 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FreeCodeCamp React Projects — Showcase</title>
-  <meta name="description" content="A curated showcase of 11 React mini-projects built during the FreeCodeCamp curriculum." />
+  <meta name="description" content="11 React mini-projects built during the FreeCodeCamp curriculum — from fundamentals to hooks." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.development.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.5/babel.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
   <script type="text/babel" data-presets="react">
-const { useState, useEffect, useRef, useMemo, useCallback } = React;
+const { useState, useEffect, useMemo, useCallback } = React;
 
-/* ═══════════════════════════════════
-   ALL 11 PROJECT COMPONENTS (inlined)
-   ═══════════════════════════════════ */
+/* ════════════════════════════════════════
+   PROJECT COMPONENTS
+   ════════════════════════════════════════ */
 
-// 1. ProfileCard
 function ProfileCardApp() {
   const profiles = [
-    { id: 1, name: "Mark", title: "Front-End developer", bio: "I like to work with different front-end technologies and play video games." },
-    { id: 2, name: "Tiffany", title: "Engineering manager", bio: "I have worked in tech for 15 years and love to help people grow." },
-    { id: 3, name: "Doug", title: "Back-End developer", bio: "I have been a software developer for over 20 years. I love Go and Rust." },
+    { id:1, name:"Mark", title:"Front-End Developer", bio:"I like to work with different front-end technologies and play video games." },
+    { id:2, name:"Tiffany", title:"Engineering Manager", bio:"I have worked in tech for 15 years and love to help people grow." },
+    { id:3, name:"Doug", title:"Back-End Developer", bio:"I have been a software developer for over 20 years. I love Go and Rust." },
   ];
   return (
     <div className="pc-flex">
-      {profiles.map(p => (
-        <div key={p.id} className="pc-card">
-          <h2>{p.name}</h2>
-          <p className="pc-title">{p.title}</p>
-          <p>{p.bio}</p>
-        </div>
-      ))}
+      {profiles.map(p => <div key={p.id} className="pc-card"><h3>{p.name}</h3><p className="pc-role">{p.title}</p><p className="pc-bio">{p.bio}</p></div>)}
     </div>
   );
 }
 
-// 2. Footer
 function FooterApp() {
   return (
-    <footer className="ft-footer">
+    <footer className="ft">
       <div className="ft-cols">
         <ul><li><a href="#">Dashboard</a></li><li><a href="#">Services</a></li></ul>
         <ul><li><a href="#">Videos</a></li><li><a href="#">Discord</a></li></ul>
-        <ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms &amp; Conditions</a></li></ul>
+        <ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms</a></li></ul>
       </div>
       <p className="ft-copy">&copy; 2024 Fitness Dashboard. All Rights Reserved.</p>
-      <ul className="ft-social">
-        <li><a href="#">💻</a></li><li><a href="#">📧</a></li><li><a href="#">📞</a></li><li><a href="#">📍</a></li>
-      </ul>
+      <div className="ft-icons"><span>💻</span><span>📧</span><span>📞</span><span>📍</span></div>
     </footer>
   );
 }
 
-// 3. Mega Navbar
 function NavbarApp() {
   return (
-    <nav className="nb-bar">
+    <nav className="nb">
       <ul>
-        <li className="nb-item"><a href="#">Dashboard</a></li>
-        <li className="nb-item"><a href="#">Widgets</a></li>
-        <li className="nb-item nb-has-sub">
-          <button aria-expanded="false">Apps ▾</button>
-          <ul className="nb-sub">
-            <li><a href="#">Calendar</a></li>
-            <li><a href="#">Chat</a></li>
-            <li><a href="#">Email</a></li>
-          </ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Widgets</a></li>
+        <li className="nb-drop">
+          <button>Apps ▾</button>
+          <ul className="nb-sub"><li><a href="#">Calendar</a></li><li><a href="#">Chat</a></li><li><a href="#">Email</a></li></ul>
         </li>
       </ul>
     </nav>
   );
 }
 
-// 4. Mood Board
 function MoodBoardApp() {
   const items = [
-    { color: "#3b82f6", img: "https://cdn.freecodecamp.org/curriculum/labs/pathway.jpg", text: "Peaceful pathway" },
-    { color: "#22c55e", img: "https://cdn.freecodecamp.org/curriculum/labs/grass.jpg", text: "Fresh green grass" },
-    { color: "#f97316", img: "https://cdn.freecodecamp.org/curriculum/labs/shore.jpg", text: "Relaxing beach shore" },
-    { color: "#8b5cf6", img: "https://cdn.freecodecamp.org/curriculum/labs/ship.jpg", text: "Adventure on the sea" },
-    { color: "#ec4899", img: "https://cdn.freecodecamp.org/curriculum/labs/santorini.jpg", text: "Beautiful Santorini" },
+    { color:"#3b82f6", img:"https://cdn.freecodecamp.org/curriculum/labs/pathway.jpg", t:"Peaceful pathway" },
+    { color:"#22c55e", img:"https://cdn.freecodecamp.org/curriculum/labs/grass.jpg", t:"Fresh green grass" },
+    { color:"#f97316", img:"https://cdn.freecodecamp.org/curriculum/labs/shore.jpg", t:"Beach shore" },
+    { color:"#8b5cf6", img:"https://cdn.freecodecamp.org/curriculum/labs/ship.jpg", t:"Adventure at sea" },
+    { color:"#ec4899", img:"https://cdn.freecodecamp.org/curriculum/labs/santorini.jpg", t:"Santorini vibes" },
   ];
   return (
-    <div>
-      <h2 className="mb-heading">Destination Mood Board</h2>
-      <div className="mb-grid">
-        {items.map(i => (
-          <div key={i.text} className="mb-card" style={{ backgroundColor: i.color }}>
-            <img className="mb-img" src={i.img} alt={i.text} />
-            <span className="mb-label">{i.text}</span>
-          </div>
-        ))}
-      </div>
+    <div className="mb-wrap">
+      <h3 className="mb-h">Destination Mood Board</h3>
+      <div className="mb-grid">{items.map(i=><div key={i.t} className="mb-card" style={{backgroundColor:i.color}}><img src={i.img} alt={i.t}/><span>{i.t}</span></div>)}</div>
     </div>
   );
 }
 
-// 5. Color Picker
 function ColorPickerApp() {
-  const [color, setColor] = useState("#6c5ce7");
-  return (
-    <div className="cp-box" style={{ backgroundColor: color }}>
-      <span className="cp-hex">{color.toUpperCase()}</span>
-      <input className="cp-input" type="color" value={color} onChange={e => setColor(e.target.value)} />
-    </div>
-  );
+  const [c, setC] = useState("#6c5ce7");
+  return <div className="cp" style={{backgroundColor:c}}><span className="cp-val">{c.toUpperCase()}</span><input type="color" value={c} onChange={e=>setC(e.target.value)}/></div>;
 }
 
-// 6. Toggle Text
 function ToggleApp() {
-  const [show, setShow] = useState(false);
-  return (
-    <div className="tg-box">
-      <button className="tg-btn" onClick={() => setShow(!show)}>{show ? "Hide" : "Show"} Message</button>
-      {show && <p className="tg-msg">I love freeCodeCamp!</p>}
-    </div>
-  );
+  const [v, setV] = useState(false);
+  return <div className="tg"><button className="tg-btn" onClick={()=>setV(!v)}>{v?"Hide":"Show"} Message</button>{v&&<p className="tg-msg">I love freeCodeCamp!</p>}</div>;
 }
 
-// 7. Fruit Search
 function FruitSearchApp() {
-  const [q, setQ] = useState('');
-  const [res, setRes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [q, setQ] = useState(''); const [r, setR] = useState([]); const [ld, setLd] = useState(false);
   useEffect(() => {
-    if (!q.trim()) { setRes([]); return; }
-    setLoading(true);
-    const t = setTimeout(async () => {
-      try {
-        const r = await fetch(`https://fruit-search.freecodecamp.rocks/api/fruits?q=${q}`);
-        const d = await r.json();
-        setRes(d.map(f => f.name));
-      } catch { setRes([]); }
-      setLoading(false);
-    }, 700);
-    return () => { clearTimeout(t); setLoading(false); };
+    if (!q.trim()) { setR([]); return; } setLd(true);
+    const t = setTimeout(async()=>{ try { const res=await fetch(`https://fruit-search.freecodecamp.rocks/api/fruits?q=${q}`); const d=await res.json(); setR(d.map(f=>f.name)); } catch{setR([]);} setLd(false); }, 700);
+    return ()=>{ clearTimeout(t); setLd(false); };
   }, [q]);
   return (
-    <div className="fs-box">
-      <label htmlFor="fs-q">Search for fruits:</label>
-      <input id="fs-q" className="fs-input" type="search" placeholder="Type a fruit name…" value={q} onChange={e => setQ(e.target.value)} />
-      <div className="fs-results">
-        {loading ? <p className="fs-dim">Searching…</p> :
-         res.length > 0 ? res.map(r => <p key={r} className="fs-item">{r}</p>) :
-         q.trim() ? <p className="fs-dim">No results</p> : <p className="fs-dim">Start typing to search</p>}
-      </div>
+    <div className="fs">
+      <label>Search for fruits:</label>
+      <input className="fs-in" type="search" placeholder="Type a fruit name…" value={q} onChange={e=>setQ(e.target.value)}/>
+      <div className="fs-res">{ld?<p className="fs-d">Searching…</p>:r.length?r.map(x=><p key={x} className="fs-i">{x}</p>):q.trim()?<p className="fs-d">No results</p>:<p className="fs-d">Start typing…</p>}</div>
     </div>
   );
 }
 
-// 8. OTP Generator
 function OTPApp() {
-  const [otp, setOtp] = useState("");
-  const [t, setT] = useState(0);
-  useEffect(() => {
-    if (t === 0) return;
-    const id = setInterval(() => setT(p => p - 1), 1000);
-    return () => clearInterval(id);
-  }, [t]);
+  const [otp, setOtp] = useState(""); const [t, setT] = useState(0);
+  useEffect(()=>{ if(!t) return; const id=setInterval(()=>setT(p=>p-1),1000); return()=>clearInterval(id); },[t]);
   return (
-    <div className="otp-box">
-      <h2 className="otp-title">OTP Generator</h2>
-      <div className="otp-display">{otp || "------"}</div>
-      <p className="otp-timer">{otp ? (t > 0 ? `Expires in ${t}s` : "Expired — generate a new one") : "Click below to generate"}</p>
-      <button className="otp-btn" disabled={t > 0} onClick={() => { setOtp(Math.floor(100000 + Math.random() * 900000)); setT(5); }}>Generate OTP</button>
+    <div className="otp">
+      <h3>OTP Generator</h3>
+      <div className="otp-code">{otp||"------"}</div>
+      <p className="otp-t">{otp?(t>0?`Expires in ${t}s`:"Expired"):""}</p>
+      <button className="otp-btn" disabled={t>0} onClick={()=>{setOtp(Math.floor(100000+Math.random()*900000));setT(5);}}>Generate OTP</button>
     </div>
   );
 }
 
-// 9. Superhero Form
 function SuperheroApp() {
-  const sources = ["Bitten by a strange creature","Radioactive exposure","Science experiment","Alien heritage","Ancient artifact","Other"];
-  const allPowers = ["Super Strength","Super Speed","Flight","Invisibility","Telekinesis","Other"];
-  const [hero, setHero] = useState(""); const [real, setReal] = useState("");
-  const [src, setSrc] = useState(""); const [pows, setPows] = useState([]);
-  const toggle = (e) => { const {value, checked} = e.target; setPows(checked ? [...pows, value] : pows.filter(p=>p!==value)); };
+  const src=["Bitten by creature","Radioactive exposure","Science experiment","Alien heritage","Ancient artifact","Other"];
+  const pws=["Super Strength","Super Speed","Flight","Invisibility","Telekinesis","Other"];
+  const [h,setH]=useState(""); const [r,setR]=useState(""); const [s,setS]=useState(""); const [p,setP]=useState([]);
+  const tog=e=>{const{value,checked}=e.target; setP(checked?[...p,value]:p.filter(x=>x!==value));};
   return (
-    <div className="sh-box">
-      <h2>Superhero Application</h2>
-      <p className="sh-sub">Complete all fields to join</p>
-      <form onSubmit={e => e.preventDefault()}>
-        <div className="sh-row">
-          <label className="sh-field">Hero Name<input type="text" value={hero} onChange={e=>setHero(e.target.value)} placeholder="Spider-Man" /></label>
-          <label className="sh-field">Real Name<input type="password" value={real} onChange={e=>setReal(e.target.value)} placeholder="••••••" /></label>
-        </div>
-        <label className="sh-field">Power Source
-          <select value={src} onChange={e=>setSrc(e.target.value)}>
-            <option value="">Select one</option>
-            {sources.map(s=><option key={s} value={s}>{s}</option>)}
-          </select>
-        </label>
-        <fieldset className="sh-powers">
-          <legend>Powers (select all that apply)</legend>
-          {allPowers.map(pw=>(
-            <label key={pw} className="sh-pw-label"><input type="checkbox" value={pw} checked={pows.includes(pw)} onChange={toggle}/>{pw}</label>
-          ))}
-        </fieldset>
-        <button className="sh-submit" disabled={!hero||!real||!src||!pows.length}>Join the League</button>
+    <div className="sh">
+      <h3>Superhero Application</h3><p className="sh-sub">Complete all fields</p>
+      <form onSubmit={e=>e.preventDefault()}>
+        <div className="sh-row"><label className="sh-f">Hero Name<input type="text" value={h} onChange={e=>setH(e.target.value)} placeholder="Spider-Man"/></label><label className="sh-f">Real Name<input type="password" value={r} onChange={e=>setR(e.target.value)} placeholder="••••"/></label></div>
+        <label className="sh-f">Power Source<select value={s} onChange={e=>setS(e.target.value)}><option value="">Select…</option>{src.map(x=><option key={x}>{x}</option>)}</select></label>
+        <fieldset className="sh-fs"><legend>Powers</legend>{pws.map(x=><label key={x} className="sh-cb"><input type="checkbox" value={x} checked={p.includes(x)} onChange={tog}/>{x}</label>)}</fieldset>
+        <button className="sh-go" disabled={!h||!r||!s||!p.length}>Join the League</button>
       </form>
     </div>
   );
 }
 
-// 10. Event RSVP
 function EventRSVPApp() {
-  const [name, setName] = useState(""); const [mail, setMail] = useState("");
-  const [attend, setAttend] = useState(1); const [diet, setDiet] = useState("");
-  const [guests, setGuests] = useState(false); const [done, setDone] = useState(false);
+  const [n,sN]=useState(""); const [m,sM]=useState(""); const [a,sA]=useState(1);
+  const [d,sD]=useState(""); const [g,sG]=useState(false); const [ok,sOk]=useState(false);
   return (
-    <div className="ev-box">
-      <div className="ev-head">
-        <span className="ev-eye">Event Registration</span>
-        <h2>RSVP Form</h2>
-        <p>Fill in your details to confirm attendance.</p>
-      </div>
-      <form className="ev-form" onSubmit={e=>{e.preventDefault(); setDone(true);}}>
-        <label className="ev-field">Name<input required type="text" placeholder="Jane Doe" value={name} onChange={e=>setName(e.target.value)}/></label>
-        <label className="ev-field">Email<input required type="email" placeholder="jane@example.com" value={mail} onChange={e=>setMail(e.target.value)}/></label>
-        <label className="ev-field">Attendees<input required type="number" min="1" value={attend} onChange={e=>setAttend(e.target.value)}/></label>
-        <label className="ev-field">Dietary <span className="ev-opt">— optional</span><input type="text" placeholder="e.g. Vegan" value={diet} onChange={e=>setDiet(e.target.value)}/></label>
-        <label className="ev-check"><input type="checkbox" checked={guests} onChange={e=>setGuests(e.target.checked)}/><span>Bringing additional guests?</span></label>
-        <button className="ev-submit" type="submit">Confirm RSVP</button>
+    <div className="ev">
+      <div className="ev-hd"><span className="ev-eye">Event Registration</span><h3>RSVP Form</h3><p>Confirm your attendance below.</p></div>
+      <form className="ev-fm" onSubmit={e=>{e.preventDefault();sOk(true);}}>
+        <label className="ev-f">Name<input required placeholder="Jane Doe" value={n} onChange={e=>sN(e.target.value)}/></label>
+        <label className="ev-f">Email<input required type="email" placeholder="jane@example.com" value={m} onChange={e=>sM(e.target.value)}/></label>
+        <label className="ev-f">Attendees<input required type="number" min="1" value={a} onChange={e=>sA(e.target.value)}/></label>
+        <label className="ev-f">Dietary <span className="ev-opt">— optional</span><input placeholder="e.g. Vegan" value={d} onChange={e=>sD(e.target.value)}/></label>
+        <label className="ev-ck"><input type="checkbox" checked={g} onChange={e=>sG(e.target.checked)}/>Bringing guests?</label>
+        <button className="ev-go">Confirm RSVP</button>
       </form>
-      {done && (
-        <div className="ev-conf">
-          <h3>✓ RSVP Submitted</h3>
-          <div className="ev-r"><span>Name</span><span>{name}</span></div>
-          <div className="ev-r"><span>Email</span><span>{mail}</span></div>
-          <div className="ev-r"><span>Attendees</span><span>{attend}</span></div>
-          <div className="ev-r"><span>Dietary</span><span>{diet||"None"}</span></div>
-          <div className="ev-r"><span>Extra Guests</span><span>{guests?"Yes":"No"}</span></div>
-        </div>
-      )}
+      {ok&&<div className="ev-ok"><h4>✓ Submitted</h4><div className="ev-r"><span>Name</span><span>{n}</span></div><div className="ev-r"><span>Email</span><span>{m}</span></div><div className="ev-r"><span>Attendees</span><span>{a}</span></div><div className="ev-r"><span>Dietary</span><span>{d||"None"}</span></div><div className="ev-r"><span>Guests</span><span>{g?"Yes":"No"}</span></div></div>}
     </div>
   );
 }
 
-// 11. Shopping List
-const SHOP_ITEMS = ["Apples","Bananas","Strawberries","Blueberries","Mangoes","Pineapple","Lettuce","Broccoli","Paper Towels","Dish Soap"];
+const ITEMS=["Apples","Bananas","Strawberries","Blueberries","Mangoes","Pineapple","Lettuce","Broccoli","Paper Towels","Dish Soap"];
 function ShoppingListApp() {
-  const [q, setQ] = useState("");
-  const [sel, setSel] = useState([]);
-  const filtered = useMemo(() => SHOP_ITEMS.filter(i => i.toLowerCase().includes(q.toLowerCase())), [q]);
-  const toggle = useCallback(item => setSel(p => p.includes(item) ? p.filter(i=>i!==item) : [...p, item]), []);
+  const [q,setQ]=useState(""); const [sel,setSel]=useState([]);
+  const filt=useMemo(()=>ITEMS.filter(i=>i.toLowerCase().includes(q.toLowerCase())),[q]);
+  const tog=useCallback(i=>setSel(p=>p.includes(i)?p.filter(x=>x!==i):[...p,i]),[]);
   return (
-    <div className="sl-box">
-      <h2>Shopping List</h2>
-      <input className="sl-input" type="search" placeholder="Search items…" value={q} onChange={e=>setQ(e.target.value)}/>
-      <ul className="sl-list">
-        {filtered.map(item => (
-          <li key={item} className={sel.includes(item)?'sl-done':''}>
-            <label><input type="checkbox" checked={sel.includes(item)} onChange={()=>toggle(item)}/>{item}</label>
-          </li>
-        ))}
-      </ul>
+    <div className="sl">
+      <h3>Shopping List</h3>
+      <input className="sl-in" type="search" placeholder="Search…" value={q} onChange={e=>setQ(e.target.value)}/>
+      <ul className="sl-ul">{filt.map(i=><li key={i} className={sel.includes(i)?"sl-x":""}><label><input type="checkbox" checked={sel.includes(i)} onChange={()=>tog(i)}/>{i}</label></li>)}</ul>
     </div>
   );
 }
@@ -270,110 +175,90 @@ function ShoppingListApp() {
    PROJECT REGISTRY
    ═══════════════════ */
 const PROJECTS = [
-  { id:"profile-card", icon:"🪪", title:"Reusable ProfileCard", cat:"fundamentals",
-    desc:"Component composition with props and array mapping for user profiles.",
-    tags:["Props","Array.map","Flexbox"], Comp: ProfileCardApp },
-  { id:"footer", icon:"🦶", title:"Reusable Footer", cat:"fundamentals",
-    desc:"Multi-column footer with semantic HTML, nav links, and social icons.",
-    tags:["Semantic HTML","Components","CSS"], Comp: FooterApp },
-  { id:"navbar", icon:"🧭", title:"Mega Navbar", cat:"fundamentals",
-    desc:"Navigation with dropdown submenus, ARIA attributes, and hover interactions.",
-    tags:["Navigation","ARIA","Submenus"], Comp: NavbarApp },
-  { id:"mood-board", icon:"🎨", title:"Mood Board", cat:"fundamentals", badge:"Lab",
-    desc:"Visual mood board with destination images and color themes via props.",
-    tags:["Props","CSS Grid","Images"], Comp: MoodBoardApp },
-  { id:"color-picker", icon:"🖌️", title:"Color Picker", cat:"hooks", badge:"Lab",
-    desc:"Live color selector — pick a color and watch the background update instantly.",
-    tags:["useState","Controlled Inputs"], Comp: ColorPickerApp },
-  { id:"toggle-text", icon:"👁️", title:"Toggle Text", cat:"hooks",
-    desc:"Show/hide a message with boolean state and conditional rendering.",
-    tags:["useState","Conditional Render"], Comp: ToggleApp },
-  { id:"fruit-search", icon:"🍎", title:"Fruit Search", cat:"hooks",
-    desc:"Real-time search with 700ms debounce, hitting FreeCodeCamp's fruit API.",
-    tags:["useEffect","Fetch API","Debounce"], Comp: FruitSearchApp },
-  { id:"otp-generator", icon:"🔐", title:"OTP Generator", cat:"hooks",
-    desc:"Random 6-digit OTP with countdown timer and auto-expiry.",
-    tags:["useEffect","useRef","Timers"], Comp: OTPApp },
-  { id:"superhero-form", icon:"🦸", title:"Superhero Form", cat:"hooks",
-    desc:"Multi-input controlled form with checkboxes, selects, and validation.",
-    tags:["Controlled Forms","Validation"], Comp: SuperheroApp },
-  { id:"event-form", icon:"🎟️", title:"Event RSVP", cat:"hooks", badge:"Lab",
-    desc:"Registration form with conditional confirmation summary post-submit.",
-    tags:["Forms","Conditional Render"], Comp: EventRSVPApp },
-  { id:"shopping-list", icon:"🛒", title:"Shopping List", cat:"hooks",
-    desc:"Filterable list with useMemo, useCallback, and visual strike-through.",
-    tags:["useMemo","useCallback","Performance"], Comp: ShoppingListApp },
+  { id:"profile-card", icon:"🪪", title:"Reusable ProfileCard", cat:"fundamentals", desc:"Component composition with props and array mapping for user profiles.", tags:["Props","Array.map","Flexbox"], Comp:ProfileCardApp },
+  { id:"footer", icon:"🦶", title:"Reusable Footer", cat:"fundamentals", desc:"Multi-column footer with semantic HTML, navigation links, and social icons.", tags:["Semantic HTML","Components"], Comp:FooterApp },
+  { id:"navbar", icon:"🧭", title:"Mega Navbar", cat:"fundamentals", desc:"Navigation with dropdown submenus and ARIA accessibility attributes.", tags:["Navigation","ARIA","Submenus"], Comp:NavbarApp },
+  { id:"mood-board", icon:"🎨", title:"Mood Board", cat:"fundamentals", badge:"Lab", desc:"Visual mood board with destination images and color themes via props.", tags:["Props","CSS Grid","Images"], Comp:MoodBoardApp },
+  { id:"color-picker", icon:"🖌️", title:"Color Picker", cat:"hooks", badge:"Lab", desc:"Pick a color and watch the background update in real time.", tags:["useState","Controlled Inputs"], Comp:ColorPickerApp },
+  { id:"toggle-text", icon:"👁️", title:"Toggle Text", cat:"hooks", desc:"Show/hide a message using boolean state and conditional rendering.", tags:["useState","Conditional Render"], Comp:ToggleApp },
+  { id:"fruit-search", icon:"🍎", title:"Fruit Search", cat:"hooks", desc:"Real-time API search with 700ms debounce and error handling.", tags:["useEffect","Fetch API","Debounce"], Comp:FruitSearchApp },
+  { id:"otp-generator", icon:"🔐", title:"OTP Generator", cat:"hooks", desc:"Random 6-digit OTP with countdown timer and auto-expiry.", tags:["useEffect","useRef","Timers"], Comp:OTPApp },
+  { id:"superhero-form", icon:"🦸", title:"Superhero Form", cat:"hooks", desc:"Multi-input controlled form with validation and checkbox arrays.", tags:["Controlled Forms","Validation"], Comp:SuperheroApp },
+  { id:"event-form", icon:"🎟️", title:"Event RSVP", cat:"hooks", badge:"Lab", desc:"Registration form with conditional confirmation summary post-submit.", tags:["Forms","Conditional Render"], Comp:EventRSVPApp },
+  { id:"shopping-list", icon:"🛒", title:"Shopping List", cat:"hooks", desc:"Filterable list with useMemo, useCallback, and performance optimization.", tags:["useMemo","useCallback"], Comp:ShoppingListApp },
 ];
 
 
 /* ═══════════════════
-   SHOWCASE APP
+   MAIN APP
    ═══════════════════ */
 function App() {
   const [filter, setFilter] = useState("all");
+  const [openId, setOpenId] = useState(null);
   const list = filter === "all" ? PROJECTS : PROJECTS.filter(p => p.cat === filter);
+
+  const handleOpen = (id) => setOpenId(openId === id ? null : id);
 
   return (
     <>
-      <div className="bg-glow" aria-hidden="true" />
+      <div className="bg-glow" />
 
       <header className="hero">
-        <div className="badge"><span className="badge-dot" />FreeCodeCamp · React Curriculum</div>
-        <h1 className="hero-h1">React Projects<br/><span className="grad">Showcase</span></h1>
-        <p className="hero-p">11 self-contained mini-projects · 2 learning modules · built from scratch</p>
-        <div className="stats-row">
-          <div className="st"><span className="st-n">11</span><span className="st-l">Projects</span></div>
-          <div className="st-div" />
-          <div className="st"><span className="st-n">2</span><span className="st-l">Modules</span></div>
-          <div className="st-div" />
-          <div className="st"><span className="st-n">7+</span><span className="st-l">Hooks Used</span></div>
+        <div className="pill"><span className="pill-dot"/>FreeCodeCamp · React Curriculum</div>
+        <h1>React Projects<br/><span className="accent">Showcase</span></h1>
+        <p className="hero-sub">11 self-contained mini-projects · 2 learning modules · built from scratch</p>
+        <div className="stats">
+          <div className="s"><strong>11</strong><span>Projects</span></div>
+          <div className="s-div"/>
+          <div className="s"><strong>2</strong><span>Modules</span></div>
+          <div className="s-div"/>
+          <div className="s"><strong>7+</strong><span>Hooks</span></div>
         </div>
       </header>
 
-      <nav className="filters">
-        {[{k:"all",l:"All Projects"},{k:"fundamentals",l:"Fundamentals",d:"blue"},{k:"hooks",l:"State & Hooks",d:"purple"}].map(f=>(
-          <button key={f.k} className={`f-btn${filter===f.k?" active":""}`} onClick={()=>setFilter(f.k)}>
-            {f.d && <span className={`f-dot f-${f.d}`}/>}{f.l}
+      <nav className="filters" id="filters">
+        {[{k:"all",l:"All"},{k:"fundamentals",l:"Fundamentals",c:"blue"},{k:"hooks",l:"State & Hooks",c:"purple"}].map(f=>(
+          <button key={f.k} className={`fb${filter===f.k?" on":""}`} onClick={()=>{setFilter(f.k);setOpenId(null);}}>
+            {f.c&&<i className={`fd fd-${f.c}`}/>}{f.l}
           </button>
         ))}
       </nav>
 
       <main className="grid">
-        {list.map((p, i) => (
-          <section key={p.id} className="card" id={`project-${p.id}`} style={{"--i": i}}>
-            <div className="card-info">
-              <div className="card-row1">
-                <span className="card-icon">{p.icon}</span>
-                <div>
-                  <span className={`tag tag-${p.cat}`}>{p.cat === "fundamentals" ? "Fundamentals" : "Hooks"}{p.badge ? ` · ${p.badge}` : ""}</span>
-                  <h2 className="card-h">{p.title}</h2>
+        {list.map((p,i)=>{
+          const isOpen = openId === p.id;
+          const C = p.Comp;
+          return (
+            <section key={p.id} className={`card${isOpen?" open":""}`} style={{"--d":`${i*50}ms`}} id={`project-${p.id}`}>
+              <div className="card-top" onClick={()=>handleOpen(p.id)}>
+                <div className="card-left">
+                  <span className="card-ico">{p.icon}</span>
+                  <div className="card-info">
+                    <span className={`label label-${p.cat}`}>{p.cat==="fundamentals"?"Fundamentals":"Hooks"}{p.badge?` · ${p.badge}`:""}</span>
+                    <h2>{p.title}</h2>
+                  </div>
                 </div>
+                <svg className={`chevron${isOpen?" flip":""}`} width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </div>
-              <p className="card-d">{p.desc}</p>
-              <div className="tags">{p.tags.map(t=><span key={t} className="chip">{t}</span>)}</div>
-            </div>
-            <div className="card-live">
-              <div className="live-bar">
-                <div className="dots"><i/><i/><i/></div>
-                <span className="live-label">Live Preview</span>
-              </div>
-              <div className={`live-body proj-${p.id}`}>
-                <p.Comp />
-              </div>
-            </div>
-          </section>
-        ))}
+              <p className="card-desc">{p.desc}</p>
+              <div className="card-tags">{p.tags.map(t=><span key={t} className="chip">{t}</span>)}</div>
+              {isOpen && (
+                <div className="preview">
+                  <div className="prev-bar"><div className="dots"><i/><i/><i/></div><span className="prev-lbl">Live Preview</span></div>
+                  <div className={`prev-body proj-${p.id}`}><C/></div>
+                </div>
+              )}
+            </section>
+          );
+        })}
       </main>
 
-      <footer className="foot">
-        <div className="foot-line"/>
-        <p>Built with ❤️ by <strong>Loki</strong> · FreeCodeCamp React Curriculum</p>
-      </footer>
+      <footer className="foot"><div className="foot-line"/><p>Built with ❤️ by <strong>Loki</strong> · FreeCodeCamp React Curriculum</p></footer>
     </>
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
   </script>
 </body>
 </html>
