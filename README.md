@@ -1,53 +1,68 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:61DAFB,100:20232A&height=220&section=header&text=FreeCodeCamp%20React%20Projects&fontSize=46&fontColor=ffffff&fontAlignY=38&desc=A%20hands-on%20journey%20through%20React%20%E2%80%94%20from%20fundamentals%20to%20hooks&descSize=18&descAlignY=58&descAlign=50" alt="Header Banner" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1b27,100:61DAFB&height=200&section=header&text=⚛️%20React%20Projects&fontSize=52&fontColor=ffffff&fontAlignY=36&desc=FreeCodeCamp%20Curriculum%20·%2011%20Projects%20·%202%20Modules&descSize=16&descAlignY=56&descAlign=50&animation=fadeIn" alt="Header" />
 
-  <p>
-    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
-    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
-    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
-  </p>
+  <br/>
 
-  <p><em>11 self-contained mini-projects · 2 learning modules · built during the FreeCodeCamp curriculum</em></p>
+  <a href="showcase/index.html"><img src="https://img.shields.io/badge/🚀_Open_Showcase-000000?style=for-the-badge" alt="Open Showcase" /></a>
+
+  <br/><br/>
+
+  <img src="https://img.shields.io/badge/React_18-61DAFB?style=flat-square&logo=react&logoColor=000" alt="React" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=000" alt="JS" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=fff" alt="CSS3" />
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=fff" alt="HTML5" />
+  <img src="https://img.shields.io/badge/Babel-F9DC3E?style=flat-square&logo=babel&logoColor=000" alt="Babel" />
+
+  <br/><br/>
+
+  <sub>A hands-on collection of self-contained React mini-projects — from component composition to performance hooks.</sub>
 </div>
 
----
+<br/>
 
-## Overview
+## ✨ Showcase
 
-A curated collection of React mini-projects organized into two progressive learning modules. Each project is self-contained and demonstrates specific React concepts — from component composition and props all the way to hooks, async data fetching, and performance optimization.
+All 11 projects live on a **single interactive page** — no build step, no server, just open and go.
 
-> **🚀 Live Showcase** — Open [`showcase/index.html`](showcase/index.html) to see all 11 projects rendered on a single page with live interactive previews.
+```
+showcase/index.html
+```
 
----
+> Click any project card to expand its **live preview** — each component renders in real-time with full interactivity.
 
-## Tech Stack
+<table>
+  <tr>
+    <td>🎯 Click-to-expand live previews</td>
+    <td>🏷️ Category filter (Fundamentals / Hooks)</td>
+  </tr>
+  <tr>
+    <td>🖥️ Mac-style preview windows</td>
+    <td>📱 Fully responsive (mobile → desktop)</td>
+  </tr>
+  <tr>
+    <td>⚡ Zero build step — CDN React + Babel</td>
+    <td>🎨 Premium dark UI with smooth animations</td>
+  </tr>
+</table>
 
-| Technology | Purpose |
-| :--- | :--- |
-| ⚛️ **React** | Component-based UI library |
-| 📝 **JSX** | JavaScript XML for component templating |
-| 🎨 **CSS3** | Styling with Flexbox & Grid |
-| ⚡ **JavaScript ES6+** | Modern JS features (arrow functions, destructuring, etc.) |
-| 📡 **Fetch API** | Asynchronous data fetching |
+<br/>
 
----
-
-## Project Structure
+## 📂 Structure
 
 ```
 FreeCodeCamp/
-├── showcase/                          ← ✨ Single-page showcase (open this!)
-│   ├── index.html
-│   └── styles.css
 │
-├── React fundamentals/
+├── 🎪 showcase/                       ← Single-page showcase hub
+│   ├── index.html                        All 11 projects rendered inline
+│   └── styles.css                        Dark-themed responsive design
+│
+├── 📘 React fundamentals/             ← Module 1 (4 projects)
 │   ├── Reusable ProfileCard Component/
 │   ├── Reusable Footer/
 │   ├── Mega Navbar/
 │   └── Mood Board(Lab)/
 │
-├── React State,Hooks and Routing/
+├── 📙 React State,Hooks and Routing/  ← Module 2 (7 projects)
 │   ├── Color picker App(LAB)/
 │   ├── Toggle text app/
 │   ├── fruit-search-app/
@@ -57,77 +72,76 @@ FreeCodeCamp/
 │   └── Shopping List/
 │
 ├── index.html                         ← Internship roadmap tracker
-└── projects.html                      ← Legacy project listing
+└── README.md
 ```
 
----
+> Each project contains `index.html` + `index.jsx` + `styles.css` — fully standalone.
 
-## Module 1 — React Fundamentals
+<br/>
 
-> *Component composition, props, JSX syntax, and layout.*
+## 📘 Module 1 — Fundamentals
 
-| # | Project | Key Concepts |
-| :--: | :--- | :--- |
-| 1 | 🪪 **Reusable ProfileCard** | Component composition · props · array mapping |
-| 2 | 🦶 **Reusable Footer** | Component structure · semantic HTML · CSS styling |
-| 3 | 🧭 **Mega Navbar** | Navigation patterns · submenu handling · ARIA accessibility |
-| 4 | 🎨 **Mood Board** *(Lab)* | Passing props · Grid layout · color-themed cards |
+> Component composition, props, JSX, and layout patterns.
 
----
+| &nbsp; | Project | What It Teaches |
+| :---: | :--- | :--- |
+| 🪪 | **ProfileCard** | Props · `Array.map()` · Component reuse |
+| 🦶 | **Footer** | Semantic HTML · Multi-column layouts |
+| 🧭 | **Mega Navbar** | Dropdown submenus · ARIA · Hover states |
+| 🎨 | **Mood Board** `Lab` | Prop drilling · CSS Grid · Image cards |
 
-## Module 2 — React State, Hooks & Routing
+<br/>
 
-> *State management, React hooks, async data fetching, and interactive UI patterns.*
+## 📙 Module 2 — State & Hooks
 
-| # | Project | Key Concepts |
-| :--: | :--- | :--- |
-| 1 | 🎨 **Color Picker App** *(Lab)* | `useState` · controlled inputs · live preview |
-| 2 | 👁️ **Toggle Text App** | `useState` · boolean state · conditional rendering |
-| 3 | 🍎 **Fruit Search App** | `useState` · `useEffect` · Fetch API · debouncing |
-| 4 | 🔐 **OTP Generator** | `useState` · `useEffect` · `useRef` · timers |
-| 5 | 🦸 **Superhero Application Form** | Controlled forms · checkbox arrays · validation |
-| 6 | 🎟️ **Event RSVP Form** *(Lab)* | Multi-field forms · conditional rendering · post-submit display |
-| 7 | 🛒 **Shopping List** | `useMemo` · `useCallback` · filtering · performance |
+> React hooks, controlled forms, async data, and performance optimization.
 
----
+| &nbsp; | Project | What It Teaches |
+| :---: | :--- | :--- |
+| 🖌️ | **Color Picker** `Lab` | `useState` · Controlled inputs · Live preview |
+| 👁️ | **Toggle Text** | `useState` · Boolean state · Conditional rendering |
+| 🍎 | **Fruit Search** | `useEffect` · Fetch API · Debounce (700ms) |
+| 🔐 | **OTP Generator** | `useEffect` · `useRef` · Countdown timers |
+| 🦸 | **Superhero Form** | Multi-type inputs · Checkbox arrays · Validation |
+| 🎟️ | **Event RSVP** `Lab` | Multi-field forms · Post-submit confirmation |
+| 🛒 | **Shopping List** | `useMemo` · `useCallback` · Perf optimization |
 
-## Showcase
+<br/>
 
-All 11 projects are consolidated into a **single-page showcase** at [`showcase/index.html`](showcase/index.html). It features:
+## 🚀 Getting Started
 
-- 🎯 **Click-to-expand** live previews for each project
-- 🏷️ **Category filters** — All / Fundamentals / State & Hooks
-- 🖥️ **Mac-style preview windows** with traffic light dots
-- 📱 **Fully responsive** — works on desktop, tablet, and mobile
-- ⚡ **Zero build step** — runs directly from the file system (CDN React + Babel)
+No `npm install`. No build step. Just open in a browser.
 
----
-
-## Getting Started
-
-### Showcase (recommended)
-
-Simply open the showcase page — no server needed:
-
-```bash
-# Just open this file in your browser
-showcase/index.html
+**Option 1 — Showcase** *(recommended)*
+```
+Open → showcase/index.html
 ```
 
-### Individual Projects
-
-Each project is also a standalone React app:
-
-```bash
-# Navigate into any project folder and open index.html
-React State,Hooks and Routing/OTP Generator/index.html
+**Option 2 — Individual project**
+```
+Open → React State,Hooks and Routing/OTP Generator/index.html
 ```
 
-> **Note:** Projects use CDN-loaded React 18 + Babel Standalone. No `npm install` required.
+> **How it works:** Each project loads React 18 + Babel from CDN. Babel compiles JSX in-browser — no tooling needed.
+
+<br/>
+
+## 🛠️ Tech
+
+| | Technology | Role |
+| :---: | :--- | :--- |
+| ⚛️ | React 18 | UI components via CDN |
+| ✏️ | JSX + Babel | In-browser JSX compilation |
+| 🎨 | Vanilla CSS | Flexbox, Grid, animations |
+| 📡 | Fetch API | Async data (Fruit Search) |
+| 🧩 | Hooks | `useState` · `useEffect` · `useMemo` · `useCallback` · `useRef` |
+
+<br/>
 
 ---
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:20232A,100:61DAFB&height=120&section=footer" alt="Footer Banner" />
-  <p>Built with ❤️ by <strong>Loki</strong> &nbsp;·&nbsp; FreeCodeCamp React Curriculum</p>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:61DAFB,50:1a1b27,100:0d1117&height=100&section=footer" alt="Footer" />
+  <br/>
+  <sub>Built with ❤️ by <strong>Loki</strong> &nbsp;·&nbsp; FreeCodeCamp React Curriculum</sub>
 </div>
