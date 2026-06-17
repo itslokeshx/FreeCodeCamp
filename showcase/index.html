@@ -229,8 +229,8 @@ function App() {
           const isOpen = openId === p.id;
           const C = p.Comp;
           return (
-            <section key={p.id} className={`card${isOpen?" open":""}`} style={{"--d":`${i*50}ms`}} id={`project-${p.id}`}>
-              <div className="card-top" onClick={()=>handleOpen(p.id)}>
+            <section key={p.id} className={`card${isOpen?" open":""}`} style={{"--d":`${i*50}ms`}} id={`project-${p.id}`} onClick={()=>handleOpen(p.id)}>
+              <div className="card-top">
                 <div className="card-left">
                   <span className="card-ico">{p.icon}</span>
                   <div className="card-info">
@@ -243,7 +243,7 @@ function App() {
               <p className="card-desc">{p.desc}</p>
               <div className="card-tags">{p.tags.map(t=><span key={t} className="chip">{t}</span>)}</div>
               {isOpen && (
-                <div className="preview">
+                <div className="preview" onClick={(e)=>e.stopPropagation()}>
                   <div className="prev-bar"><div className="dots"><i/><i/><i/></div><span className="prev-lbl">Live Preview</span></div>
                   <div className={`prev-body proj-${p.id}`}><C/></div>
                 </div>
