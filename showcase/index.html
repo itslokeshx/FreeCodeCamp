@@ -18,63 +18,57 @@
   <script type="text/babel" data-presets="react">
 const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
-/* ══════════════════════════════════════════════
-   PROJECT COMPONENTS (inlined from each project)
-   ══════════════════════════════════════════════ */
+/* ═══════════════════════════════════
+   ALL 11 PROJECT COMPONENTS (inlined)
+   ═══════════════════════════════════ */
 
-// ─── 1. ProfileCard ───
-function Card({ name, title, bio }) {
-  return (
-    <div className="pc-card">
-      <h2>{name}</h2>
-      <p className="pc-card-title">{title}</p>
-      <p>{bio}</p>
-    </div>
-  );
-}
-
+// 1. ProfileCard
 function ProfileCardApp() {
   const profiles = [
     { id: 1, name: "Mark", title: "Front-End developer", bio: "I like to work with different front-end technologies and play video games." },
-    { id: 2, name: "Tiffany", title: "Engineering manager", bio: "I have worked in tech for 15 years and love to help people grow in this industry." },
-    { id: 3, name: "Doug", title: "Back-End developer", bio: "I have been a software developer for over 20 years and I love working with Go and Rust." },
+    { id: 2, name: "Tiffany", title: "Engineering manager", bio: "I have worked in tech for 15 years and love to help people grow." },
+    { id: 3, name: "Doug", title: "Back-End developer", bio: "I have been a software developer for over 20 years. I love Go and Rust." },
   ];
   return (
-    <div className="pc-flex-container">
-      {profiles.map((p) => (
-        <Card key={p.id} name={p.name} title={p.title} bio={p.bio} />
+    <div className="pc-flex">
+      {profiles.map(p => (
+        <div key={p.id} className="pc-card">
+          <h2>{p.name}</h2>
+          <p className="pc-title">{p.title}</p>
+          <p>{p.bio}</p>
+        </div>
       ))}
     </div>
   );
 }
 
-// ─── 2. Footer ───
+// 2. Footer
 function FooterApp() {
   return (
     <footer className="ft-footer">
-      <div className="ft-unlist">
+      <div className="ft-cols">
         <ul><li><a href="#">Dashboard</a></li><li><a href="#">Services</a></li></ul>
         <ul><li><a href="#">Videos</a></li><li><a href="#">Discord</a></li></ul>
-        <ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms & Conditions</a></li></ul>
+        <ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms &amp; Conditions</a></li></ul>
       </div>
-      <p>&copy; 2024 Fitness Dashboard. All Rights Reserved.</p>
-      <ul className="ft-bottomList">
+      <p className="ft-copy">&copy; 2024 Fitness Dashboard. All Rights Reserved.</p>
+      <ul className="ft-social">
         <li><a href="#">💻</a></li><li><a href="#">📧</a></li><li><a href="#">📞</a></li><li><a href="#">📍</a></li>
       </ul>
     </footer>
   );
 }
 
-// ─── 3. Mega Navbar ───
+// 3. Mega Navbar
 function NavbarApp() {
   return (
-    <nav className="nb-navbar">
+    <nav className="nb-bar">
       <ul>
-        <li className="nb-nav-item"><a href="#">Dashboard</a></li>
-        <li className="nb-nav-item"><a href="#">Widgets</a></li>
-        <li className="nb-nav-item">
-          <button aria-expanded="false">Apps</button>
-          <ul className="nb-sub-menu" aria-label="Apps">
+        <li className="nb-item"><a href="#">Dashboard</a></li>
+        <li className="nb-item"><a href="#">Widgets</a></li>
+        <li className="nb-item nb-has-sub">
+          <button aria-expanded="false">Apps ▾</button>
+          <ul className="nb-sub">
             <li><a href="#">Calendar</a></li>
             <li><a href="#">Chat</a></li>
             <li><a href="#">Email</a></li>
@@ -85,365 +79,301 @@ function NavbarApp() {
   );
 }
 
-// ─── 4. Mood Board ───
-function MoodBoardItem({ color, image, description }) {
-  return (
-    <div className="mb-item" style={{ backgroundColor: color }}>
-      <img className="mb-image" src={image} alt={description} />
-      <h3 className="mb-text">{description}</h3>
-    </div>
-  );
-}
-
+// 4. Mood Board
 function MoodBoardApp() {
+  const items = [
+    { color: "#3b82f6", img: "https://cdn.freecodecamp.org/curriculum/labs/pathway.jpg", text: "Peaceful pathway" },
+    { color: "#22c55e", img: "https://cdn.freecodecamp.org/curriculum/labs/grass.jpg", text: "Fresh green grass" },
+    { color: "#f97316", img: "https://cdn.freecodecamp.org/curriculum/labs/shore.jpg", text: "Relaxing beach shore" },
+    { color: "#8b5cf6", img: "https://cdn.freecodecamp.org/curriculum/labs/ship.jpg", text: "Adventure on the sea" },
+    { color: "#ec4899", img: "https://cdn.freecodecamp.org/curriculum/labs/santorini.jpg", text: "Beautiful Santorini" },
+  ];
   return (
     <div>
-      <h1 className="mb-heading">Destination Mood Board</h1>
+      <h2 className="mb-heading">Destination Mood Board</h2>
       <div className="mb-grid">
-        <MoodBoardItem color="blue" image="https://cdn.freecodecamp.org/curriculum/labs/pathway.jpg" description="Peaceful pathway" />
-        <MoodBoardItem color="green" image="https://cdn.freecodecamp.org/curriculum/labs/grass.jpg" description="Fresh green grass" />
-        <MoodBoardItem color="orange" image="https://cdn.freecodecamp.org/curriculum/labs/shore.jpg" description="Relaxing beach shore" />
-        <MoodBoardItem color="purple" image="https://cdn.freecodecamp.org/curriculum/labs/ship.jpg" description="Adventure on the sea" />
-        <MoodBoardItem color="pink" image="https://cdn.freecodecamp.org/curriculum/labs/santorini.jpg" description="Beautiful Santorini vibes" />
+        {items.map(i => (
+          <div key={i.text} className="mb-card" style={{ backgroundColor: i.color }}>
+            <img className="mb-img" src={i.img} alt={i.text} />
+            <span className="mb-label">{i.text}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-// ─── 5. Color Picker ───
+// 5. Color Picker
 function ColorPickerApp() {
   const [color, setColor] = useState("#6c5ce7");
   return (
-    <div className="cp-container" style={{ backgroundColor: color }}>
-      <input className="cp-input" type="color" value={color} onChange={(e) => setColor(e.target.value)} />
+    <div className="cp-box" style={{ backgroundColor: color }}>
+      <span className="cp-hex">{color.toUpperCase()}</span>
+      <input className="cp-input" type="color" value={color} onChange={e => setColor(e.target.value)} />
     </div>
   );
 }
 
-// ─── 6. Toggle Text ───
+// 6. Toggle Text
 function ToggleApp() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [show, setShow] = useState(false);
   return (
-    <div className="tg-container">
-      <button className="tg-button" onClick={() => setIsVisible(!isVisible)}>
-        {isVisible ? "Hide" : "Show"} Message
-      </button>
-      {isVisible && <p className="tg-message">I love freeCodeCamp!</p>}
+    <div className="tg-box">
+      <button className="tg-btn" onClick={() => setShow(!show)}>{show ? "Hide" : "Show"} Message</button>
+      {show && <p className="tg-msg">I love freeCodeCamp!</p>}
     </div>
   );
 }
 
-// ─── 7. Fruit Search ───
+// 7. Fruit Search
 function FruitSearchApp() {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-
+  const [q, setQ] = useState('');
+  const [res, setRes] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    if (query.trim() === '') { setResults([]); return; }
-    const timeoutId = setTimeout(async () => {
+    if (!q.trim()) { setRes([]); return; }
+    setLoading(true);
+    const t = setTimeout(async () => {
       try {
-        const res = await fetch(`https://fruit-search.freecodecamp.rocks/api/fruits?q=${query}`);
-        const data = await res.json();
-        setResults(data.map(f => f.name));
-      } catch (err) { console.error(err); }
+        const r = await fetch(`https://fruit-search.freecodecamp.rocks/api/fruits?q=${q}`);
+        const d = await r.json();
+        setRes(d.map(f => f.name));
+      } catch { setRes([]); }
+      setLoading(false);
     }, 700);
-    return () => clearTimeout(timeoutId);
-  }, [query]);
-
+    return () => { clearTimeout(t); setLoading(false); };
+  }, [q]);
   return (
-    <div className="fs-container">
-      <form onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="fs-input">Search for fruits:</label>
-        <input id="fs-input" className="fs-input" type="search" value={query} onChange={(e) => setQuery(e.target.value)} />
-      </form>
+    <div className="fs-box">
+      <label htmlFor="fs-q">Search for fruits:</label>
+      <input id="fs-q" className="fs-input" type="search" placeholder="Type a fruit name…" value={q} onChange={e => setQ(e.target.value)} />
       <div className="fs-results">
-        {results.length > 0 ? results.map(item => <p key={item} className="fs-item">{item}</p>) : <p>No results found</p>}
+        {loading ? <p className="fs-dim">Searching…</p> :
+         res.length > 0 ? res.map(r => <p key={r} className="fs-item">{r}</p>) :
+         q.trim() ? <p className="fs-dim">No results</p> : <p className="fs-dim">Start typing to search</p>}
       </div>
     </div>
   );
 }
 
-// ─── 8. OTP Generator ───
+// 8. OTP Generator
 function OTPApp() {
   const [otp, setOtp] = useState("");
-  const [time, setTime] = useState(0);
-
-  function generate() { setOtp(Math.floor(100000 + Math.random() * 900000)); setTime(5); }
-
+  const [t, setT] = useState(0);
   useEffect(() => {
-    if (time === 0) return;
-    const interval = setInterval(() => setTime(p => p - 1), 1000);
-    return () => clearInterval(interval);
-  }, [time]);
-
+    if (t === 0) return;
+    const id = setInterval(() => setT(p => p - 1), 1000);
+    return () => clearInterval(id);
+  }, [t]);
   return (
-    <div className="otp-container">
-      <h1 className="otp-title">OTP Generator</h1>
-      <h2 className="otp-display">{otp ? otp : "Click 'Generate OTP' to get a code"}</h2>
-      <p className="otp-timer" aria-live="assertive">
-        {otp ? (time > 0 ? ` Expires in: ${time} seconds` : "OTP expired. Click the button to generate a new OTP.") : ""}
-      </p>
-      <button className="otp-btn" onClick={generate} disabled={time > 0}>Generate OTP</button>
+    <div className="otp-box">
+      <h2 className="otp-title">OTP Generator</h2>
+      <div className="otp-display">{otp || "------"}</div>
+      <p className="otp-timer">{otp ? (t > 0 ? `Expires in ${t}s` : "Expired — generate a new one") : "Click below to generate"}</p>
+      <button className="otp-btn" disabled={t > 0} onClick={() => { setOtp(Math.floor(100000 + Math.random() * 900000)); setT(5); }}>Generate OTP</button>
     </div>
   );
 }
 
-// ─── 9. Superhero Form ───
+// 9. Superhero Form
 function SuperheroApp() {
-  const powerSourceOptions = ["Bitten by a strange creature","Radioactive exposure","Science experiment","Alien heritage","Ancient artifact discovery","Other"];
-  const powersOptions = ["Super Strength","Super Speed","Flight","Invisibility","Telekinesis","Other"];
-  const [heroName, setHeroName] = useState("");
-  const [realName, setRealName] = useState("");
-  const [powerSource, setPowerSource] = useState("");
-  const [powers, setPowers] = useState([]);
-
-  const handlePowersChange = (e) => {
-    const { value, checked } = e.target;
-    setPowers(checked ? [...powers, value] : powers.filter(p => p !== value));
-  };
-
+  const sources = ["Bitten by a strange creature","Radioactive exposure","Science experiment","Alien heritage","Ancient artifact","Other"];
+  const allPowers = ["Super Strength","Super Speed","Flight","Invisibility","Telekinesis","Other"];
+  const [hero, setHero] = useState(""); const [real, setReal] = useState("");
+  const [src, setSrc] = useState(""); const [pows, setPows] = useState([]);
+  const toggle = (e) => { const {value, checked} = e.target; setPows(checked ? [...pows, value] : pows.filter(p=>p!==value)); };
   return (
-    <div className="sh-wrap">
-      <h2>Superhero Application Form</h2>
-      <p>Please complete all fields</p>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div className="sh-section">
-          <label>Hero Name<input type="text" value={heroName} onChange={(e) => setHeroName(e.target.value)} /></label>
-          <label>Real Name<input type="password" value={realName} onChange={(e) => setRealName(e.target.value)} /></label>
+    <div className="sh-box">
+      <h2>Superhero Application</h2>
+      <p className="sh-sub">Complete all fields to join</p>
+      <form onSubmit={e => e.preventDefault()}>
+        <div className="sh-row">
+          <label className="sh-field">Hero Name<input type="text" value={hero} onChange={e=>setHero(e.target.value)} placeholder="Spider-Man" /></label>
+          <label className="sh-field">Real Name<input type="password" value={real} onChange={e=>setReal(e.target.value)} placeholder="••••••" /></label>
         </div>
-        <label className="sh-section sh-column">How did you get your powers?
-          <select value={powerSource} onChange={(e) => setPowerSource(e.target.value)}>
+        <label className="sh-field">Power Source
+          <select value={src} onChange={e=>setSrc(e.target.value)}>
             <option value="">Select one</option>
-            {powerSourceOptions.map(s => <option key={s} value={s}>{s}</option>)}
+            {sources.map(s=><option key={s} value={s}>{s}</option>)}
           </select>
         </label>
-        <label className="sh-section sh-column">List your powers:
-          {powersOptions.map(pw => (
-            <label key={pw}><input type="checkbox" value={pw} checked={powers.includes(pw)} onChange={handlePowersChange} /><span>{pw}</span></label>
+        <fieldset className="sh-powers">
+          <legend>Powers (select all that apply)</legend>
+          {allPowers.map(pw=>(
+            <label key={pw} className="sh-pw-label"><input type="checkbox" value={pw} checked={pows.includes(pw)} onChange={toggle}/>{pw}</label>
           ))}
-        </label>
-        <button className="sh-btn" type="submit" disabled={!heroName || !realName || !powerSource || powers.length===0}>Join the League</button>
+        </fieldset>
+        <button className="sh-submit" disabled={!hero||!real||!src||!pows.length}>Join the League</button>
       </form>
     </div>
   );
 }
 
-// ─── 10. Event RSVP Form ───
+// 10. Event RSVP
 function EventRSVPApp() {
   const [name, setName] = useState(""); const [mail, setMail] = useState("");
-  const [attend, setAttend] = useState(0); const [diet, setDiet] = useState("");
-  const [check, setCheck] = useState(false); const [submit, setSubmit] = useState(false);
-
+  const [attend, setAttend] = useState(1); const [diet, setDiet] = useState("");
+  const [guests, setGuests] = useState(false); const [done, setDone] = useState(false);
   return (
-    <div className="ev-wrapper">
-      <div className="ev-card">
-        <div className="ev-header">
-          <div className="ev-eyebrow">Event Registration</div>
-          <div className="ev-title">RSVP Form</div>
-          <div className="ev-subtitle">Fill in your details to confirm attendance.</div>
-        </div>
-        <div className="ev-body">
-          <form onSubmit={(e) => { e.preventDefault(); setSubmit(true); }}>
-            <div className="ev-field"><label>Name</label><input required type="text" placeholder="Jane Doe" value={name} onChange={(e) => setName(e.target.value)} /></div>
-            <div className="ev-field"><label>Email</label><input type="email" required placeholder="jane@example.com" value={mail} onChange={(e) => setMail(e.target.value)} /></div>
-            <div className="ev-field"><label>Number of Attendees</label><input type="number" required min="1" placeholder="1" value={attend} onChange={(e) => setAttend(e.target.value)} /></div>
-            <div className="ev-field"><label>Dietary Preferences <span>— optional</span></label><input type="text" placeholder="e.g. Vegan" value={diet} onChange={(e) => setDiet(e.target.value)} /></div>
-            <div className="ev-divider"></div>
-            <label className="ev-checkbox"><input type="checkbox" onChange={(e) => setCheck(e.target.checked)} /><span>Bringing additional guests?</span></label>
-            <button type="submit" className="ev-submit-btn">Confirm RSVP</button>
-          </form>
-        </div>
-        {submit && (
-          <div className="ev-confirmation">
-            <div className="ev-conf-title">RSVP Submitted</div>
-            <div className="ev-conf-row"><span className="ev-conf-key">Name</span><span className="ev-conf-val">{name}</span></div>
-            <div className="ev-conf-row"><span className="ev-conf-key">Email</span><span className="ev-conf-val">{mail}</span></div>
-            <div className="ev-conf-row"><span className="ev-conf-key">Attendees</span><span className="ev-conf-val">{attend}</span></div>
-            <div className="ev-conf-row"><span className="ev-conf-key">Dietary</span><span className="ev-conf-val">{diet || "None"}</span></div>
-            <div className="ev-conf-row"><span className="ev-conf-key">Extra Guests</span><span className="ev-conf-val">{check ? "Yes" : "No"}</span></div>
-          </div>
-        )}
+    <div className="ev-box">
+      <div className="ev-head">
+        <span className="ev-eye">Event Registration</span>
+        <h2>RSVP Form</h2>
+        <p>Fill in your details to confirm attendance.</p>
       </div>
-    </div>
-  );
-}
-
-// ─── 11. Shopping List ───
-const shoppingItems = ["Apples","Bananas","Strawberries","Blueberries","Mangoes","Pineapple","Lettuce","Broccoli","Paper Towels","Dish Soap"];
-
-function ShoppingListApp() {
-  const [query, setQuery] = useState("");
-  const [selectedItems, setSelectedItems] = useState([]);
-  const filteredItems = useMemo(() => shoppingItems.filter(i => i.toLowerCase().includes(query.toLowerCase())), [query]);
-  const toggleItem = useCallback((item) => {
-    setSelectedItems(prev => prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]);
-  }, []);
-
-  return (
-    <div className="sl-container">
-      <h1>Shopping List</h1>
-      <form>
-        <label htmlFor="sl-search">Search for an item:</label>
-        <input id="sl-search" className="sl-input" type="search" placeholder="Search..." value={query} onChange={(e) => setQuery(e.target.value)} />
-        <ul className="sl-list">
-          {filteredItems.map(item => {
-            const isChecked = selectedItems.includes(item);
-            return (
-              <li key={item} style={{ textDecoration: isChecked ? "line-through" : "none" }}>
-                <label><input type="checkbox" onChange={() => toggleItem(item)} checked={isChecked} />{item}</label>
-              </li>
-            );
-          })}
-        </ul>
+      <form className="ev-form" onSubmit={e=>{e.preventDefault(); setDone(true);}}>
+        <label className="ev-field">Name<input required type="text" placeholder="Jane Doe" value={name} onChange={e=>setName(e.target.value)}/></label>
+        <label className="ev-field">Email<input required type="email" placeholder="jane@example.com" value={mail} onChange={e=>setMail(e.target.value)}/></label>
+        <label className="ev-field">Attendees<input required type="number" min="1" value={attend} onChange={e=>setAttend(e.target.value)}/></label>
+        <label className="ev-field">Dietary <span className="ev-opt">— optional</span><input type="text" placeholder="e.g. Vegan" value={diet} onChange={e=>setDiet(e.target.value)}/></label>
+        <label className="ev-check"><input type="checkbox" checked={guests} onChange={e=>setGuests(e.target.checked)}/><span>Bringing additional guests?</span></label>
+        <button className="ev-submit" type="submit">Confirm RSVP</button>
       </form>
+      {done && (
+        <div className="ev-conf">
+          <h3>✓ RSVP Submitted</h3>
+          <div className="ev-r"><span>Name</span><span>{name}</span></div>
+          <div className="ev-r"><span>Email</span><span>{mail}</span></div>
+          <div className="ev-r"><span>Attendees</span><span>{attend}</span></div>
+          <div className="ev-r"><span>Dietary</span><span>{diet||"None"}</span></div>
+          <div className="ev-r"><span>Extra Guests</span><span>{guests?"Yes":"No"}</span></div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// 11. Shopping List
+const SHOP_ITEMS = ["Apples","Bananas","Strawberries","Blueberries","Mangoes","Pineapple","Lettuce","Broccoli","Paper Towels","Dish Soap"];
+function ShoppingListApp() {
+  const [q, setQ] = useState("");
+  const [sel, setSel] = useState([]);
+  const filtered = useMemo(() => SHOP_ITEMS.filter(i => i.toLowerCase().includes(q.toLowerCase())), [q]);
+  const toggle = useCallback(item => setSel(p => p.includes(item) ? p.filter(i=>i!==item) : [...p, item]), []);
+  return (
+    <div className="sl-box">
+      <h2>Shopping List</h2>
+      <input className="sl-input" type="search" placeholder="Search items…" value={q} onChange={e=>setQ(e.target.value)}/>
+      <ul className="sl-list">
+        {filtered.map(item => (
+          <li key={item} className={sel.includes(item)?'sl-done':''}>
+            <label><input type="checkbox" checked={sel.includes(item)} onChange={()=>toggle(item)}/>{item}</label>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
 
-/* ══════════════════════════════════════
+/* ═══════════════════
    PROJECT REGISTRY
-   ══════════════════════════════════════ */
-
+   ═══════════════════ */
 const PROJECTS = [
-  { id: "profile-card", icon: "🪪", title: "Reusable ProfileCard", category: "fundamentals",
-    desc: "Flexible card component mapping over a data array to render user profiles with consistent styling.",
-    concepts: ["Props", "Array.map", "Flexbox"], component: ProfileCardApp },
-  { id: "footer", icon: "🦶", title: "Reusable Footer", category: "fundamentals",
-    desc: "Multi-column footer with navigation links, social icons, and copyright — built with semantic HTML.",
-    concepts: ["Semantic HTML", "Components", "CSS"], component: FooterApp },
-  { id: "navbar", icon: "🧭", title: "Mega Navbar", category: "fundamentals",
-    desc: "Navigation bar with dropdown submenu support. ARIA attributes for accessibility and hover interactions.",
-    concepts: ["Navigation", "ARIA", "Submenus"], component: NavbarApp },
-  { id: "mood-board", icon: "🎨", title: "Mood Board", category: "fundamentals", badge: "Lab",
-    desc: "Visual mood board accepting destination images and color themes via props, arranged in a CSS Grid layout.",
-    concepts: ["Props", "CSS Grid", "Images"], component: MoodBoardApp },
-  { id: "color-picker", icon: "🖌️", title: "Color Picker App", category: "hooks", badge: "Lab",
-    desc: "Interactive color selector using native HTML5 color input. Selected color updates the background in real time.",
-    concepts: ["useState", "Controlled Inputs", "Live Preview"], component: ColorPickerApp },
-  { id: "toggle-text", icon: "👁️", title: "Toggle Text App", category: "hooks",
-    desc: "Minimal toggle showing/hiding a message using boolean state and conditional rendering.",
-    concepts: ["useState", "Boolean State", "Conditional Render"], component: ToggleApp },
-  { id: "fruit-search", icon: "🍎", title: "Fruit Search App", category: "hooks",
-    desc: "Real-time search backed by FreeCodeCamp's fruit API. Features 700ms debounce and error handling.",
-    concepts: ["useState", "useEffect", "Fetch API", "Debounce"], component: FruitSearchApp },
-  { id: "otp-generator", icon: "🔐", title: "OTP Generator", category: "hooks",
-    desc: "Generates a random 6-digit OTP with a visible countdown timer. Auto-expires when timer reaches zero.",
-    concepts: ["useState", "useEffect", "useRef", "Timers"], component: OTPApp },
-  { id: "superhero-form", icon: "🦸", title: "Superhero Application Form", category: "hooks",
-    desc: "Multi-input registration form with text, password, select, and checkboxes. Validates before submission.",
-    concepts: ["Controlled Forms", "Checkbox Arrays", "Validation"], component: SuperheroApp },
-  { id: "event-form", icon: "🎟️", title: "Event RSVP Form", category: "hooks", badge: "Lab",
-    desc: "Multi-field event registration that conditionally renders a confirmation summary after submission.",
-    concepts: ["Multi-field Forms", "Conditional Render", "Post-submit UI"], component: EventRSVPApp },
-  { id: "shopping-list", icon: "🛒", title: "Shopping List", category: "hooks",
-    desc: "Filterable shopping list with useMemo for optimized filtering and useCallback for stable handlers.",
-    concepts: ["useMemo", "useCallback", "Filtering", "Performance"], component: ShoppingListApp },
+  { id:"profile-card", icon:"🪪", title:"Reusable ProfileCard", cat:"fundamentals",
+    desc:"Component composition with props and array mapping for user profiles.",
+    tags:["Props","Array.map","Flexbox"], Comp: ProfileCardApp },
+  { id:"footer", icon:"🦶", title:"Reusable Footer", cat:"fundamentals",
+    desc:"Multi-column footer with semantic HTML, nav links, and social icons.",
+    tags:["Semantic HTML","Components","CSS"], Comp: FooterApp },
+  { id:"navbar", icon:"🧭", title:"Mega Navbar", cat:"fundamentals",
+    desc:"Navigation with dropdown submenus, ARIA attributes, and hover interactions.",
+    tags:["Navigation","ARIA","Submenus"], Comp: NavbarApp },
+  { id:"mood-board", icon:"🎨", title:"Mood Board", cat:"fundamentals", badge:"Lab",
+    desc:"Visual mood board with destination images and color themes via props.",
+    tags:["Props","CSS Grid","Images"], Comp: MoodBoardApp },
+  { id:"color-picker", icon:"🖌️", title:"Color Picker", cat:"hooks", badge:"Lab",
+    desc:"Live color selector — pick a color and watch the background update instantly.",
+    tags:["useState","Controlled Inputs"], Comp: ColorPickerApp },
+  { id:"toggle-text", icon:"👁️", title:"Toggle Text", cat:"hooks",
+    desc:"Show/hide a message with boolean state and conditional rendering.",
+    tags:["useState","Conditional Render"], Comp: ToggleApp },
+  { id:"fruit-search", icon:"🍎", title:"Fruit Search", cat:"hooks",
+    desc:"Real-time search with 700ms debounce, hitting FreeCodeCamp's fruit API.",
+    tags:["useEffect","Fetch API","Debounce"], Comp: FruitSearchApp },
+  { id:"otp-generator", icon:"🔐", title:"OTP Generator", cat:"hooks",
+    desc:"Random 6-digit OTP with countdown timer and auto-expiry.",
+    tags:["useEffect","useRef","Timers"], Comp: OTPApp },
+  { id:"superhero-form", icon:"🦸", title:"Superhero Form", cat:"hooks",
+    desc:"Multi-input controlled form with checkboxes, selects, and validation.",
+    tags:["Controlled Forms","Validation"], Comp: SuperheroApp },
+  { id:"event-form", icon:"🎟️", title:"Event RSVP", cat:"hooks", badge:"Lab",
+    desc:"Registration form with conditional confirmation summary post-submit.",
+    tags:["Forms","Conditional Render"], Comp: EventRSVPApp },
+  { id:"shopping-list", icon:"🛒", title:"Shopping List", cat:"hooks",
+    desc:"Filterable list with useMemo, useCallback, and visual strike-through.",
+    tags:["useMemo","useCallback","Performance"], Comp: ShoppingListApp },
 ];
 
 
-/* ══════════════════════════════════════
-   SHOWCASE SHELL
-   ══════════════════════════════════════ */
-
-function ProjectCard({ project, isExpanded, onToggle }) {
-  const Comp = project.component;
-  return (
-    <article className={`project-card ${isExpanded ? 'expanded' : ''}`} id={`project-${project.id}`}>
-      <div className="card-top" onClick={onToggle}>
-        <div className="card-header">
-          <div className="card-icon">{project.icon}</div>
-          <div className="card-meta">
-            <span className={`card-tag ${project.category === 'fundamentals' ? 'tag-fundamentals' : 'tag-hooks'}`}>
-              {project.category === 'fundamentals' ? 'Fundamentals' : 'Hooks'}{project.badge ? ` · ${project.badge}` : ''}
-            </span>
-            <h2 className="card-title">{project.title}</h2>
-          </div>
-          <div className={`card-chevron ${isExpanded ? 'open' : ''}`}>▾</div>
-        </div>
-        <p className="card-desc">{project.desc}</p>
-        <div className="card-concepts">
-          {project.concepts.map(c => <span key={c} className="concept">{c}</span>)}
-        </div>
-      </div>
-      {isExpanded && (
-        <div className="card-preview">
-          <div className="preview-bar">
-            <div className="mac-dots"><span></span><span></span><span></span></div>
-            <span className="preview-label">Live Preview</span>
-          </div>
-          <div className={`preview-content proj-${project.id}`}>
-            <Comp />
-          </div>
-        </div>
-      )}
-    </article>
-  );
-}
-
+/* ═══════════════════
+   SHOWCASE APP
+   ═══════════════════ */
 function App() {
   const [filter, setFilter] = useState("all");
-  const [expanded, setExpanded] = useState({});
-
-  const toggleExpand = (id) => {
-    setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
-  };
-
-  const filtered = filter === "all" ? PROJECTS : PROJECTS.filter(p => p.category === filter);
+  const list = filter === "all" ? PROJECTS : PROJECTS.filter(p => p.cat === filter);
 
   return (
     <>
-      {/* Background Orbs */}
-      <div className="bg-orbs" aria-hidden="true">
-        <div className="orb orb-1"></div>
-        <div className="orb orb-2"></div>
-        <div className="orb orb-3"></div>
-      </div>
+      <div className="bg-glow" aria-hidden="true" />
 
-      {/* Hero */}
       <header className="hero">
-        <div className="hero-badge">
-          <span className="hero-badge-dot"></span>
-          FreeCodeCamp · React Curriculum
-        </div>
-        <h1 className="hero-title">React Projects<br /><span className="hero-gradient">Showcase</span></h1>
-        <p className="hero-sub">11 self-contained mini-projects · 2 learning modules · built from scratch</p>
-        <div className="hero-stats">
-          <div className="stat"><div className="stat-num">11</div><div className="stat-label">Projects</div></div>
-          <div className="stat-divider"></div>
-          <div className="stat"><div className="stat-num">2</div><div className="stat-label">Modules</div></div>
-          <div className="stat-divider"></div>
-          <div className="stat"><div className="stat-num">7+</div><div className="stat-label">React Hooks</div></div>
+        <div className="badge"><span className="badge-dot" />FreeCodeCamp · React Curriculum</div>
+        <h1 className="hero-h1">React Projects<br/><span className="grad">Showcase</span></h1>
+        <p className="hero-p">11 self-contained mini-projects · 2 learning modules · built from scratch</p>
+        <div className="stats-row">
+          <div className="st"><span className="st-n">11</span><span className="st-l">Projects</span></div>
+          <div className="st-div" />
+          <div className="st"><span className="st-n">2</span><span className="st-l">Modules</span></div>
+          <div className="st-div" />
+          <div className="st"><span className="st-n">7+</span><span className="st-l">Hooks Used</span></div>
         </div>
       </header>
 
-      {/* Filters */}
-      <nav className="filter-bar">
-        {[{key:"all",label:"All Projects"},{key:"fundamentals",label:"Fundamentals",dot:"dot-blue"},{key:"hooks",label:"State & Hooks",dot:"dot-purple"}].map(f => (
-          <button key={f.key} className={`filter-btn ${filter === f.key ? 'active' : ''}`} onClick={() => setFilter(f.key)}>
-            {f.dot && <span className={`filter-dot ${f.dot}`}></span>}
-            {f.label}
+      <nav className="filters">
+        {[{k:"all",l:"All Projects"},{k:"fundamentals",l:"Fundamentals",d:"blue"},{k:"hooks",l:"State & Hooks",d:"purple"}].map(f=>(
+          <button key={f.k} className={`f-btn${filter===f.k?" active":""}`} onClick={()=>setFilter(f.k)}>
+            {f.d && <span className={`f-dot f-${f.d}`}/>}{f.l}
           </button>
         ))}
       </nav>
 
-      {/* Grid */}
-      <main className="projects-container">
-        {filtered.map(p => (
-          <ProjectCard key={p.id} project={p} isExpanded={!!expanded[p.id]} onToggle={() => toggleExpand(p.id)} />
+      <main className="grid">
+        {list.map((p, i) => (
+          <section key={p.id} className="card" id={`project-${p.id}`} style={{"--i": i}}>
+            <div className="card-info">
+              <div className="card-row1">
+                <span className="card-icon">{p.icon}</span>
+                <div>
+                  <span className={`tag tag-${p.cat}`}>{p.cat === "fundamentals" ? "Fundamentals" : "Hooks"}{p.badge ? ` · ${p.badge}` : ""}</span>
+                  <h2 className="card-h">{p.title}</h2>
+                </div>
+              </div>
+              <p className="card-d">{p.desc}</p>
+              <div className="tags">{p.tags.map(t=><span key={t} className="chip">{t}</span>)}</div>
+            </div>
+            <div className="card-live">
+              <div className="live-bar">
+                <div className="dots"><i/><i/><i/></div>
+                <span className="live-label">Live Preview</span>
+              </div>
+              <div className={`live-body proj-${p.id}`}>
+                <p.Comp />
+              </div>
+            </div>
+          </section>
         ))}
       </main>
 
-      {/* Footer */}
-      <footer className="site-footer">
-        <div className="footer-line"></div>
+      <footer className="foot">
+        <div className="foot-line"/>
         <p>Built with ❤️ by <strong>Loki</strong> · FreeCodeCamp React Curriculum</p>
       </footer>
     </>
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
   </script>
 </body>
 </html>
