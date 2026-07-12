@@ -24,9 +24,8 @@
 
 All 11 projects live on a **single interactive page** — no build step, no server, just open and go.
 
-```
-showcase/index.html
-```
+
+https://itslokeshx.github.io/FreeCodeCamp/
 
 > Click any project card to expand its **live preview** — each component renders in real-time with full interactivity.
 
