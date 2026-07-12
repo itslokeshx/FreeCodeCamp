@@ -52,9 +52,6 @@ showcase/index.html
 ```
 FreeCodeCamp/
 │
-├── 🎪 showcase/                       ← Single-page showcase hub
-│   ├── index.html                        All 11 projects rendered inline
-│   └── styles.css                        Dark-themed responsive design
 │
 ├── 📘 React fundamentals/             ← Module 1 (4 projects)
 │   ├── Reusable ProfileCard Component/
@@ -71,7 +68,9 @@ FreeCodeCamp/
 │   ├── Event form(LAB)/
 │   └── Shopping List/
 │
-├── index.html                         ← Internship roadmap tracker
+├Single-page showcase hub
+│── index.html                        All 11 projects rendered inline
+│── styles.css                        Dark-themed responsive design                     
 └── README.md
 ```
 
